@@ -1,25 +1,54 @@
 {
-  "name": "prj-nextjs-wearher-weather-forecast",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@types/node": "20.5.0",
-    "@types/react": "18.2.20",
-    "@types/react-dom": "18.2.7",
-    "autoprefixer": "10.4.15",
-    "eslint": "8.47.0",
-    "eslint-config-next": "13.4.16",
-    "next": "13.4.16",
-    "postcss": "8.4.28",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
-  }
+	"name": "weather-forecast.metalevel.tech",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"check-branch-name": "chmod 755 githooks/check_branch_name.sh && bash githooks/check_branch_name.sh",
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"prepare": "husky install",
+		"pre-commit": "npm run check-branch-name && lint-staged",
+		"push-u": "git push origin $(git branch | sed 's/^..//') -u"
+	},
+	"dependencies": {
+		"@types/node": "20.5.0",
+		"@types/react": "18.2.20",
+		"@types/react-dom": "18.2.7",
+		"autoprefixer": "10.4.15",
+		"class-variance-authority": "^0.7.0",
+		"clsx": "^2.0.0",
+		"eslint": "8.47.0",
+		"eslint-config-next": "13.4.16",
+		"lucide-react": "^0.268.0",
+		"next": "13.4.16",
+		"postcss": "8.4.28",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"tailwind-merge": "^1.14.0",
+		"tailwindcss": "3.3.3",
+		"tailwindcss-animate": "^1.0.6",
+		"typescript": "5.1.6"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.7.1",
+		"@commitlint/config-conventional": "^17.7.0",
+		"@typescript-eslint/eslint-plugin": "^6.4.0",
+		"@typescript-eslint/parser": "^6.4.0",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-import-resolver-typescript": "^3.6.0",
+		"eslint-plugin-import": "^2.28.0",
+		"eslint-plugin-prettier": "^5.0.0",
+		"eslint-plugin-react": "^7.33.2",
+		"eslint-plugin-react-hooks": "^5.0.0-canary-7118f5dd7-20230705",
+		"husky": "^8.0.3",
+		"lint-staged": "^14.0.0",
+		"prettier": "^3.0.2",
+		"prettier-plugin-tailwindcss": "^0.5.3",
+		"remark": "^14.0.3",
+		"stylelint-config-standard": "^34.0.0",
+		"stylelint-order": "^6.0.3",
+		"vercel": "^31.4.0"
+	}
 }

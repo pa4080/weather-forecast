@@ -32,3 +32,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Tasks
+
+- [x] Do initial research about the project (3h).
+  - APIs
+  - Design
+  - Node.js packages
+
+- [x] Setup the project (3h).
+  - Create by `npx create-next-app --typescript`
+  - Add `chadcn-ui` and setup TailwindCSS
+  - Create GitHub repository and link the project
+  - Create Vercel project and link to the repository
+  - Redirect the domain to Vercel via Cloudflare admin panel
+  - Choice base icon pack
+  - Create SVG logo and favicon
+  - 

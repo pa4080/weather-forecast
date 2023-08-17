@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Disallow: /
+
+Sitemap: https://weather-forecast.metalevel.tech/sitemap.xml
