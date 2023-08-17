@@ -1,3 +1,7 @@
+# Weather forecast
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8d5d5f4034024a0ba400a9c000fe5daf)](https://app.codacy.com/gh/metalevel-tech/prj-nextjs-weather-forecast/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -36,16 +40,16 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Tasks
 
 - [x] Do initial research about the project (3h).
-  - APIs
-  - Design
-  - Node.js packages
+- APIs
+- Design
+- Node.js packages
 
 - [x] Setup the project (3h).
-  - Create by `npx create-next-app --typescript`
-  - Add `chadcn-ui` and setup TailwindCSS
-  - Create GitHub repository and link the project
-  - Create Vercel project and link to the repository
-  - Redirect the domain to Vercel via Cloudflare admin panel
-  - Choice base icon pack
-  - Create SVG logo and favicon
-  - 
+- Create by `npx create-next-app --typescript`
+- Add `chadcn-ui` and setup TailwindCSS
+- Create GitHub repository and link the project
+- Create Vercel project and link to the repository
+- Redirect the domain to Vercel via Cloudflare admin panel
+- Choice base icon pack
+- Create SVG logo and favicon
+- etc.

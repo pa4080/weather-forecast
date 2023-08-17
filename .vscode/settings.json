@@ -1,5 +1,5 @@
 {
-	"cSpell.words": ["chadcn", "clsx", "ecma", "googleusercontent", "maxage"],
+	"cSpell.words": ["callout", "chadcn", "clsx", "Codacy", "ecma", "googleusercontent", "maxage"],
 	"editor.guides.bracketPairs": true,
 	"material-icon-theme.folders.associations": {
 		"files": "upload",
@@ -9,5 +9,6 @@
 		"components/fragments": "core"
 	},
 	// https://youtu.be/3_-Je5XpbqY?t=688, https://stackoverflow.com/a/76125894/6543935; https://github.com/microsoft/vscode/issues/170589
-	"css.customData": [".vscode/css-linting-vscode-workarounds.json"]
+	"css.customData": [".vscode/css-linting-vscode-workarounds.json"],
+	"compile-hero.disable-compile-files-on-did-save-code": false
 }

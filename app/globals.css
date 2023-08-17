@@ -1,71 +1,59 @@
+/* stylelint-disable selector-class-pattern */
+/* stylelint-disable selector-id-pattern */
+/* stylelint-disable at-rule-no-unknown */
+/* stylelint-disable function-no-unknown */
+
+/* Clues: theme("screens.xs420"); theme("colors.mlt-purple-bright_tr1"); */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
 	:root {
-		--background: 0 0% 100%;
+		--background: #f8fafc;
 		--foreground: 222.2 84% 4.9%;
-
 		--card: 0 0% 100%;
 		--card-foreground: 222.2 84% 4.9%;
-
 		--popover: 0 0% 100%;
 		--popover-foreground: 222.2 84% 4.9%;
-
 		--primary: 222.2 47.4% 11.2%;
 		--primary-foreground: 210 40% 98%;
-
 		--secondary: 210 40% 96.1%;
 		--secondary-foreground: 222.2 47.4% 11.2%;
-
 		--muted: 210 40% 96.1%;
 		--muted-foreground: 215.4 16.3% 46.9%;
-		/* 
-		--accent: 210 40% 96.1%;
-		--accent-foreground: 222.2 47.4% 11.2%; */
-
-		--accent: #ffb300;
-		--accent-foreground: #787878;
-
+		--accent: #ffc400;
+		--accent-foreground: #3c3c3c;
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 210 40% 98%;
-
 		--border: 214.3 31.8% 91.4%;
 		--input: 214.3 31.8% 91.4%;
-		--ring: 222.2 84% 4.9%;
-
+		--ring: #ffb300;
 		--radius: 0.5rem;
+		--scrollbar-width: 16px;
 	}
 
 	.dark {
 		--background: 222.2 84% 4.9%;
 		--foreground: 210 40% 98%;
-
 		--card: 222.2 84% 4.9%;
 		--card-foreground: 210 40% 98%;
-
 		--popover: 222.2 84% 4.9%;
 		--popover-foreground: 210 40% 98%;
-
 		--primary: 210 40% 98%;
 		--primary-foreground: 222.2 47.4% 11.2%;
-
 		--secondary: 217.2 32.6% 17.5%;
 		--secondary-foreground: 210 40% 98%;
-
 		--muted: 217.2 32.6% 17.5%;
 		--muted-foreground: 215 20.2% 65.1%;
-
 		--accent: 217.2 32.6% 17.5%;
 		--accent-foreground: 210 40% 98%;
-
 		--destructive: 0 62.8% 30.6%;
 		--destructive-foreground: 210 40% 98%;
-
 		--border: 217.2 32.6% 17.5%;
 		--input: 217.2 32.6% 17.5%;
-		--ring: hsl(212.7, 26.8%, 83.9);
+		--ring: hsl(212.7deg 26.8% 83.9);
 	}
 }
 
@@ -73,7 +61,67 @@
 	* {
 		@apply border-border;
 	}
+
 	body {
 		@apply bg-background text-foreground;
 	}
+}
+
+/* Trick the hidden scroll of Radix Select */
+body [data-radix-select-viewport] {
+	-webkit-overflow-scrolling: scroll;
+	scrollbar-width: 2rem;
+	-ms-overflow-style: scroll;
+}
+
+body [data-radix-select-viewport]::-webkit-scrollbar {
+	display: inherit;
+}
+
+/* Scroll bars */
+* {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	scrollbar-color: theme("colors.accent.DEFAULT") transparent;
+	scrollbar-width: auto;
+}
+
+*::-webkit-scrollbar {
+	width: var(--scrollbar-width);
+	background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+	border-radius: var(--scrollbar-width);
+}
+
+*::-webkit-scrollbar-thumb {
+	height: 52px;
+	border: calc(var(--scrollbar-width) / 3.8) solid transparent;
+	border-radius: var(--scrollbar-width);
+	background-color: theme("colors.ring");
+	background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color: theme("colors.accent.DEFAULT");
+}
+
+*::-webkit-scrollbar-corner {
+	background-color: theme("colors.accent.DEFAULT");
+}
+
+/* Widget */
+.widget_overlay {
+	@apply fixed inset-0 bg-yellow-100/25 backdrop-blur-md;
+}
+
+.widget_overlay_mask {
+	@apply fixed inset-0 bg-white/30 backdrop-blur-md animate-in fade-in-0;
+}
+
+.widget_body {
+	@apply animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] fixed left-[50%] top-[50%] z-50 w-full max-w-3xl min-h-[28em] translate-x-[-50%] translate-y-[-50%] gap-4 bg-background p-6 shadow-xl drop-shadow-xl duration-200 sm:rounded-lg md:w-full;
 }
