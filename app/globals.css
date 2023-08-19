@@ -125,3 +125,24 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 .widget_body {
 	@apply animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] fixed left-[50%] top-[50%] z-50 w-full max-w-3xl min-h-[28em] translate-x-[-50%] translate-y-[-50%] gap-4 bg-background p-6 shadow-xl drop-shadow-xl duration-200 sm:rounded-lg md:w-full;
 }
+
+/* Select Dropdown */
+.select_focus_wrapper {
+	@apply rounded-md  outline-none focus:outline-none data-[focus=true]:focus:ring-2 data-[focus=true]:focus:ring-ring data-[focus=true]:focus:ring-offset-2 transition-shadow duration-500 focus:delay-100;
+}
+
+.select_search_main {
+	@apply py-2 px-3 gap-2 rounded-md border flex justify-between items-center;
+}
+
+.select_search_input {
+	@apply py-1 px-3 bg-transparent border-none outline-none focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md w-5/6;
+}
+
+.select_search_dropdown {
+	@apply absolute mt-3 w-full max-h-40 overflow-auto bg-gray-100 p-2 pr-1  z-50 min-w-[8rem] rounded-md border shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95;
+}
+
+.select_search_dropdown_item {
+	@apply hover:bg-accent text-accent-foreground px-2 py-1 my-1 rounded-sm flex items-start justify-start gap-2 transition-colors hover:duration-100 duration-200;
+}

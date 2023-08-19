@@ -95,7 +95,9 @@ const SelectItem = React.forwardRef<
 			</SelectPrimitive.ItemIndicator>
 		</span>
 
+		{/* This makes the component to be slow..? */}
 		<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+		{/* <option>{children}</option> */}
 	</SelectPrimitive.Item>
 ));
 

@@ -16,10 +16,6 @@
 		"*.{ts,tsx}": "eslint --fix",
 		"*.css": "stylelint --fix"
 	},
-	"engines": {
-		"node": ">=18.x",
-		"npm": ">=9.x"
-	},
 	"dependencies": {
 		"@radix-ui/react-dialog": "^1.0.4",
 		"@radix-ui/react-scroll-area": "^1.0.4",
@@ -37,7 +33,9 @@
 		"next": "13.4.16",
 		"postcss": "8.4.28",
 		"react": "18.2.0",
+		"react-country-state-city": "^1.0.9",
 		"react-dom": "18.2.0",
+		"sass": "^1.66.0",
 		"tailwind-merge": "^1.14.0",
 		"tailwindcss": "3.3.3",
 		"tailwindcss-animate": "^1.0.6",
@@ -53,7 +51,6 @@
 		"eslint-plugin-import": "^2.28.0",
 		"eslint-plugin-prettier": "^5.0.0",
 		"eslint-plugin-react": "^7.33.2",
-		"eslint-plugin-react-hooks": "^5.0.0-canary-7118f5dd7-20230705",
 		"husky": "^8.0.3",
 		"lint-staged": "^14.0.0",
 		"prettier": "^3.0.2",
