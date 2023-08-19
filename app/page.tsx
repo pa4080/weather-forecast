@@ -1,11 +1,18 @@
-import Image from "next/image";
+import React from "react";
 
-import logo from "../public/favicon.svg";
+import Widget from "@/components/Widget";
 
-export default function Home() {
+const Home: React.FC = () => {
 	return (
-		<main className="flex min-h-screen items-center justify-center">
-			<Image alt="logo" height={320} src={logo} width={320} />
+		<main
+			className="flex min-h-screen items-center justify-center bg-fixed bg-no-repeat bg-center p-2"
+			style={{
+				backgroundImage: "url(/favicon.svg)",
+			}}
+		>
+			<Widget />
 		</main>
 	);
-}
+};
+
+export default Home;

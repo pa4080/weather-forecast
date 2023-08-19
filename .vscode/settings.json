@@ -1,13 +1,28 @@
 {
-	"cSpell.words": ["chadcn", "clsx", "ecma", "googleusercontent", "maxage"],
+	"cSpell.words": [
+		"callout",
+		"chadcn",
+		"clsx",
+		"Codacy",
+		"ecma",
+		"googleusercontent",
+		"maxage",
+		"mledoze",
+		"nicholidev",
+		"venkatmcajj"
+	],
 	"editor.guides.bracketPairs": true,
 	"material-icon-theme.folders.associations": {
+		// https://github.com/PKief/vscode-material-icon-theme
 		"files": "upload",
 		"components/home": "base",
 		"components": "home",
 		"components/ui": "core",
-		"components/fragments": "core"
+		"components/fragments": "core",
+		"api/languages": "",
+		"[[...query]]": "api"
 	},
 	// https://youtu.be/3_-Je5XpbqY?t=688, https://stackoverflow.com/a/76125894/6543935; https://github.com/microsoft/vscode/issues/170589
-	"css.customData": [".vscode/css-linting-vscode-workarounds.json"]
+	"css.customData": [".vscode/css-linting-vscode-workarounds.json"],
+	"compile-hero.disable-compile-files-on-did-save-code": true
 }
