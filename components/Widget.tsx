@@ -35,10 +35,11 @@ const Widget: React.FC<Props> = ({ className }) => {
 			<div className="widget_overlay_mask" />
 			<div className={cn("widget_body", className)}>
 				<SelectCountryAndCity
-				// selectedCity={selectedCity}
-				// selectedCountryCode={selectedCountryCode}
-				// setSelectedCity={setSelectedCity}
-				// setSelectedCountryCode={setSelectedCountryCode}
+					countryCode="BG"
+					// selectedCity={selectedCity}
+					// selectedCountryCode={selectedCountryCode}
+					// setSelectedCity={setSelectedCity}
+					// setSelectedCountryCode={setSelectedCountryCode}
 				/>
 			</div>
 		</>
