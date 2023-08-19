@@ -1,5 +1,16 @@
 {
-	"cSpell.words": ["callout", "chadcn", "clsx", "Codacy", "ecma", "googleusercontent", "maxage"],
+	"cSpell.words": [
+		"callout",
+		"chadcn",
+		"clsx",
+		"Codacy",
+		"ecma",
+		"googleusercontent",
+		"maxage",
+		"mledoze",
+		"nicholidev",
+		"venkatmcajj"
+	],
 	"editor.guides.bracketPairs": true,
 	"material-icon-theme.folders.associations": {
 		// https://github.com/PKief/vscode-material-icon-theme
