@@ -142,6 +142,7 @@ const SelectDropdown = ({
 						ref={searchInputRef}
 						className={"select_search_input"}
 						placeholder={placeHolder}
+						tabIndex={1}
 						value={getDisplay()}
 						onChange={onSearch}
 						onClick={handleInputClick}
@@ -156,11 +157,16 @@ const SelectDropdown = ({
 				</div>
 
 				{showMenu && (
-					<div className="select_search_dropdown" data-state={showMenu ? "open" : "closed"}>
+					<div
+						className="select_search_dropdown"
+						data-state={showMenu ? "open" : "closed"}
+						tabIndex={1}
+					>
 						{getOptions().map((option) => (
 							<div
 								key={option.id}
 								className={`${"select_search_dropdown_item"} ${isSelected(option) && "bg-ring"}`}
+								tabIndex={1}
 								onClick={() => onItemClick(option)}
 							>
 								<span>{option?.emoji ?? ""}</span> <span className="text-left">{option.name}</span>

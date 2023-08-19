@@ -25,12 +25,12 @@ type Props = {
 };
 
 const SelectCountry: React.FC<Props> = ({
-	className,
-	onTextChange,
 	defaultCountryName,
 	defaultCountryCode,
 	defaultCountryId,
+	className,
 	onChange,
+	onTextChange,
 	placeHolder = "Select country",
 	showFlag,
 }) => {

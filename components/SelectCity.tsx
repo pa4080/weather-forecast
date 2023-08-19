@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 
-import { City, Country } from "@/types/geo-types";
+import { City } from "@/types/geo-types";
 import { Route } from "@/types/routes";
 
 import SelectDropdown from "./SelectDropdown";
@@ -21,7 +21,6 @@ type Props = {
 	onChange?: (entry: City) => void;
 	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
 	placeHolder?: string;
-	showFlag?: boolean;
 };
 
 const SelectCity: React.FC<Props> = ({
@@ -32,36 +31,41 @@ const SelectCity: React.FC<Props> = ({
 	onChange,
 	onTextChange,
 	placeHolder = "Select city",
-	showFlag,
 }) => {
 	const [cities, setCities] = useState<City[]>([]);
-	const [defaultOption, setDefaultOption] = useState<Country>();
+	const [defaultOption, setDefaultOption] = useState<City>();
 
 	useEffect(() => {
-		getCities().then((data) => {
-			setCities(data as City[]);
-		});
-	}, []);
-
-	useEffect(() => {}, []);
-
-	/*
-	useEffect(() => {
-		if (defaultCountryName) {
-			getCities("name", defaultCountryName).then((data) => {
-				setDefaultOption(data as Country);
-			});
+		// We doesn't support other types of city list choices yet
+		if (defaultCountryId) {
+			if (1 <= defaultCountryId && defaultCountryId <= 250) {
+				getCities("id_flat", defaultCountryId).then((data) => {
+					setCities(data as City[]);
+				});
+			}
 		} else if (defaultCountryCode) {
-			getCities("code", defaultCountryCode).then((data) => {
-				setDefaultOption(data as Country);
-			});
-		} else if (defaultCountryId) {
-			getCities("id", defaultCountryId).then((data) => {
-				setDefaultOption(data as Country);
+			getCities("code_flat", defaultCountryCode).then((data) => {
+				setCities(data as City[]);
 			});
 		}
-	}, [defaultCountryName, defaultCountryCode, defaultCountryId]);
-	*/
+	}, [defaultCountryCode, defaultCountryId]);
+
+	useEffect(() => {
+		if (defaultCityName) {
+			const city = cities.find((city) => city.name === defaultCityName);
+
+			if (city) {
+				setDefaultOption(city);
+			}
+		}
+	}, [cities, defaultCityName]);
+
+	useEffect(() => {
+		if (typeof onChange === "function" && defaultOption) {
+			onChange(defaultOption);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [defaultOption]);
 
 	return (
 		<SelectDropdown
@@ -69,7 +73,7 @@ const SelectCity: React.FC<Props> = ({
 			defaultOption={defaultOption}
 			options={cities}
 			placeHolder={placeHolder}
-			showFlag={showFlag}
+			showFlag={false}
 			onChange={(value) => {
 				if (onChange) {
 					onChange(value as City);

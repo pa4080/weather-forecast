@@ -78,6 +78,12 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	display: inherit;
 }
 
+/* Outline */
+:focus-visible,
+:focus {
+	outline-color: #ffb300;
+}
+
 /* Scroll bars */
 * {
 	-webkit-font-smoothing: antialiased;
@@ -123,7 +129,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 .widget_body {
-	@apply animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] fixed left-[50%] top-[50%] z-50 w-full max-w-3xl min-h-[28em] translate-x-[-50%] translate-y-[-50%] gap-4 bg-background p-6 shadow-xl drop-shadow-xl duration-200 sm:rounded-lg md:w-full;
+	@apply animate-in fade-in-0 border zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] fixed left-[50%] top-[50%] z-50 w-full max-w-3xl min-h-[28em] translate-x-[-50%] translate-y-[-50%] gap-4 bg-background p-6 shadow-xl drop-shadow-xl duration-200 sm:rounded-lg md:w-full;
 }
 
 /* Select Dropdown */
