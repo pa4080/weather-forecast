@@ -52,7 +52,7 @@ const SelectCity: React.FC<Props> = ({
 
 	useEffect(() => {
 		if (defaultCityName) {
-			const city = cities.find((city) => city.name === defaultCityName);
+			const city = cities.find((city) => city.name === defaultCityName) ?? cities[0];
 
 			if (city) {
 				setDefaultOption(city);
