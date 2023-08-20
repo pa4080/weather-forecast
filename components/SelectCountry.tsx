@@ -14,7 +14,7 @@ const getCountries: GetCountries = async (type, value) => {
 	);
 };
 
-type Props = {
+interface Props {
 	defaultCountryName?: string;
 	defaultCountryCode?: string;
 	defaultCountryId?: number;
@@ -23,7 +23,7 @@ type Props = {
 	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
 	placeHolder?: string;
 	showFlag?: boolean;
-};
+}
 
 const SelectCountry: React.FC<Props> = ({
 	defaultCountryName,

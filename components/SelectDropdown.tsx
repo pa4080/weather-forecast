@@ -12,7 +12,7 @@ type OptionType = Country | State | City | UnitsOptions[number];
 interface ComponentProps {
 	className?: string;
 	placeHolder?: string;
-	options: OptionType[];
+	options: OptionType[] | false;
 	defaultOption?: OptionType;
 	inputClassName?: string;
 	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
@@ -128,12 +128,14 @@ const SelectDropdown = ({
 
 	const getOptions = () => {
 		if (!searchValue) {
-			return options;
+			return options ? options : [];
 		}
 
-		return options.filter(
-			(option) => option.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
-		);
+		return options
+			? options?.filter(
+					(option) => option.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
+			  )
+			: [];
 	};
 
 	return (
@@ -143,7 +145,7 @@ const SelectDropdown = ({
 			data-focus={shouldFocus}
 			role="none"
 		>
-			{options.length > 0 ? (
+			{options && options.length > 0 ? (
 				<div className={"relative"}>
 					<div
 						ref={searchWrapperRef}
@@ -193,7 +195,18 @@ const SelectDropdown = ({
 					)}
 				</div>
 			) : (
-				<Skeleton className={"select_search_main bg-gray-100/70 w-[240px] h-[50px]"} />
+				<Skeleton className={cn("select_search_main bg-gray-100/70 w-[240px] h-[50px]", className)}>
+					<input
+						className={"select_search_input text-gray-300"}
+						disabled={true}
+						placeholder={placeHolder}
+						value={placeHolder}
+					/>
+
+					<div className={"text-gray-200"}>
+						<ChevronDown />
+					</div>
+				</Skeleton>
 			)}
 		</button>
 	);
