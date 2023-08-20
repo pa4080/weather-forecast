@@ -5,5 +5,6 @@ export const Route = {
 		states: "/api/states",
 		languages: "/api/languages",
 		geoReverse: "/api/open-weather/geo",
+		getWeather: "/api/open-weather/oc3",
 	},
 };

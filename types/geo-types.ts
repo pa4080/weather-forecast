@@ -1,3 +1,5 @@
+import openWeatherExampleData from "@/public/data/open-weather.example-data.json";
+
 export interface Country {
 	id: number;
 	name: string;
@@ -55,11 +57,14 @@ export interface CountryStateCity {
 	}[];
 }
 
-export interface UserGeoData {
-	cityName: string;
-	countryCode: string;
+export interface GeoCoordinates {
 	lat: number;
 	lon: number;
+}
+
+export interface UserGeoData extends GeoCoordinates {
+	cityName: string;
+	countryCode: string;
 }
 
 /**
@@ -76,3 +81,5 @@ export interface ClientDataByIp {
 	latitude: number;
 	longitude: number;
 }
+
+export type OpenWeatherData = typeof openWeatherExampleData;
