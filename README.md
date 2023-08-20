@@ -42,8 +42,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Workflow
 
 - [x] Do initial research about the project (3h).
-- APIs
-- Design
+- APIs. Apparently the best public weather API is [OpenWeatherMap One Call API 3.0](https://openweathermap.org/api/one-call-3)
+- Design, need to choose a base icon pack:
+  - [Weather Icons by Erik Flowers](https://erikflowers.github.io/weather-icons/)
+  - [Weather Icons by Erik Flowers GitHub](https://github.com/erikflowers/weather-icons)
+  - [Weather Icons Pack by Taha Lahouti Figma public resource](https://www.figma.com/file/TqaeamKFFJmZ05iCAfKtm5/Weather-Icons-Pack-v1.1-(Customized)?type=design&node-id=6-310&mode=design&t=fHAzaJB8tyO1iWfc-0)
+  - [Weather icons set by PSDgraphics.com](https://www.psdgraphics.com/psd/weather-icons-set-psd/)
 - Node.js packages
 
 - [x] Setup the project (3h).
@@ -68,5 +72,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 The Country/State/City data is taken from [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city). Later I fount that probably the origin of this data is [mledoze/countries](https://github.com/mledoze/countries/tree/master/data).
 
-Also the code of the [`<SelectDropdown />`](components/SelectDropdown.tsx) component and of the [`geo-type.ts`](types/geo-types.ts) file is particularly based on the code of the analogus component in [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city). Here is an improved and TailwindCSS adapted version ed.
-
+Also the code of the [`<SelectDropdown />`](components/SelectDropdown.tsx) component and of the [`geo-type.ts`](types/geo-types.ts) file is particularly based on the code of the analogus component in [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city). Here is an improved and TailwindCSS adapted version of the mentioned code.

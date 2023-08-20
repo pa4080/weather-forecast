@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 
 import { Country } from "@/types/geo-types";
-import { Route } from "@/types/routes";
+import { Route } from "@/routes";
+import messages from "@/messages/en.json";
 
 import SelectDropdown from "./SelectDropdown";
 
@@ -31,7 +32,7 @@ const SelectCountry: React.FC<Props> = ({
 	className,
 	onChange,
 	onTextChange,
-	placeHolder = "Select country",
+	placeHolder = messages.Select.country,
 	showFlag,
 }) => {
 	const [countries, setCountries] = useState<Country[]>([]);

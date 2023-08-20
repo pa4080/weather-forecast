@@ -134,7 +134,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 /* Select Dropdown */
 .select_focus_wrapper {
-	@apply rounded-md  outline-none focus:outline-none data-[focus=true]:focus:ring-2 data-[focus=true]:focus:ring-ring data-[focus=true]:focus:ring-offset-2 transition-shadow duration-500 focus:delay-100;
+	@apply rounded-md outline-none focus:outline-none data-[focus=true]:focus:ring-2 data-[focus=true]:focus:ring-ring data-[focus=true]:focus:ring-offset-2 transition-shadow duration-500 focus:delay-100;
 }
 
 .select_search_main {

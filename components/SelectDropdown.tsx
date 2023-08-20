@@ -4,17 +4,23 @@ import { ChevronDown } from "lucide-react";
 
 import { City, Country, State } from "@/types/geo-types";
 import { cn } from "@/lib/cn-utils";
+import { Skeleton } from "@/components/ui/skeleton";
+import { UnitsOptions } from "@/types/weather-types";
 
-type ComponentProps = {
+type OptionType = Country | State | City | UnitsOptions[number];
+
+interface ComponentProps {
 	className?: string;
 	placeHolder?: string;
-	options: (Country | State | City)[];
+	options: OptionType[];
+	defaultOption?: OptionType;
 	inputClassName?: string;
 	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
-	defaultOption?: Country | State | City;
-	onChange: (entry: Country | State | City) => void;
+	onChange: (entry: OptionType) => void;
 	showFlag?: boolean;
-};
+	inputDisabled?: boolean;
+}
+
 const SelectDropdown = ({
 	className,
 	placeHolder,
@@ -23,15 +29,17 @@ const SelectDropdown = ({
 	onTextChange,
 	defaultOption,
 	showFlag = true,
+	inputDisabled = false,
 }: ComponentProps) => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [shouldFocus, setShouldFocus] = useState(false);
 
-	const [selectedValue, setSelectedValue] = useState<Country | State | City>();
+	const [selectedValue, setSelectedValue] = useState<OptionType>();
 	const [searchValue, setSearchValue] = useState("");
 
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const searchWrapperRef = useRef<HTMLInputElement>(null);
+	const focusWrapperRef = useRef<HTMLButtonElement>(null);
 
 	const displayText = (name?: string) =>
 		`${showFlag && selectedValue?.emoji ? selectedValue.emoji + " " : ""}${
@@ -47,23 +55,19 @@ const SelectDropdown = ({
 	useEffect(() => {
 		if (showMenu && searchInputRef.current) {
 			searchInputRef.current.focus();
-			setShouldFocus(true);
 		}
 
-		if (!showMenu && searchWrapperRef.current && shouldFocus) {
-			searchWrapperRef.current.focus();
+		if (!showMenu && focusWrapperRef.current) {
+			focusWrapperRef.current.focus();
 		}
 
 		setSearchValue("");
-	}, [shouldFocus, showMenu]);
+	}, [showMenu]);
 
 	useEffect(() => {
 		const handler = (e: MouseEvent) => {
 			if (searchWrapperRef.current && !searchWrapperRef.current.contains(e.target as Element)) {
 				setShowMenu(false);
-				setTimeout(() => {
-					setShouldFocus(false);
-				}, 5000);
 			}
 		};
 
@@ -78,6 +82,7 @@ const SelectDropdown = ({
 		e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>
 	) => {
 		e.stopPropagation();
+
 		const event = (e as React.ChangeEvent<HTMLInputElement>).target;
 
 		event.select();
@@ -98,12 +103,13 @@ const SelectDropdown = ({
 		return displayText();
 	};
 
-	const onItemClick = (option: Country | State | City) => {
+	const onItemClick = (option: OptionType) => {
+		setShouldFocus(true);
 		setSelectedValue(option);
 		onChange(option);
 	};
 
-	const isSelected = (option: Country | State | City) => {
+	const isSelected = (option: OptionType) => {
 		if (!selectedValue) {
 			return false;
 		}
@@ -131,50 +137,64 @@ const SelectDropdown = ({
 	};
 
 	return (
-		<button className={"select_focus_wrapper"} data-focus={shouldFocus} role="none">
-			<div className={"relative"}>
-				<div
-					ref={searchWrapperRef}
-					className={cn("select_search_main w-[240px]", className)}
-					onClick={handleToggleMenu}
-				>
-					<input
-						ref={searchInputRef}
-						className={"select_search_input"}
-						placeholder={placeHolder}
-						tabIndex={1}
-						value={getDisplay()}
-						onChange={onSearch}
-						onClick={handleInputClick}
-					/>
-
+		<button
+			ref={focusWrapperRef}
+			className={"select_focus_wrapper"}
+			data-focus={shouldFocus}
+			role="none"
+		>
+			{options.length > 0 ? (
+				<div className={"relative"}>
 					<div
-						className={"data-[state=open]:rotate-90 transition-transform duration-200"}
-						data-state={showMenu ? "open" : "closed"}
+						ref={searchWrapperRef}
+						className={cn("select_search_main w-[240px] h-[50px]", className)}
+						onClick={handleToggleMenu}
 					>
-						<ChevronDown />
+						<input
+							ref={searchInputRef}
+							className={"select_search_input"}
+							disabled={inputDisabled}
+							placeholder={placeHolder}
+							style={{
+								zIndex: inputDisabled ? -1 : 1,
+							}}
+							tabIndex={1}
+							value={getDisplay()}
+							onChange={onSearch}
+							onClick={handleInputClick}
+						/>
+
+						<div
+							className={"data-[state=open]:rotate-90 transition-transform duration-200"}
+							data-state={showMenu ? "open" : "closed"}
+						>
+							<ChevronDown />
+						</div>
 					</div>
+
+					{showMenu && (
+						<div
+							className="select_search_dropdown"
+							data-state={showMenu ? "open" : "closed"}
+							tabIndex={1}
+						>
+							{getOptions().map((option: OptionType) => (
+								<div
+									key={option.id}
+									className={`${"select_search_dropdown_item"} ${isSelected(option) && "bg-ring"}`}
+									tabIndex={1}
+									onClick={() => onItemClick(option)}
+								>
+									<span>{option?.emoji ?? ""}</span>{" "}
+									<span className="text-left">{option.name}</span>
+								</div>
+							))}
+						</div>
+					)}
 				</div>
-
-				{showMenu && (
-					<div
-						className="select_search_dropdown"
-						data-state={showMenu ? "open" : "closed"}
-						tabIndex={1}
-					>
-						{getOptions().map((option) => (
-							<div
-								key={option.id}
-								className={`${"select_search_dropdown_item"} ${isSelected(option) && "bg-ring"}`}
-								tabIndex={1}
-								onClick={() => onItemClick(option)}
-							>
-								<span>{option?.emoji ?? ""}</span> <span className="text-left">{option.name}</span>
-							</div>
-						))}
-					</div>
-				)}
-			</div>
+			) : (
+				<Skeleton className={"select_search_main bg-gray-100/70 w-[240px] h-[50px]"} />
+			)}
 		</button>
 	);
 };
