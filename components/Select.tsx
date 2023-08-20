@@ -8,13 +8,15 @@ import { useAppContext } from "@/contexts/AppContext";
 
 import SelectCountry from "./SelectCountry";
 import SelectCity from "./SelectCity";
+import SelectUnits from "./SelectUnits";
 
 interface Props {
 	className?: string;
 }
 
 const Select: React.FC<Props> = ({ className }) => {
-	const { countryCode, cityName, setGeoCoord } = useAppContext();
+	const { countryCode, cityName, units, setUnits, setGeoCoord } = useAppContext();
+
 	const [country, setCountry] = useState<Country>();
 	const [city, setCity] = useState<City>();
 
@@ -29,13 +31,14 @@ const Select: React.FC<Props> = ({ className }) => {
 	}, [city]);
 
 	return (
-		<div className={cn("flex justify-start items-center gap-4", className)}>
+		<div className={cn("flex justify-between items-center gap-4", className)}>
 			<SelectCountry defaultCountryCode={countryCode} onChange={setCountry} />
 			<SelectCity
 				defaultCityName={cityName ?? country?.capital}
 				defaultCountryId={country?.id}
 				onChange={setCity}
 			/>
+			<SelectUnits className="w-[162px]" defaultUnits={units} onChange={setUnits} />
 		</div>
 	);
 };

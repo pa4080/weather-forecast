@@ -4,5 +4,10 @@
 		"country": "Select country",
 		"date": "Select date",
 		"hour": "Select hour"
+	},
+	"WeatherUnits": {
+		"metric": "Celsius",
+		"imperial": "Fahrenheit",
+		"standard": "Kelvin"
 	}
 }

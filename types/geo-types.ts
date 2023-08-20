@@ -1,5 +1,3 @@
-import openWeatherExampleData from "@/public/data/open-weather.example-data.json";
-
 export interface Country {
 	id: number;
 	name: string;
@@ -44,6 +42,7 @@ export interface Language {
 	name: string;
 	native: string;
 }
+
 export interface CountryState {
 	id: number;
 	states: State[];
@@ -81,5 +80,3 @@ export interface ClientDataByIp {
 	latitude: number;
 	longitude: number;
 }
-
-export type OpenWeatherData = typeof openWeatherExampleData;

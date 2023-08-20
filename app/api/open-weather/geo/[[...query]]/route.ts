@@ -1,5 +1,4 @@
 /**
- * @see https://openweathermap.org/api/one-call-3
  * @see https://openweathermap.org/api/geocoding-api
  * @example_query /latitude/longitude
  */

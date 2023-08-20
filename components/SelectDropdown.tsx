@@ -5,17 +5,22 @@ import { ChevronDown } from "lucide-react";
 import { City, Country, State } from "@/types/geo-types";
 import { cn } from "@/lib/cn-utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { UnitsOptions } from "@/types/weather-types";
 
-type ComponentProps = {
+type OptionType = Country | State | City | UnitsOptions[number];
+
+interface ComponentProps {
 	className?: string;
 	placeHolder?: string;
-	options: (Country | State | City)[];
-	defaultOption?: Country | State | City;
+	options: OptionType[];
+	defaultOption?: OptionType;
 	inputClassName?: string;
 	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
-	onChange: (entry: Country | State | City) => void;
+	onChange: (entry: OptionType) => void;
 	showFlag?: boolean;
-};
+	inputDisabled?: boolean;
+}
+
 const SelectDropdown = ({
 	className,
 	placeHolder,
@@ -24,11 +29,12 @@ const SelectDropdown = ({
 	onTextChange,
 	defaultOption,
 	showFlag = true,
+	inputDisabled = false,
 }: ComponentProps) => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [shouldFocus, setShouldFocus] = useState(false);
 
-	const [selectedValue, setSelectedValue] = useState<Country | State | City>();
+	const [selectedValue, setSelectedValue] = useState<OptionType>();
 	const [searchValue, setSearchValue] = useState("");
 
 	const searchInputRef = useRef<HTMLInputElement>(null);
@@ -76,6 +82,7 @@ const SelectDropdown = ({
 		e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>
 	) => {
 		e.stopPropagation();
+
 		const event = (e as React.ChangeEvent<HTMLInputElement>).target;
 
 		event.select();
@@ -96,13 +103,13 @@ const SelectDropdown = ({
 		return displayText();
 	};
 
-	const onItemClick = (option: Country | State | City) => {
+	const onItemClick = (option: OptionType) => {
 		setShouldFocus(true);
 		setSelectedValue(option);
 		onChange(option);
 	};
 
-	const isSelected = (option: Country | State | City) => {
+	const isSelected = (option: OptionType) => {
 		if (!selectedValue) {
 			return false;
 		}
@@ -146,7 +153,11 @@ const SelectDropdown = ({
 						<input
 							ref={searchInputRef}
 							className={"select_search_input"}
+							disabled={inputDisabled}
 							placeholder={placeHolder}
+							style={{
+								zIndex: inputDisabled ? -1 : 1,
+							}}
 							tabIndex={1}
 							value={getDisplay()}
 							onChange={onSearch}
@@ -167,7 +178,7 @@ const SelectDropdown = ({
 							data-state={showMenu ? "open" : "closed"}
 							tabIndex={1}
 						>
-							{getOptions().map((option) => (
+							{getOptions().map((option: OptionType) => (
 								<div
 									key={option.id}
 									className={`${"select_search_dropdown_item"} ${isSelected(option) && "bg-ring"}`}

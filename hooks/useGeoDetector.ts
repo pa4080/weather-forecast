@@ -7,7 +7,7 @@
 import { useEffect, useState } from "react";
 
 import { ClientDataByIp, UserGeoData } from "@/types/geo-types";
-import { Route } from "@/types/routes";
+import { Route } from "@/routes";
 
 const ipToGeoAndData = process.env.NEXT_PUBLIC_CLIENT_DATA_BY_IP_PARSER_URL;
 
@@ -30,16 +30,25 @@ export function useGeoDetector() {
 	const [userData, setUserData] = useState<UserGeoData | null>(null);
 
 	const getPositionByIp = async () => {
-		const clientDataByIpRaw = await fetch(String(ipToGeoAndData));
-		const clientDataByIp: ClientDataByIp = await clientDataByIpRaw.json();
-		const userData: UserGeoData = {
-			cityName: clientDataByIp.city,
-			countryCode: clientDataByIp.country_code,
-			lat: clientDataByIp.latitude,
-			lon: clientDataByIp.longitude,
-		};
+		try {
+			const response = await fetch(String(ipToGeoAndData));
 
-		setUserData(userData);
+			if (!response.ok) {
+				throw new Error("Network response was not ok on @getPositionByIp()");
+			}
+
+			const clientDataByIp: ClientDataByIp = await response.json();
+			const userData: UserGeoData = {
+				cityName: clientDataByIp.city,
+				countryCode: clientDataByIp.country_code,
+				lat: clientDataByIp.latitude,
+				lon: clientDataByIp.longitude,
+			};
+
+			setUserData(userData);
+		} catch (err) {
+			console.warn(err);
+		}
 	};
 
 	const getPosition = () => {
@@ -54,10 +63,19 @@ export function useGeoDetector() {
 	};
 
 	const getReverseData = async (latitude: number, longitude: number) => {
-		const getReverseData = await fetch(geoToData(latitude, longitude));
-		const userData: UserGeoData = await getReverseData.json();
+		try {
+			const response = await fetch(geoToData(latitude, longitude));
 
-		setUserData(userData);
+			if (!response.ok) {
+				throw new Error("Network response was not ok on @getReverseData()");
+			}
+
+			const userData: UserGeoData = await response.json();
+
+			setUserData(userData);
+		} catch (err) {
+			console.warn(err);
+		}
 	};
 
 	useEffect(() => {
