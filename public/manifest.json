@@ -1,14 +1,10 @@
 {
-	"name": "weather-forecast.metalevel.tech",
-	"short_name": "weather-forecast",
-	"description": "A weather forecast app",
-	"start_url": "/",
-	"display": "standalone",
-	"scope": "/",
-	"theme_color": "##ffb300",
-	"background_color": "#787878",
-	"prefer_related_applications": false,
-	"digest": "sha256",
+	"short_name": "Weather",
+	"name": "Weather forecast",
+	"description": "A weather forecast application by Spas. Z. Spasov",
+	"author": "Spas Z. Spasov",
+	"homepage_url": "https://weather-forecast.metalevel.tech/",
+	"keywords": "weather forecast, weather, forecast, nextjs, next, react",
 	"icons": [
 		{
 			"sizes": "any",
@@ -37,5 +33,11 @@
 			"sizes": "512x512",
 			"purpose": "any"
 		}
-	]
+	],
+	"start_url": "/",
+	"scope": "/",
+	"display": "standalone",
+	"theme_color": "#FFB300",
+	"background_color": "#FFFFFF",
+	"prefer_related_applications": false
 }

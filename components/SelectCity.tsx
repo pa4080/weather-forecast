@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 
 import { City } from "@/types/geo-types";
 import { Route } from "@/types/routes";
+import messages from "@/messages/en.json";
 
 import SelectDropdown from "./SelectDropdown";
 
@@ -30,7 +31,7 @@ const SelectCity: React.FC<Props> = ({
 	className,
 	onChange,
 	onTextChange,
-	placeHolder = "Select city",
+	placeHolder = messages.Select.city,
 }) => {
 	const [cities, setCities] = useState<City[]>([]);
 	const [defaultOption, setDefaultOption] = useState<City>();

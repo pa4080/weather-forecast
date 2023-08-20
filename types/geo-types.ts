@@ -54,3 +54,25 @@ export interface CountryStateCity {
 		cities: City[];
 	}[];
 }
+
+export interface UserGeoData {
+	cityName: string;
+	countryCode: string;
+	lat: number;
+	lon: number;
+}
+
+/**
+ * We are currently using https://ipapi.co/json/
+ * which provides a plenty of other properties.
+ * @see process.env.NEXT_PUBLIC_CLIENT_DATA_BY_IP_PARSER_URL
+ */
+export interface ClientDataByIp {
+	ip: string;
+	city: string;
+	country_name: string;
+	country_code: string;
+	country_capital: string;
+	latitude: number;
+	longitude: number;
+}

@@ -1,6 +1,8 @@
 {
-	"Site": {
-		"title": "Spasov.me",
-		"description": "Weather forecast application by Spas. Z. Spasov"
+	"Select": {
+		"city": "Select city",
+		"country": "Select country",
+		"date": "Select date",
+		"hour": "Select hour"
 	}
 }
