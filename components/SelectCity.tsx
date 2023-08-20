@@ -53,7 +53,9 @@ const SelectCity: React.FC<Props> = ({
 
 	useEffect(() => {
 		if (defaultCityName) {
-			const city = cities.find((city) => city.name === defaultCityName) ?? cities[0];
+			const city =
+				cities.find((city) => city.name.toLowerCase() === defaultCityName.toLowerCase()) ??
+				cities[0];
 
 			if (city) {
 				setDefaultOption(city);

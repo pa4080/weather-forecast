@@ -1,7 +1,7 @@
 /**
  * @see https://openweathermap.org/api/one-call-3
  * @see https://openweathermap.org/api/one-call-3#data
- * @example_query /latitude/longitude
+ * @example_query /latitude/longitude/units
  */
 
 import { NextRequest, NextResponse } from "next/server";
