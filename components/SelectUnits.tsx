@@ -7,12 +7,11 @@ import SelectDropdown from "./SelectDropdown";
 
 interface Props {
 	defaultUnits?: WeatherUnits;
-	defaultCountryCode?: string;
-	defaultCountryId?: number;
 	className?: string;
 	onChange?: (entry: WeatherUnits) => void;
 	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
 	placeHolder?: string;
+	shouldDisplay?: boolean;
 }
 
 const SelectUnits: React.FC<Props> = ({
@@ -20,7 +19,8 @@ const SelectUnits: React.FC<Props> = ({
 	className,
 	onChange,
 	onTextChange,
-	placeHolder = messages.Select.city,
+	placeHolder = messages.Select.units,
+	shouldDisplay = true,
 }) => {
 	const unitsOptions: UnitsOptions = [
 		{
@@ -42,7 +42,7 @@ const SelectUnits: React.FC<Props> = ({
 			inputDisabled
 			className={className}
 			defaultOption={unitsOptions.find((option) => option.id === defaultUnits)}
-			options={unitsOptions}
+			options={shouldDisplay && unitsOptions}
 			placeHolder={placeHolder}
 			showFlag={false}
 			onChange={(option) => {

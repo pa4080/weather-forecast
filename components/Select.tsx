@@ -38,7 +38,12 @@ const Select: React.FC<Props> = ({ className }) => {
 				defaultCountryId={country?.id}
 				onChange={setCity}
 			/>
-			<SelectUnits className="w-[162px]" defaultUnits={units} onChange={setUnits} />
+			<SelectUnits
+				className="w-full min-w-[162px]"
+				defaultUnits={units}
+				shouldDisplay={!!countryCode}
+				onChange={setUnits}
+			/>
 		</div>
 	);
 };

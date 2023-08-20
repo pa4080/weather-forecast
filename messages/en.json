@@ -3,7 +3,8 @@
 		"city": "Select city",
 		"country": "Select country",
 		"date": "Select date",
-		"hour": "Select hour"
+		"hour": "Select hour",
+		"units": "Select units"
 	},
 	"WeatherUnits": {
 		"metric": "Celsius",

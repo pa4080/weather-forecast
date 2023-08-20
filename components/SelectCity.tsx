@@ -14,7 +14,7 @@ const getCities: GetCities = async (type, value) => {
 	);
 };
 
-type Props = {
+interface Props {
 	defaultCityName?: string;
 	defaultCountryCode?: string;
 	defaultCountryId?: number;
@@ -22,7 +22,7 @@ type Props = {
 	onChange?: (entry: City) => void;
 	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
 	placeHolder?: string;
-};
+}
 
 const SelectCity: React.FC<Props> = ({
 	defaultCityName,
