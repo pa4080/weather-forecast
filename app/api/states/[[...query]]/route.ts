@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import data from "@/public/data/states.minified.json";
-import { Country, CountryState, State } from "@/types/geo-types";
+import { Country, CountryState, State } from "@/types/geo";
 import { GET as getCountries } from "@/app/api/countries/[[...query]]/route";
 
 const usageMessage = "Use: /, /[countryId], /[countryId]/[stateId]";

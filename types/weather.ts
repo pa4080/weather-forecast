@@ -1,5 +1,5 @@
 import openWeatherExampleData from "@/public/data/open-weather.example-data.json";
-import { GeoCoordinates } from "@/types/geo-types";
+import { GeoCoordinates } from "@/types/geo";
 
 export type OpenWeatherData = typeof openWeatherExampleData;
 
@@ -27,3 +27,22 @@ export type UnitsOptions = [
 		emoji?: string;
 	},
 ];
+
+export interface WeatherData_MainDisplay {
+	cityName: string;
+	countryName: string;
+	countryCode: string;
+	weatherId: number;
+	tempColor: string;
+	units: WeatherUnits;
+	tempCurrent: number;
+	tempFeelsLike: number;
+	tempDayMin: number;
+	tempDayMax: number;
+	date: number;
+	dateText: string;
+	humidity: number;
+	pressure: number;
+	windSpeed: number;
+	windDirection: number;
+}

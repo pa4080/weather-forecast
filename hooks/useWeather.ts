@@ -6,15 +6,16 @@
 
 import { useEffect, useState } from "react";
 
-import { OpenWeatherData, WeatherInputData, WeatherUnits } from "@/types/weather-types";
+import { OpenWeatherData, WeatherInputData, WeatherUnits } from "@/types/weather";
+
 import { Route } from "@/routes";
 
 const getWeatherUrl = (lat: number, lon: number, units: WeatherUnits) =>
 	`${Route.api.getWeather}/${lat}/${lon}/${units}`;
 
 export function useWeather() {
-	const [weatherCoord, setWeatherCoord] = useState<WeatherInputData | undefined>();
-	const [weatherData, setWeatherData] = useState<OpenWeatherData | undefined>();
+	const [weatherCoord, setWeatherCoord] = useState<WeatherInputData>();
+	const [weatherData, setWeatherData] = useState<OpenWeatherData>();
 
 	useEffect(() => {
 		if (weatherCoord) {

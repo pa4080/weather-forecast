@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from "react";
 
-import { ClientDataByIp, UserGeoData } from "@/types/geo-types";
+import { ClientDataByIp, UserGeoData } from "@/types/geo";
 import { Route } from "@/routes";
 
 const ipToGeoAndData = process.env.NEXT_PUBLIC_CLIENT_DATA_BY_IP_PARSER_URL;

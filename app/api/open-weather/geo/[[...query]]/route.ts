@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-import { UserGeoData } from "@/types/geo-types";
+import { UserGeoData } from "@/types/geo";
 
 const apiKey = process.env.OPEN_WEATHER_API_KEY;
 const apiGeoUrl = process.env.OPEN_WEATHER_API_URL_GEO;

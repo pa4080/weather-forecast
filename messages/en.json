@@ -10,5 +10,23 @@
 		"metric": "Celsius",
 		"imperial": "Fahrenheit",
 		"standard": "Kelvin"
+	},
+	"Feed": {
+		"city": "City",
+		"country": "Country",
+		"date": "Date",
+		"hour": "Hour",
+		"temp": "Temperature",
+		"tempMin": "Min",
+		"tempMax": "Max",
+		"humidity": "Humidity",
+		"pressure": "Pressure",
+		"wind": "Wind",
+		"cloudiness": "Cloudiness",
+		"rain": "Rain",
+		"snow": "Snow",
+		"sunrise": "Sunrise",
+		"sunset": "Sunset",
+		"feelsLike": "Feels like"
 	}
 }

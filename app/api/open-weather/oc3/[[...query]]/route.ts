@@ -6,7 +6,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-import { OpenWeatherData, WeatherUnits } from "@/types/weather-types";
+import { OpenWeatherData, WeatherUnits } from "@/types/weather";
 
 const apiKey = process.env.OPEN_WEATHER_API_KEY;
 const apiOc3Url = process.env.OPEN_WEATHER_API_URL_OC3;

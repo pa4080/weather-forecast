@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 
-import { City } from "@/types/geo-types";
+import { City } from "@/types/geo";
 import { Route } from "@/routes";
 import messages from "@/messages/en.json";
 
@@ -18,6 +18,7 @@ interface Props {
 	defaultCityName?: string;
 	defaultCountryCode?: string;
 	defaultCountryId?: number;
+	defaultCountryCapital?: string;
 	className?: string;
 	onChange?: (entry: City) => void;
 	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
@@ -28,6 +29,7 @@ const SelectCity: React.FC<Props> = ({
 	defaultCityName,
 	defaultCountryCode,
 	defaultCountryId,
+	defaultCountryCapital,
 	className,
 	onChange,
 	onTextChange,
@@ -54,14 +56,15 @@ const SelectCity: React.FC<Props> = ({
 	useEffect(() => {
 		if (defaultCityName) {
 			const city =
-				cities.find((city) => city.name.toLowerCase() === defaultCityName.toLowerCase()) ??
-				cities[0];
+				cities.find(
+					(city) => city.name === defaultCityName || city.name === defaultCountryCapital
+				) ?? cities[0];
 
 			if (city) {
 				setDefaultOption(city);
 			}
 		}
-	}, [cities, defaultCityName]);
+	}, [cities, defaultCityName, defaultCountryCapital]);
 
 	useEffect(() => {
 		if (typeof onChange === "function" && defaultOption) {

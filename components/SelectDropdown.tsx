@@ -2,10 +2,11 @@ import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 
 import { ChevronDown } from "lucide-react";
 
-import { City, Country, State } from "@/types/geo-types";
+import { UnitsOptions } from "@/types/weather";
+
+import { City, Country, State } from "@/types/geo";
 import { cn } from "@/lib/cn-utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { UnitsOptions } from "@/types/weather-types";
 
 type OptionType = Country | State | City | UnitsOptions[number];
 
@@ -149,9 +150,14 @@ const SelectDropdown = ({
 				<div className={"relative"}>
 					<div
 						ref={searchWrapperRef}
-						className={cn("select_search_main w-[240px] h-[50px]", className)}
+						className={cn(
+							"select_search_main w-[240px] h-[50px]  ",
+							`${showMenu ? "bg-gray-100" : "bg-gray-100/90"}`,
+							className
+						)}
 						onClick={handleToggleMenu}
 					>
+						{inputDisabled && <div className={"select_search_input"}>{getDisplay()}</div>}
 						<input
 							ref={searchInputRef}
 							className={"select_search_input"}
@@ -159,6 +165,7 @@ const SelectDropdown = ({
 							placeholder={placeHolder}
 							style={{
 								zIndex: inputDisabled ? -1 : 1,
+								opacity: inputDisabled ? 0 : 1,
 							}}
 							tabIndex={1}
 							value={getDisplay()}
