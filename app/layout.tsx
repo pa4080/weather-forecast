@@ -3,6 +3,9 @@ import React from "react";
 import { Inter } from "next/font/google";
 
 import "./globals.css";
+import "@/public/css/weather-icons/weather-icons.min.css";
+import "@/public/css/weather-icons/weather-icons-wind.min.css";
+
 import manifest from "@/public/manifest.json";
 
 import { AppContextProvider } from "@/contexts/AppContext";
