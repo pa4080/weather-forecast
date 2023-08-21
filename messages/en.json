@@ -7,11 +7,26 @@
 		"units": "Select units"
 	},
 	"WeatherUnits": {
-		"metric": "Celsius",
-		"imperial": "Fahrenheit",
-		"standard": "Kelvin"
+		"standard": {
+			"temp": "Kelvin",
+			"humidity": "%",
+			"pressure": "hPa",
+			"windSpeed": "m/s"
+		},
+		"metric": {
+			"temp": "Celsius",
+			"humidity": "%",
+			"pressure": "hPa",
+			"windSpeed": "m/s"
+		},
+		"imperial": {
+			"temp": "Fahrenheit",
+			"humidity": "%",
+			"pressure": "hPa",
+			"windSpeed": "mph"
+		}
 	},
-	"Feed": {
+	"Data": {
 		"city": "City",
 		"country": "Country",
 		"date": "Date",

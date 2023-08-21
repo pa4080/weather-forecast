@@ -93,6 +93,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 					month: "short",
 					day: "numeric",
 				}),
+				timeText: new Date(weatherData?.current.dt * 1000).toLocaleTimeString("en-US", {
+					hour: "2-digit",
+					minute: "2-digit",
+				}),
+				partOfTheDay: weatherData?.current.dt > weatherData?.current.sunset ? "night" : "day",
 				humidity: weatherData?.current.humidity,
 				pressure: weatherData?.current.pressure,
 				windSpeed: weatherData?.current.wind_speed,
@@ -100,7 +105,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [weatherData]); /* units - cause new rendering before the new data is fetched*/
+	}, [weatherData]); /* units - cause new rendering before the new data is fetched */
 
 	return (
 		<AppContext.Provider

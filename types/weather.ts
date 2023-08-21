@@ -41,6 +41,8 @@ export interface WeatherData_MainDisplay {
 	tempDayMax: number;
 	date: number;
 	dateText: string;
+	timeText: string;
+	partOfTheDay: string;
 	humidity: number;
 	pressure: number;
 	windSpeed: number;

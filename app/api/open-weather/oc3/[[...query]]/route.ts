@@ -13,7 +13,7 @@ const apiOc3Url = process.env.OPEN_WEATHER_API_URL_OC3;
 // https://api.openweathermap.org/data/3.0/onecall
 const usageMessage = "Oops something went wrong, please try again later.";
 
-const getWeatherUrl = (lat: string, lon: string, units: WeatherUnits, exclude = ["minutely"]) =>
+const getWeatherUrl = (lat: string, lon: string, units: WeatherUnits, exclude = [""]) =>
 	`${apiOc3Url}?lat=${lat}&lon=${lon}&units=${units}&exclude=${exclude.join(",")}&appid=${apiKey}`;
 
 interface Context {

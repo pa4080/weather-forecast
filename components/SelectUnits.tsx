@@ -25,15 +25,15 @@ const SelectUnits: React.FC<Props> = ({
 }) => {
 	const unitsOptions: UnitsOptions = [
 		{
-			name: messages.WeatherUnits.metric,
+			name: messages.WeatherUnits.metric.temp,
 			id: "metric",
 		},
 		{
-			name: messages.WeatherUnits.imperial,
+			name: messages.WeatherUnits.imperial.temp,
 			id: "imperial",
 		},
 		{
-			name: messages.WeatherUnits.standard,
+			name: messages.WeatherUnits.standard.temp,
 			id: "standard",
 		},
 	];
