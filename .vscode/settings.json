@@ -1,17 +1,22 @@
 {
 	"cSpell.words": [
+		"bybas",
 		"callout",
 		"chadcn",
 		"clsx",
 		"Codacy",
+		"csso",
 		"ecma",
 		"GEOC",
 		"googleusercontent",
+		"imagemagick",
+		"ipapi",
 		"Lahouti",
 		"maxage",
 		"mledoze",
 		"nicholidev",
-		"venkatmcajj"
+		"venkatmcajj",
+		"weathericons"
 	],
 	"editor.guides.bracketPairs": true,
 	"material-icon-theme.folders.associations": {
