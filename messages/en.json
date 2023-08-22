@@ -13,7 +13,9 @@
 			"pressure": "hPa",
 			"windSpeed": "m/s",
 			"moonPhase": "%",
-			"precipitation": "%"
+			"precipitation": "%",
+			"deg": "°",
+			"cloudiness": "%"
 		},
 		"metric": {
 			"temp": "Celsius",
@@ -21,7 +23,9 @@
 			"pressure": "hPa",
 			"windSpeed": "m/s",
 			"moonPhase": "%",
-			"precipitation": "%"
+			"precipitation": "%",
+			"deg": "°",
+			"cloudiness": "%"
 		},
 		"imperial": {
 			"temp": "Fahrenheit",
@@ -29,7 +33,9 @@
 			"pressure": "hPa",
 			"windSpeed": "mph",
 			"moonPhase": "%",
-			"precipitation": "%"
+			"precipitation": "%",
+			"deg": "°",
+			"cloudiness": "%"
 		}
 	},
 	"Data": {

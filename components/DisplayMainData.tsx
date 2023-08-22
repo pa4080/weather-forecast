@@ -27,9 +27,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 								style={{ color: mainDataDisplay?.tempColor, opacity: 0.7 }}
 							/>
 						</div>
-						<div className="text-6xl text-gray-700 min-w-[5rem] text-right flex-grow">
-							{mainDataDisplay?.tempCurrent}
-						</div>
+						<div className="temperature_field">{mainDataDisplay?.tempCurrent}</div>
 						{units === "metric" ? (
 							<div
 								className="text-5xl text-left z-10 cursor-pointer"
@@ -58,27 +56,33 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 					</div>
 					<div className="main_data_left_info_wrapper">
 						<div
-							className="w-14 cursor-pointer flex items-center justify-center h-full"
+							className="reset_button"
 							onClick={() => setGeoCoord({ ...(geoCoord as GeoCoordinates) })}
 						>
-							<i className="wi wi-cloud-refresh text-5xl text-gray-400/50" />
+							<i className="wi wi-refresh " />
 						</div>
 
 						<div className="main_data_left_info">
 							<div className="main_data_left_info_row">
 								<span className="text-gray-500">{messages.Data.feelsLike.toLowerCase()}</span>
 								<span className="text-lg text-gray-600 font-semibold">
-									{mainDataDisplay?.tempFeelsLike}
+									{mainDataDisplay?.tempFeelsLike + messages.WeatherUnits[units].deg}
 								</span>
 							</div>
 							<div className="main_data_left_info_row">
 								<span className="text-gray-500">{messages.Data.tempMax.toLowerCase()}</span>
-								<span className="text-lg text-gray-800 font-semibold mr-1">
-									{mainDataDisplay?.tempDayMax}
+								<span className="text-lg text-gray-600 font-semibold mr-[0.125rem]">
+									{mainDataDisplay?.tempDayMax + messages.WeatherUnits[units].deg}
 								</span>
 								<span className="text-gray-500">{messages.Data.tempMin.toLowerCase()}</span>
 								<span className="text-lg text-gray-600 font-semibold">
-									{mainDataDisplay?.tempDayMin}
+									{mainDataDisplay?.tempDayMin + messages.WeatherUnits[units].deg}
+								</span>
+							</div>
+							<div className="main_data_left_info_row">
+								<span className="text-gray-500">{messages.Data.cloudiness.toLowerCase()}</span>
+								<span className="text-lg text-gray-600 font-semibold">
+									{mainDataDisplay?.cloudiness + messages.WeatherUnits[units].cloudiness}
 								</span>
 							</div>
 						</div>
@@ -95,8 +99,8 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 					</div>
 
 					<div className="text-lg h-8">
-						<span className="text-gray-600">{mainDataDisplay?.localDateText}</span>
-						<br />
+						<span className="text-gray-600 mr-2">{mainDataDisplay?.localDateText}</span>
+						<br className="hidden sa:block" />
 						<span className="text-gray-400">{mainDataDisplay?.remoteDateText}</span>
 					</div>
 				</div>
@@ -106,7 +110,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 							<i className="info_icon wi wi-humidity" />
 						</span>
 						<span className="text-gray-500 w-24 pb-1">{messages.Data.humidity.toLowerCase()}</span>
-						<span className="text-gray-800 font-semibold">{mainDataDisplay?.humidity}</span>
+						<span className="text-gray-800 font-semibold ml-1">{mainDataDisplay?.humidity}</span>
 						<span className="text-gray-600 ml-1">{messages.WeatherUnits[units].humidity}</span>
 					</div>
 
@@ -117,7 +121,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 						<span className="text-gray-500 w-24 pb-1">
 							{messages.Data.precipitation.toLowerCase()}
 						</span>
-						<span className="text-gray-800 font-semibold">
+						<span className="text-gray-800 font-semibold ml-1">
 							{Number(mainDataDisplay?.precipitation || 0) * 100}
 						</span>
 						<span className="text-gray-600 ml-1">{messages.WeatherUnits[units].humidity}</span>
@@ -136,7 +140,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 							<i className={`info_icon wi wi-wind from-${mainDataDisplay?.windDirection}-deg`} />
 						</span>
 						<span className="text-gray-500 w-24 pb-1">{messages.Data.wind.toLowerCase()}</span>
-						<span className="text-gray-800 font-semibold">{mainDataDisplay?.windSpeed}</span>
+						<span className="text-gray-800 font-semibold ml-1">{mainDataDisplay?.windSpeed}</span>
 						<span className="text-gray-600 ml-1">{messages.WeatherUnits[units].windSpeed}</span>
 					</div>
 					<div className="main_data_right_info_row">

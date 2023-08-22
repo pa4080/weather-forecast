@@ -49,4 +49,5 @@ export interface WeatherData_MainDisplay {
 	windDirection: number;
 	moonPhase: number;
 	precipitation: number;
+	cloudiness: number;
 }

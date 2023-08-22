@@ -122,6 +122,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 				windDirection: weatherData?.current.wind_deg,
 				moonPhase: weatherData?.daily[0].moon_phase,
 				precipitation: weatherData?.daily[0].pop,
+				cloudiness: weatherData?.current.clouds,
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

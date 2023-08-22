@@ -28,7 +28,7 @@ const Widget: React.FC<Props> = ({ className }) => {
 			/>
 			<div className={cn("widget_body", className)}>
 				<Select className="h-max" />
-				<DisplayMainData className="flex-grow" />
+				<DisplayMainData className="" />
 			</div>
 		</>
 	);
