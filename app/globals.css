@@ -129,7 +129,17 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 .widget_body {
-	@apply animate-in fade-in-0 border border-transparent zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] fixed left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%] p-6 md:shadow-xl md:drop-shadow-xl duration-200 flex flex-col gap-5 md:rounded-lg w-full md:max-w-3xl h-full md:h-auto md:min-h-[28em] bg-[#f8fafc];
+	@apply animate-in fade-in-0 zoom-in-95 p-6 duration-200 
+	flex flex-col gap-5
+	fixed md:relative
+	md:shadow-xl md:drop-shadow-xl 	
+	md:rounded-lg 
+	w-full md:max-w-3xl 
+	h-full md:h-auto 
+	md:min-h-[28em]
+	bg-[#f8fafc] overflow-auto;
+
+	/* slide-in-from-left-1/2 slide-in-from-top-[48%] left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%]; */
 }
 
 /* Select Dropdown */

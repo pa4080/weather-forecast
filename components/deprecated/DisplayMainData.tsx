@@ -18,7 +18,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 			<div className="main_data_left">
 				<div
 					className="main_data_left_shadow_wrapper"
-					style={{ filter: `drop-shadow(0 0 1.8rem ${mainDataDisplay?.tempColor}ee)` }}
+					style={{ filter: `drop-shadow(0 0 1.8rem ${mainDataDisplay?.tempColor}cc)` }}
 				>
 					<div className="main_data_left_heading">
 						<div className="w-14 flex items-center justify-center">
