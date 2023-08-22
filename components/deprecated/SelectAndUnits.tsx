@@ -6,16 +6,25 @@ import { cn } from "@/lib/cn-utils";
 
 import { useAppContext } from "@/contexts/AppContext";
 
-import SelectCountry from "./SelectCountry";
-import SelectCity from "./SelectCity";
+import SelectCountry from "../SelectCountry";
+import SelectCity from "../SelectCity";
+import SelectUnits from "../SelectUnits";
 
 interface Props {
 	className?: string;
 }
 
 const Select: React.FC<Props> = ({ className }) => {
-	const { countryCode, setCountryCode, setCountryName, cityName, setCityName, setGeoCoord } =
-		useAppContext();
+	const {
+		countryCode,
+		setCountryCode,
+		setCountryName,
+		cityName,
+		setCityName,
+		units,
+		setUnits,
+		setGeoCoord,
+	} = useAppContext();
 
 	const [country, setCountry] = useState<Country>();
 	const [city, setCity] = useState<City>();
@@ -43,17 +52,22 @@ const Select: React.FC<Props> = ({ className }) => {
 	return (
 		<div
 			className={cn(
-				"grid grid-rows-2 xs:grid-rows-1 grid-cols-1 xs:grid-cols-2 gap-2 xs:gap-4",
+				"flex justify-between items-center sm:gap-3 md:gap-4 flex-col sa:flex-row",
 				className
 			)}
 		>
-			<SelectCountry className="w-full" defaultCountryCode={countryCode} onChange={setCountry} />
+			<SelectCountry defaultCountryCode={countryCode} onChange={setCountry} />
 			<SelectCity
-				className="w-full"
 				defaultCityName={cityName ?? country?.capital}
 				defaultCountryCapital={country?.capital}
 				defaultCountryId={country?.id}
 				onChange={setCity}
+			/>
+			<SelectUnits
+				className="flex-grow w-full min-w-[122px]"
+				defaultUnits={units}
+				shouldDisplay={!!countryCode}
+				onChange={setUnits}
 			/>
 		</div>
 	);

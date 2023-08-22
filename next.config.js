@@ -21,7 +21,7 @@ const nextConfig = {
 	async headers() {
 		return [
 			{
-				source: "/:all*(svg|jpg|png|webp|webm|mkv|avi|mp4)",
+				source: "/:all*(svg|jpg|png|webp|webm|mkv|avi|mp4|eot|svg|ttf|woff|woff2)",
 				locale: false,
 				headers: [
 					{

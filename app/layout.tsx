@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Inter } from "next/font/google";
+import { Manrope as DefaultFont } from "next/font/google";
 
 import "./globals.css";
 import "@/public/css/weather-icons/weather-icons.min.css";
@@ -12,7 +12,9 @@ import { AppContextProvider } from "@/contexts/AppContext";
 
 import type { Metadata } from "next";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = DefaultFont({
+	subsets: ["cyrillic", "cyrillic-ext", "greek", "latin", "latin-ext", "vietnamese"],
+});
 
 export const metadata: Metadata = {
 	title: manifest.name,
@@ -34,7 +36,7 @@ interface Props {
 const RootLayout: React.FC<Props> = ({ children }) => {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className={font.className}>
 				<AppContextProvider>{children}</AppContextProvider>
 			</body>
 		</html>

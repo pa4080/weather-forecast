@@ -2,6 +2,8 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/8d5d5f4034024a0ba400a9c000fe5daf)](https://app.codacy.com/gh/metalevel-tech/prj-nextjs-weather-forecast/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
+[![image](.assignment/pagespeed-insights.png)](https://weather-forecast.metalevel.tech/)
+
 **The purpose of the project is to satisfy an exam task for a job interview: [assignment](.assignment/task-assignment.md). For more information about the project see the [Workflow](#workflow) section.**
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
@@ -42,7 +44,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Workflow
 
 - [x] **Do initial research about the project [3h]**
-- APIs. Apparently the best public weather API is [OpenWeatherMap One Call API 3.0](https://openweathermap.org/api/one-call-3), but before conclude that I've tested few others.
+- APIs. Apparently the best public weather API is [OpenWeatherMap One Call API 3.0](https://openweathermap.org/api/one-call-3), but before conclude that I've tested few others. They also provides [an icon pack](https://openweathermap.org/weather-conditions#How-to-get-icon-URL).
 - Basic design, and icon pack research:
   - [Weather Icons by Erik Flowers](https://erikflowers.github.io/weather-icons/)
   - [Weather Icons React @npm](https://www.npmjs.com/package/weather-icons-react) | [Weather Icons React @home](https://najens.github.io/weather-icons-react/) | [react-weather-illustrations @npm](https://www.npmjs.com/package/react-weather-illustrations) < [@bybas/weather-icons @npm](https://www.npmjs.com/package/@bybas/weather-icons)
@@ -84,3 +86,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 The Country/State/City data is taken from [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city). Later I fount that probably the origin of this data is [mledoze/countries](https://github.com/mledoze/countries/tree/master/data).
 
 Also the code of the [`<SelectDropdown />`](components/SelectDropdown.tsx) component and of the [`geo-type.ts`](types/geo-types.ts) file is particularly based on the code of the analogus component in [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city). Here is an improved and TailwindCSS adapted version of the mentioned code.
+
+Here I'm using the [**"Weather Icons"**](https://github.com/erikflowers/weather-icons/tree/master) pack which is licensed licensed under [SIL OFL 1.1](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL).

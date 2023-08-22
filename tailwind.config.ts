@@ -17,11 +17,15 @@ module.exports = {
 			},
 		},
 		extend: {
+			screens: {
+				sa: "720px", // small average
+				xs: "520px",
+			},
 			colors: {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "var(--ring)",
-				background: "var(--background)",
+				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
 				primary: {
 					DEFAULT: "hsl(var(--primary))",

@@ -4,11 +4,59 @@
 		"country": "Select country",
 		"date": "Select date",
 		"hour": "Select hour",
-		"units": "Select units"
+		"units": "Select units",
+		"buttonAreaLabel": "Select dropdown"
 	},
 	"WeatherUnits": {
-		"metric": "Celsius",
-		"imperial": "Fahrenheit",
-		"standard": "Kelvin"
+		"standard": {
+			"temp": "Kelvin",
+			"humidity": "%",
+			"pressure": "hPa",
+			"windSpeed": "m/s",
+			"moonPhase": "%",
+			"precipitation": "%",
+			"deg": "°",
+			"cloudiness": "%"
+		},
+		"metric": {
+			"temp": "Celsius",
+			"humidity": "%",
+			"pressure": "hPa",
+			"windSpeed": "m/s",
+			"moonPhase": "%",
+			"precipitation": "%",
+			"deg": "°",
+			"cloudiness": "%"
+		},
+		"imperial": {
+			"temp": "Fahrenheit",
+			"humidity": "%",
+			"pressure": "hPa",
+			"windSpeed": "mph",
+			"moonPhase": "%",
+			"precipitation": "%",
+			"deg": "°",
+			"cloudiness": "%"
+		}
+	},
+	"Data": {
+		"city": "City",
+		"country": "Country",
+		"date": "Date",
+		"hour": "Hour",
+		"temp": "Temperature",
+		"tempMin": "Min",
+		"tempMax": "Max",
+		"humidity": "Humidity",
+		"pressure": "Pressure",
+		"wind": "Wind",
+		"cloudiness": "Cloudiness",
+		"rain": "Rain",
+		"snow": "Snow",
+		"sunrise": "Sunrise",
+		"sunset": "Sunset",
+		"feelsLike": "Feels like",
+		"moonPhase": "Moon",
+		"precipitation": "Precipitation"
 	}
 }

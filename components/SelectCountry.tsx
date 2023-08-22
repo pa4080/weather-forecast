@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 
-import { Country } from "@/types/geo-types";
+import { Country } from "@/types/geo";
 import { Route } from "@/routes";
 import messages from "@/messages/en.json";
 

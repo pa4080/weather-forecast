@@ -11,7 +11,7 @@
 
 @layer base {
 	:root {
-		--background: #f8fafc;
+		--background: 210, 40%, 98%; /* #f8fafc */
 		--foreground: 222.2 84% 4.9%;
 		--card: 0 0% 100%;
 		--card-foreground: 222.2 84% 4.9%;
@@ -81,7 +81,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 /* Outline */
 :focus-visible,
 :focus {
-	outline-color: #ffb300;
+	outline-color: theme("colors.ring");
 }
 
 /* Scroll bars */
@@ -121,34 +121,112 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 /* Widget */
 .widget_overlay {
-	@apply fixed inset-0 bg-yellow-100/25 backdrop-blur-md;
+	@apply absolute inset-0 bg-yellow-100/25 backdrop-blur-md;
 }
 
 .widget_overlay_mask {
-	@apply fixed inset-0 bg-white/30 backdrop-blur-md animate-in fade-in-0;
+	@apply absolute inset-0 bg-white/30 backdrop-blur-md animate-in fade-in-0;
 }
 
 .widget_body {
-	@apply animate-in fade-in-0 border zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] fixed left-[50%] top-[50%] z-50 w-full max-w-3xl min-h-[28em] translate-x-[-50%] translate-y-[-50%] gap-4 bg-background p-6 shadow-xl drop-shadow-xl duration-200 sm:rounded-lg md:w-full flex flex-col;
+	@apply animate-in fade-in-0 zoom-in-95 p-6 duration-200 
+	flex flex-col gap-5 flex-grow
+	absolute top-0 left-0 md:relative
+	md:shadow-xl md:drop-shadow-xl 	
+	md:rounded-lg 
+	w-full md:max-w-3xl min-w-[380px]
+	h-full md:h-auto 
+	md:min-h-[28em]
+	bg-[#f8fafc] overflow-auto;
+
+	/* slide-in-from-left-1/2 slide-in-from-top-[48%] left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%]; */
+	overflow: overlay;
 }
 
 /* Select Dropdown */
 .select_focus_wrapper {
-	@apply rounded-md outline-none focus:outline-none data-[focus=true]:focus:ring-2 data-[focus=true]:focus:ring-ring data-[focus=true]:focus:ring-offset-2 transition-shadow duration-500 focus:delay-100;
+	@apply rounded-md outline-none focus:outline-none data-[focus=true]:focus:ring-2 data-[focus=true]:focus:ring-ring data-[focus=true]:focus:ring-offset-0 transition-shadow duration-300 focus:delay-75;
 }
 
 .select_search_main {
-	@apply py-2 px-3 gap-2 rounded-md border flex justify-between items-center;
+	@apply py-2 px-3 gap-2 rounded-md border border-transparent flex justify-between items-center;
 }
 
 .select_search_input {
-	@apply py-1 px-3 bg-transparent border-none outline-none focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md w-5/6;
+	@apply py-1 px-3 bg-transparent border-none outline-none focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-0 rounded-md text-ellipsis;
+
+	width: calc(100% - 1rem);
 }
 
 .select_search_dropdown {
-	@apply absolute mt-3 w-full max-h-40 overflow-auto bg-gray-100 p-2 pr-1  z-50 min-w-[8rem] rounded-md border shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95;
+	@apply absolute mt-3 w-full max-h-40 overflow-auto bg-gray-100 p-2 pr-1 z-50 min-w-[8rem] rounded-md border border-transparent shadow-lg drop-shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95;
 }
 
 .select_search_dropdown_item {
 	@apply hover:bg-accent text-accent-foreground px-2 py-1 my-1 rounded-sm flex items-start justify-start gap-2 transition-colors hover:duration-100 duration-200;
+}
+
+/* DisplayMainData */
+.main_data_container {
+	@apply flex justify-start items-start gap-4 flex-col w-full sa:flex-row;
+}
+
+.main_data_left_skeleton {
+	@apply w-full sa:w-[272px] h-[228px] xs:h-[156px] sa:h-[218px] flex items-center justify-center rounded-md bg-gray-200/70;
+}
+
+.main_data_right_skeleton {
+	@apply flex-grow w-full sa:w-auto flex gap-3 h-[236px] xs:h-[188px] sa:h-[218px] items-center justify-center rounded-md bg-gray-100/95;
+}
+
+.main_data_left {
+	@apply w-full sa:w-[272px] py-8 sa:p-4 sa:h-[218px] flex items-center justify-center bg-gray-100/95 rounded-md;
+}
+
+.main_data_left_shadow_wrapper {
+	@apply grid grid-cols-1 xs:grid-cols-2 sa:grid-cols-1 gap-3 w-auto xs:w-max;
+}
+
+.main_data_left_heading {
+	@apply flex flex-row justify-between sa:justify-start items-center sa:items-end gap-2;
+}
+
+.temperature_field {
+	@apply text-6xl text-gray-700 min-w-[5rem] text-right xs:flex-grow;
+}
+
+.main_data_left_info_wrapper {
+	@apply flex flex-row w-full xs:w-auto sa:w-full gap-1 items-start justify-between;
+}
+
+.reset_button {
+	@apply w-14 cursor-pointer flex items-end xs:items-start sa:items-end justify-start h-full text-5xl xs:text-4xl sa:text-5xl translate-x-0 xs:translate-x-5 sa:translate-x-0 translate-y-0 xs:translate-y-3 sa:translate-y-1 text-gray-300;
+}
+
+.main_data_left_info {
+	@apply sa:flex-grow w-auto flex flex-col gap-1;
+}
+
+.main_data_left_info_row {
+	@apply flex justify-end items-end gap-1 text-right w-full -mr-1;
+}
+
+.main_data_right {
+	@apply flex-grow w-full sa:w-auto px-2 py-2 flex flex-col gap-3;
+}
+
+.main_data_right_heading {
+	@apply flex justify-between items-start flex-col sa:flex-row gap-1;
+}
+
+.main_data_right_info {
+	@apply grid grid-cols-1 xs:grid-cols-2 sa:grid-cols-1 xs:gap-1 xs:gap-x-4 text-base;
+}
+
+.main_data_right_info_row {
+	@apply flex justify-start items-center gap-1;
+}
+
+.main_data_right_info .info_icon {
+	@apply text-gray-600 w-4 mr-2 text-center text-xl;
 }

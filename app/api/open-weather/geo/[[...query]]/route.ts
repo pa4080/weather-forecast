@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-import { UserGeoData } from "@/types/geo-types";
+import { UserGeoData } from "@/types/geo";
 
 const apiKey = process.env.OPEN_WEATHER_API_KEY;
 const apiGeoUrl = process.env.OPEN_WEATHER_API_URL_GEO;
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 			case 2: {
 				const [lat, lon] = params.query;
 
-				const response = await fetch(getUrlReverseGeoToData(lat, lon));
+				const response = await fetch(getUrlReverseGeoToData(lat, lon), { cache: "no-store" });
 				const reverseData: ReverseData[] = await response.json();
 				const userData: UserGeoData = {
 					cityName: reverseData[0].name,

@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from "react";
 
+import { UnitsOptions, WeatherUnits } from "@/types/weather";
+
 import messages from "@/messages/en.json";
-import { UnitsOptions, WeatherUnits } from "@/types/weather-types";
 
 import SelectDropdown from "./SelectDropdown";
 
@@ -24,15 +25,15 @@ const SelectUnits: React.FC<Props> = ({
 }) => {
 	const unitsOptions: UnitsOptions = [
 		{
-			name: messages.WeatherUnits.metric,
+			name: messages.WeatherUnits.metric.temp,
 			id: "metric",
 		},
 		{
-			name: messages.WeatherUnits.imperial,
+			name: messages.WeatherUnits.imperial.temp,
 			id: "imperial",
 		},
 		{
-			name: messages.WeatherUnits.standard,
+			name: messages.WeatherUnits.standard.temp,
 			id: "standard",
 		},
 	];
@@ -41,7 +42,9 @@ const SelectUnits: React.FC<Props> = ({
 		<SelectDropdown
 			inputDisabled
 			className={className}
-			defaultOption={unitsOptions.find((option) => option.id === defaultUnits)}
+			defaultOption={unitsOptions.find(
+				(option: UnitsOptions[number]) => option.id === defaultUnits
+			)}
 			options={shouldDisplay && unitsOptions}
 			placeHolder={placeHolder}
 			showFlag={false}

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import data from "@/public/data/countries.minified.json";
-import { Country } from "@/types/geo-types";
+import { Country } from "@/types/geo";
 
 const usageMessage = "Use: /, /id/[countryId], /code/[countryIso2], /name/[countryName]";
 
