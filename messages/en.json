@@ -4,7 +4,8 @@
 		"country": "Select country",
 		"date": "Select date",
 		"hour": "Select hour",
-		"units": "Select units"
+		"units": "Select units",
+		"buttonAreaLabel": "Select dropdown"
 	},
 	"WeatherUnits": {
 		"standard": {

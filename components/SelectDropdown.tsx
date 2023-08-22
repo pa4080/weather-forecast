@@ -2,8 +2,8 @@ import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 
 import { ChevronDown } from "lucide-react";
 
+import messages from "@/messages/en.json";
 import { UnitsOptions } from "@/types/weather";
-
 import { City, Country, State } from "@/types/geo";
 import { cn } from "@/lib/cn-utils";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -142,9 +142,10 @@ const SelectDropdown = ({
 	return (
 		<button
 			ref={focusWrapperRef}
+			aria-label={messages.Select.buttonAreaLabel}
 			className={"select_focus_wrapper"}
 			data-focus={shouldFocus}
-			role="none"
+			role="dialog"
 		>
 			{options && options.length > 0 ? (
 				<div className={"relative"}>
@@ -167,7 +168,6 @@ const SelectDropdown = ({
 								zIndex: inputDisabled ? -1 : 1,
 								opacity: inputDisabled ? 0 : 1,
 							}}
-							tabIndex={1}
 							value={getDisplay()}
 							onChange={onSearch}
 							onClick={handleInputClick}
@@ -182,16 +182,11 @@ const SelectDropdown = ({
 					</div>
 
 					{showMenu && (
-						<div
-							className="select_search_dropdown"
-							data-state={showMenu ? "open" : "closed"}
-							tabIndex={1}
-						>
+						<div className="select_search_dropdown" data-state={showMenu ? "open" : "closed"}>
 							{getOptions().map((option: OptionType) => (
 								<div
 									key={option.id}
 									className={`${"select_search_dropdown_item"} ${isSelected(option) && "bg-ring"}`}
-									tabIndex={1}
 									onClick={() => onItemClick(option)}
 								>
 									<span>{option?.emoji ?? ""}</span>{" "}
