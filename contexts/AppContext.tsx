@@ -9,12 +9,12 @@ import React, {
 	SetStateAction,
 } from "react";
 
+import messages from "@/messages/en.json";
 import { WeatherData_MainDisplay, OpenWeatherData, WeatherUnits } from "@/types/weather";
-
 import { useGeoDetector } from "@/hooks/useGeoDetector";
 import { GeoCoordinates } from "@/types/geo";
 import { useWeather } from "@/hooks/useWeather";
-import { temperatureColor } from "@/lib/temeratureColor";
+import { tempColor } from "@/lib/tempColor";
 import { roundTo } from "@/lib/round";
 
 interface AppContextProps {
@@ -92,8 +92,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 				countryName: String(countryName),
 				countryCode: String(countryCode),
 				weatherId: weatherData?.current.weather[0].id,
-				tempColor: temperatureColor(weatherData?.current.temp, units),
+				tempColor: tempColor(weatherData?.current.temp, units),
 				units: units,
+				displayUnits: messages.WeatherUnits[units],
 				tempCurrent: roundTo(weatherData?.current.temp, 0),
 				tempFeelsLike: roundTo(weatherData?.current.feels_like, 0),
 				tempDayMin: roundTo(weatherData?.daily[0].temp.min, 0),

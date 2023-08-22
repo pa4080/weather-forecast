@@ -1,3 +1,4 @@
+import messages from "@/messages/en.json";
 import openWeatherExampleData from "@/public/data/open-weather.example-data.json";
 import { GeoCoordinates } from "@/types/geo";
 
@@ -35,6 +36,7 @@ export interface WeatherData_MainDisplay {
 	weatherId: number;
 	tempColor: string;
 	units: WeatherUnits;
+	displayUnits: (typeof messages.WeatherUnits)[WeatherUnits];
 	tempCurrent: number;
 	tempFeelsLike: number;
 	tempDayMin: number;

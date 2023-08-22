@@ -121,11 +121,11 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 /* Widget */
 .widget_overlay {
-	@apply fixed inset-0 bg-yellow-100/25 backdrop-blur-md hidden md:block;
+	@apply absolute inset-0 bg-yellow-100/25 backdrop-blur-md;
 }
 
 .widget_overlay_mask {
-	@apply fixed inset-0 bg-white/30 backdrop-blur-md animate-in fade-in-0 hidden md:block;
+	@apply absolute inset-0 bg-white/30 backdrop-blur-md animate-in fade-in-0;
 }
 
 .widget_body {
@@ -169,6 +169,14 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 /* DisplayMainData */
 .main_data_container {
 	@apply flex justify-start items-start gap-4 flex-col w-full sa:flex-row;
+}
+
+.main_data_left_skeleton {
+	@apply w-full sa:w-[272px] h-[228px] xs:h-[156px] sa:h-[218px] flex items-center justify-center rounded-md bg-gray-200/70;
+}
+
+.main_data_right_skeleton {
+	@apply flex-grow w-full sa:w-auto flex gap-3 h-[236px] xs:h-[188px] sa:h-[218px] items-center justify-center rounded-md bg-gray-100/95;
 }
 
 .main_data_left {

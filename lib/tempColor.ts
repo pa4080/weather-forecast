@@ -18,7 +18,7 @@ import { WeatherUnits } from "@/types/weather";
 
 import { roundTo } from "./round";
 
-export function temperatureColor(temp: number | undefined, units: WeatherUnits) {
+export function tempColor(temp: number | undefined, units: WeatherUnits) {
 	if (temp === undefined) {
 		return "#555555";
 	}
