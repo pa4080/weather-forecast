@@ -24,14 +24,16 @@
 		--muted: 210 40% 96.1%;
 		--muted-foreground: 215.4 16.3% 46.9%;
 		--accent: #ffc400;
+		--accent-opacity: #ffc400dd;
 		--accent-foreground: #3c3c3c;
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 210 40% 98%;
 		--border: 214.3 31.8% 91.4%;
 		--input: 214.3 31.8% 91.4%;
 		--ring: #ffb300;
+		--ring-opacity: #ffb300dd;
 		--radius: 0.5rem;
-		--scrollbar-width: 16px;
+		--scrollbar-width: 12px;
 	}
 
 	.dark {
@@ -90,12 +92,12 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
-	scrollbar-color: theme("colors.accent.DEFAULT") transparent;
+	scrollbar-color: theme("colors.gray.300") transparent;
 	scrollbar-width: auto;
 }
 
 *::-webkit-scrollbar {
-	width: var(--scrollbar-width);
+	width: calc(var(--scrollbar-width) / 1.1);
 	background-color: transparent;
 }
 
@@ -105,9 +107,9 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 *::-webkit-scrollbar-thumb {
 	height: 52px;
-	border: calc(var(--scrollbar-width) / 3.8) solid transparent;
+	border: calc(var(--scrollbar-width) / 4.2) solid transparent;
 	border-radius: var(--scrollbar-width);
-	background-color: theme("colors.ring");
+	background-color: theme("colors.gray.300");
 	background-clip: content-box;
 }
 
@@ -117,6 +119,30 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 *::-webkit-scrollbar-corner {
 	background-color: theme("colors.accent.DEFAULT");
+}
+
+/* Logo */
+.logo-cls-1 {
+	opacity: 0;
+	fill: transparent;
+	stroke: transparent;
+	stroke-miterlimit: 10;
+}
+
+.logo-cls-2 {
+	fill: #787878;
+}
+
+.logo-cls-3 {
+	fill: #b4b4b4;
+}
+
+.logo-cls-4 {
+	fill: #a0a0a0;
+}
+
+.logo-cls-5 {
+	fill: #ffb300;
 }
 
 /* Widget */
@@ -135,12 +161,12 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	md:shadow-xl md:drop-shadow-xl 	
 	md:rounded-lg 
 	w-full md:max-w-3xl min-w-[380px]
-	h-full md:h-auto 
+	h-[100vh] md:h-auto 
 	md:min-h-[28em]
-	bg-[#f8fafc] overflow-auto;
+	bg-[#f8fafc];
 
 	/* slide-in-from-left-1/2 slide-in-from-top-[48%] left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%]; */
-	overflow: overlay;
+	overflow: auto;
 }
 
 /* Select Dropdown */

@@ -19,12 +19,14 @@ module.exports = {
 		extend: {
 			screens: {
 				sa: "720px", // small average
-				xs: "520px",
+				xa: "580px", // extra small average
+				xs: "520px", // extra small
 			},
 			colors: {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "var(--ring)",
+				"ring-opacity": "var(--ring-opacity)",
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
 				primary: {
@@ -45,6 +47,7 @@ module.exports = {
 				},
 				accent: {
 					DEFAULT: "var(--accent)",
+					opacity: "var(--accent-opacity)",
 					foreground: "var(--accent-foreground)",
 				},
 				popover: {

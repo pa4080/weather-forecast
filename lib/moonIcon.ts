@@ -53,7 +53,7 @@ export function moonIcon(phase: number | undefined, alt: boolean = true) {
 		return `${iconBase}-waxing-crescent-3`;
 	} else if (0.14 <= phase && phase < 0.18) {
 		return `${iconBase}-waxing-crescent-4`;
-	} else if (0.18 <= phase && phase < 0.22) {
+	} else if (0.18 <= phase && phase < 0.225) {
 		return `${iconBase}-waxing-crescent-5`;
 	} else if (0.22 <= phase && phase < 0.25) {
 		return `${iconBase}-waxing-crescent-6`;
