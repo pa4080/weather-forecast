@@ -6,9 +6,9 @@ import { cn } from "@/lib/cn-utils";
 
 import { useAppContext } from "@/contexts/AppContext";
 
-import SelectCountry from "./SelectCountry";
-import SelectCity from "./SelectCity";
-import SelectUnits from "./SelectUnits";
+import SelectCountry from "../SelectCountry";
+import SelectCity from "../SelectCity";
+import SelectUnits from "../SelectUnits";
 
 interface Props {
 	className?: string;

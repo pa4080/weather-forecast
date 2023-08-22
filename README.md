@@ -42,7 +42,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Workflow
 
 - [x] **Do initial research about the project [3h]**
-- APIs. Apparently the best public weather API is [OpenWeatherMap One Call API 3.0](https://openweathermap.org/api/one-call-3), but before conclude that I've tested few others.
+- APIs. Apparently the best public weather API is [OpenWeatherMap One Call API 3.0](https://openweathermap.org/api/one-call-3), but before conclude that I've tested few others. They also provides [an icon pack](https://openweathermap.org/weather-conditions#How-to-get-icon-URL).
 - Basic design, and icon pack research:
   - [Weather Icons by Erik Flowers](https://erikflowers.github.io/weather-icons/)
   - [Weather Icons React @npm](https://www.npmjs.com/package/weather-icons-react) | [Weather Icons React @home](https://najens.github.io/weather-icons-react/) | [react-weather-illustrations @npm](https://www.npmjs.com/package/react-weather-illustrations) < [@bybas/weather-icons @npm](https://www.npmjs.com/package/@bybas/weather-icons)

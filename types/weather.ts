@@ -40,11 +40,13 @@ export interface WeatherData_MainDisplay {
 	tempDayMin: number;
 	tempDayMax: number;
 	date: number;
-	dateText: string;
-	timeText: string;
+	localDateText: string;
+	remoteDateText: string;
 	partOfTheDay: string;
 	humidity: number;
 	pressure: number;
 	windSpeed: number;
 	windDirection: number;
+	moonPhase: number;
+	precipitation: number;
 }

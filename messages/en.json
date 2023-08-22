@@ -11,19 +11,25 @@
 			"temp": "Kelvin",
 			"humidity": "%",
 			"pressure": "hPa",
-			"windSpeed": "m/s"
+			"windSpeed": "m/s",
+			"moonPhase": "%",
+			"precipitation": "%"
 		},
 		"metric": {
 			"temp": "Celsius",
 			"humidity": "%",
 			"pressure": "hPa",
-			"windSpeed": "m/s"
+			"windSpeed": "m/s",
+			"moonPhase": "%",
+			"precipitation": "%"
 		},
 		"imperial": {
 			"temp": "Fahrenheit",
 			"humidity": "%",
 			"pressure": "hPa",
-			"windSpeed": "mph"
+			"windSpeed": "mph",
+			"moonPhase": "%",
+			"precipitation": "%"
 		}
 	},
 	"Data": {
@@ -42,6 +48,8 @@
 		"snow": "Snow",
 		"sunrise": "Sunrise",
 		"sunset": "Sunset",
-		"feelsLike": "Feels like"
+		"feelsLike": "Feels like",
+		"moonPhase": "Moon",
+		"precipitation": "Precipitation"
 	}
 }
