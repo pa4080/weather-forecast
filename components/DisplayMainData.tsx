@@ -13,7 +13,7 @@ interface Props {
 }
 
 const DisplayMainData: React.FC<Props> = ({ className }) => {
-	const { mainDataDisplay, setUnits, units, geoCoord, setGeoCoord } = useAppContext();
+	const { mainDataDisplay, setUnits, geoCoord, setGeoCoord } = useAppContext();
 
 	return (
 		<div className={cn("main_data_container", className)}>
@@ -32,28 +32,22 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 									/>
 								</div>
 								<div className="temperature_field">{mainDataDisplay?.tempCurrent}</div>
-								{units === "metric" ? (
-									<div
-										className="text-5xl text-left z-10 cursor-pointer"
-										onClick={() => setUnits("imperial")}
-									>
+								{mainDataDisplay?.units === "metric" ? (
+									<div className="temperature_switch" onClick={() => setUnits("imperial")}>
 										<span className="text-gray-700 mr-2">
-											<i className={`wi wi-celsius -translate-y-3`} />
+											<i className={"wi wi-celsius"} />
 										</span>
 										<span className="text-gray-300 cursor-pointer">
-											<i className={`wi wi-fahrenheit  -translate-y-3`} />
+											<i className={"wi wi-fahrenheit"} />
 										</span>
 									</div>
 								) : (
-									<div
-										className="text-5xl text-left z-10 cursor-pointer"
-										onClick={() => setUnits("metric")}
-									>
+									<div className="temperature_switch" onClick={() => setUnits("metric")}>
 										<span className="text-gray-700 mr-2">
-											<i className={`wi wi-fahrenheit  -translate-y-3`} />
+											<i className={"wi wi-fahrenheit"} />
 										</span>
 										<span className="text-gray-300 cursor-pointer">
-											<i className={`wi wi-celsius  -translate-y-3`} />
+											<i className={"wi wi-celsius"} />
 										</span>
 									</div>
 								)}
@@ -63,7 +57,9 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 									className="reset_button"
 									onClick={() => setGeoCoord({ ...(geoCoord as GeoCoordinates) })}
 								>
-									<i className="wi wi-refresh " />
+									<div className="reset_button_feedback">
+										<i className="wi wi-refresh " />
+									</div>
 								</div>
 
 								<div className="main_data_left_info">

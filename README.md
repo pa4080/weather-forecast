@@ -2,9 +2,9 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/8d5d5f4034024a0ba400a9c000fe5daf)](https://app.codacy.com/gh/metalevel-tech/prj-nextjs-weather-forecast/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-[![image](.assignment/pagespeed-insights.png)](https://weather-forecast.metalevel.tech/)
-
 **The purpose of the project is to satisfy an exam task for a job interview: [assignment](.assignment/task-assignment.md). For more information about the project see the [Workflow](#workflow) section.**
+
+[![image](.assignment/pagespeed-insights.png)](https://weather-forecast.metalevel.tech/)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
