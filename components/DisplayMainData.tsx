@@ -78,7 +78,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 					</div>
 
 					<div className="text-lg text-gray-600">
-						{mainDataDisplay?.dateText} {mainDataDisplay?.timeText}
+						{mainDataDisplay?.dateText}, {mainDataDisplay?.timeText}
 					</div>
 				</div>
 				<div className="main_data_right_info">

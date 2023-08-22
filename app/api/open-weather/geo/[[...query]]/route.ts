@@ -34,7 +34,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 			case 2: {
 				const [lat, lon] = params.query;
 
-				const response = await fetch(getUrlReverseGeoToData(lat, lon));
+				const response = await fetch(getUrlReverseGeoToData(lat, lon), { cache: "no-store" });
 				const reverseData: ReverseData[] = await response.json();
 				const userData: UserGeoData = {
 					cityName: reverseData[0].name,

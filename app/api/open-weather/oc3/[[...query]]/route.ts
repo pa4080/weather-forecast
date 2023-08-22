@@ -27,7 +27,9 @@ export async function GET(request: NextRequest, { params }: Context) {
 			case 3: {
 				const [lat, lon, units] = params.query;
 
-				const response = await fetch(getWeatherUrl(lat, lon, units as WeatherUnits));
+				const response = await fetch(getWeatherUrl(lat, lon, units as WeatherUnits), {
+					cache: "no-store",
+				});
 				const weatherData: OpenWeatherData = await response.json();
 
 				return NextResponse.json(weatherData, { status: 200 });
