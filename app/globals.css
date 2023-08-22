@@ -162,7 +162,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	md:rounded-lg 
 	w-full md:max-w-3xl min-w-[380px]
 	h-[100vh] md:h-auto 
-	md:min-h-[28em]
+	md:min-h-[468px]
 	bg-[#f8fafc];
 
 	/* slide-in-from-left-1/2 slide-in-from-top-[48%] left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%]; */
@@ -192,7 +192,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	@apply hover:bg-accent text-accent-foreground px-2 py-1 my-1 rounded-sm flex items-start justify-start gap-2 transition-colors hover:duration-100 duration-200;
 }
 
-/* DisplayMainData */
+/* Display Main Data */
 .main_data_container {
 	@apply flex justify-start items-start gap-4 flex-col w-full sa:flex-row;
 }
@@ -221,12 +221,20 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	@apply text-6xl text-gray-700 min-w-[5rem] text-right xs:flex-grow;
 }
 
+.temperature_switch {
+	@apply text-5xl text-left z-10 cursor-pointer px-1 -mx-1 -translate-y-3 active:ring-2 active:ring-ring active:ring-offset-0 rounded-md ring-offset-transparent;
+}
+
 .main_data_left_info_wrapper {
 	@apply flex flex-row w-full xs:w-auto sa:w-full gap-1 items-start justify-between;
 }
 
 .reset_button {
-	@apply w-14 cursor-pointer flex items-end xs:items-start sa:items-end justify-start h-full text-5xl xs:text-4xl sa:text-5xl translate-x-0 xs:translate-x-5 sa:translate-x-0 translate-y-0 xs:translate-y-3 sa:translate-y-1 text-gray-300;
+	@apply w-14 cursor-pointer flex items-end xs:items-start sa:items-end justify-start h-full text-5xl xs:text-4xl sa:text-5xl -translate-x-1 xs:translate-x-2 sa:-translate-x-1 translate-y-0 xs:translate-y-2 sa:translate-y-1 text-gray-300;
+}
+
+.reset_button_feedback {
+	@apply flex items-center justify-center w-12 h-12 active:ring-2 active:ring-ring active:ring-offset-0 rounded-md ring-offset-transparent;
 }
 
 .main_data_left_info {
@@ -255,4 +263,13 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 .main_data_right_info .info_icon {
 	@apply text-gray-600 w-4 mr-2 text-center text-xl;
+}
+
+/* Display Days */
+.days_data_container {
+	@apply grid grid-cols-4 xa:grid-cols-8 gap-3 xa:gap-2 sm:gap-3;
+}
+
+.day_data {
+	@apply flex flex-col items-center justify-center gap-1 cursor-pointer  p-2 rounded-md h-28;
 }

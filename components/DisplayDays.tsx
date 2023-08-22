@@ -1,15 +1,8 @@
 import React from "react";
 
-import { Divide } from "lucide-react";
-
-import messages from "@/messages/en.json";
 import { useAppContext } from "@/contexts/AppContext";
 import { cn } from "@/lib/cn-utils";
-import { moonIcon } from "@/lib/moonIcon";
-import { GeoCoordinates } from "@/types/geo";
-
 import { roundTo } from "@/lib/round";
-
 import { tempColor } from "@/lib/tempColor";
 
 import { Skeleton } from "./ui/skeleton";
@@ -19,22 +12,14 @@ interface Props {
 }
 
 const DisplayDays: React.FC<Props> = ({ className }) => {
-	const { mainDataDisplay, setUnits, units, geoCoord, setGeoCoord, weatherData } = useAppContext();
+	const { mainDataDisplay, weatherData } = useAppContext();
 
 	return (
-		<div
-			className={cn(
-				"days_data_container grid grid-cols-4 xa:grid-cols-8 xa:grid-flow-col gap-2",
-				className
-			)}
-		>
+		<div className={cn("days_data_container", className)}>
 			{mainDataDisplay ? (
 				<>
 					{weatherData?.daily.map((day) => (
-						<div
-							key={day.dt}
-							className="day_data flex flex-col items-center justify-center gap-1 cursor-pointer bg-gray-100/60 p-2 rounded-md"
-						>
+						<div key={day.dt} className="day_data bg-gray-100/60">
 							<div className="day_data_day text-gray-800">
 								{new Date(day.dt * 1000).toLocaleDateString("en-US", {
 									weekday: "short",
@@ -59,7 +44,9 @@ const DisplayDays: React.FC<Props> = ({ className }) => {
 				</>
 			) : (
 				<>
-					<Skeleton className=""></Skeleton>
+					{Array.from({ length: 8 }, (_, i) => (
+						<Skeleton key={i} className="day_data bg-gray-100/95" />
+					))}
 				</>
 			)}
 		</div>
