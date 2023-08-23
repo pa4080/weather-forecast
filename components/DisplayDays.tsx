@@ -5,6 +5,8 @@ import { cn } from "@/lib/cn-utils";
 import { roundTo } from "@/lib/round";
 import { tempColor } from "@/lib/tempColor";
 
+import { OpenWeatherData } from "@/types/weather";
+
 import { Skeleton } from "./ui/skeleton";
 
 interface Props {
@@ -12,14 +14,55 @@ interface Props {
 }
 
 const DisplayDays: React.FC<Props> = ({ className }) => {
-	const { mainDataDisplay, weatherData } = useAppContext();
+	const { mainDataDisplay, weatherData, setMainData } = useAppContext();
+
+	const handleSetDayAsMainData = (day: OpenWeatherData["daily"][number]) => {
+		if (!weatherData) {
+			return;
+		}
+
+		const actualCurrentDayDate = new Date(weatherData.current.dt * 1000).getDate();
+		const newCurrentDayDate = new Date(day.dt * 1000).getDate();
+		const isCurrent = actualCurrentDayDate === newCurrentDayDate;
+
+		if (isCurrent) {
+			setMainData(weatherData.current, day, weatherData);
+		} else {
+			const newCurrentDay: OpenWeatherData["current"] = {
+				dt: day.dt,
+				sunrise: day.sunrise,
+				sunset: day.sunset,
+				temp: day.temp.day,
+				feels_like: day.feels_like.day,
+				pressure: day.pressure,
+				humidity: day.humidity,
+				dew_point: day.dew_point,
+				uvi: day.uvi,
+				clouds: day.clouds,
+				visibility: 0,
+				wind_speed: day.wind_speed,
+				wind_deg: day.wind_deg,
+				weather: day.weather,
+			};
+
+			setMainData(newCurrentDay, day, weatherData);
+		}
+	};
 
 	return (
 		<div className={cn("days_data_container", className)}>
 			{mainDataDisplay ? (
 				<>
 					{weatherData?.daily.map((day) => (
-						<div key={day.dt} className="day_data bg-gray-100/60">
+						<div
+							key={day.dt}
+							className={`day_data ${
+								new Date(day.dt * 1000).getDate() === mainDataDisplay.dayOfTheMonth
+									? "bg-gray-200"
+									: "bg-gray-100/60"
+							}`}
+							onClick={() => handleSetDayAsMainData(day)}
+						>
 							<div className="day_data_day text-gray-800">
 								{new Date(day.dt * 1000).toLocaleDateString("en-US", {
 									weekday: "short",

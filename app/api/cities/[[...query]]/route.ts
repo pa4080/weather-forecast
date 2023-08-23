@@ -72,7 +72,11 @@ export async function GET(request: NextRequest, { params }: Context) {
 						);
 					}
 
-					if (country?.states?.length === 0) {
+					const cities = country?.states
+						.flatMap(({ cities }) => cities && cities)
+						.sort((a, b) => a.name.localeCompare(b.name));
+
+					if (cities.length === 0) {
 						// Catch the cases when there is no data for a the country.
 						// We assume there are countries with a single city or state.
 						// So we will get the country data from the countries API.
@@ -94,10 +98,6 @@ export async function GET(request: NextRequest, { params }: Context) {
 
 						return NextResponse.json(cities, { status: 200 });
 					}
-
-					const cities = country?.states
-						.flatMap(({ cities }) => cities)
-						.sort((a, b) => a.name.localeCompare(b.name));
 
 					return NextResponse.json(cities, { status: 200 });
 				} else {
