@@ -15,24 +15,24 @@ interface Props {
 }
 
 const Widget: React.FC<Props> = ({ className }) => {
-	const { mainDataDisplay } = useAppContext();
+	const { mainData } = useAppContext();
 
 	useEffect(() => {
-		if (mainDataDisplay) {
+		if (mainData) {
 			// const color = getComputedStyle(document.documentElement).getPropertyValue("--ring");
-			document.documentElement.style.setProperty("--ring", `${mainDataDisplay?.tempColor}bb`);
-			document.documentElement.style.setProperty("--accent", `${mainDataDisplay?.tempColor}99`);
+			document.documentElement.style.setProperty("--ring", `${mainData?.tempColor}bb`);
+			document.documentElement.style.setProperty("--accent", `${mainData?.tempColor}99`);
 		}
-	}, [mainDataDisplay]);
+	}, [mainData]);
 
 	return (
 		<>
-			<Logo wetherColor={mainDataDisplay?.tempColor} />
+			<Logo wetherColor={mainData?.tempColor} />
 			<div className="widget_overlay" />
 			<div
 				className="widget_overlay_mask"
 				style={{
-					backgroundColor: mainDataDisplay?.tempColor,
+					backgroundColor: mainData?.tempColor,
 					opacity: "3%",
 				}}
 			/>

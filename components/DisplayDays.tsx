@@ -14,7 +14,7 @@ interface Props {
 }
 
 const DisplayDays: React.FC<Props> = ({ className }) => {
-	const { mainDataDisplay, weatherData, setMainData } = useAppContext();
+	const { mainData, weatherData, setMainData } = useAppContext();
 
 	const handleSetDayAsMainData = (day: OpenWeatherData["daily"][number]) => {
 		if (!weatherData) {
@@ -51,13 +51,13 @@ const DisplayDays: React.FC<Props> = ({ className }) => {
 
 	return (
 		<div className={cn("days_data_container", className)}>
-			{mainDataDisplay ? (
+			{mainData ? (
 				<>
 					{weatherData?.daily.map((day) => (
 						<div
 							key={day.dt}
 							className={`day_data ${
-								new Date(day.dt * 1000).getDate() === mainDataDisplay.dayOfTheMonth
+								new Date(day.dt * 1000).getDate() === mainData.dayOfTheMonth
 									? "bg-gray-200"
 									: "bg-gray-100/60"
 							}`}
@@ -71,15 +71,15 @@ const DisplayDays: React.FC<Props> = ({ className }) => {
 							<div className="flex items-center justify-center mt-1">
 								<i
 									className={`wi wi-owm-${day.weather[0].id} text-4xl -translate-y-1`}
-									style={{ color: tempColor(day.temp.day, mainDataDisplay.units), opacity: 0.5 }}
+									style={{ color: tempColor(day.temp.day, mainData.units), opacity: 0.5 }}
 								/>
 							</div>
 							<div className="day_data_temp flex gap-1">
 								<span className="text-gray-800">
-									{roundTo(day.temp.max, 0) + mainDataDisplay?.displayUnits.deg}
+									{roundTo(day.temp.max, 0) + mainData?.displayUnits.deg}
 								</span>
 								<span className="text-gray-500">
-									{roundTo(day.temp.min, 0) + mainDataDisplay?.displayUnits.deg}
+									{roundTo(day.temp.min, 0) + mainData?.displayUnits.deg}
 								</span>
 							</div>
 						</div>

@@ -29,8 +29,9 @@ interface AppContextProps {
 	weatherData: OpenWeatherData | undefined;
 	units: WeatherUnits;
 	setUnits: Dispatch<SetStateAction<WeatherUnits>>;
-	mainDataDisplay: WeatherData_MainDisplay | undefined;
-	setMainDataDisplay: Dispatch<SetStateAction<WeatherData_MainDisplay | undefined>>;
+	isLoading: boolean;
+	setIsLoading: Dispatch<SetStateAction<boolean>>;
+	mainData: WeatherData_MainDisplay | undefined;
 	setMainData: (
 		weatherDataCurrent: OpenWeatherData["current"],
 		weatherDataDaily: OpenWeatherData["daily"][number],
@@ -50,10 +51,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 	const [cityName, setCityName] = useState<string | undefined>();
 	const [geoCoord, setGeoCoord] = useState<GeoCoordinates | undefined>();
 	const [units, setUnits] = useState<WeatherUnits>("metric");
-	const [mainDataDisplay, setMainDataDisplay] = useState<WeatherData_MainDisplay | undefined>();
+	const [isLoading, setIsLoading] = useState(false);
+	const [mainData, setMainDataToDisplay] = useState<WeatherData_MainDisplay | undefined>();
 
 	const { userData, geoPos } = useGeoDetector();
-	const { weatherData, setWeatherCoord } = useWeather();
+	const { weatherData, setWeatherCoord } = useWeather(setIsLoading);
 
 	useEffect(() => {
 		setCountryCode(userData?.countryCode);
@@ -92,7 +94,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 			dateOffset.getUTCSeconds()
 		);
 
-		setMainDataDisplay({
+		setMainDataToDisplay({
 			cityName: String(cityName),
 			countryName: String(countryName),
 			countryCode: String(countryCode),
@@ -161,8 +163,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 				weatherData,
 				units,
 				setUnits,
-				mainDataDisplay,
-				setMainDataDisplay,
+				isLoading,
+				setIsLoading,
+				mainData,
 				setMainData,
 			}}
 		>
