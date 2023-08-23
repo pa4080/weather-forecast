@@ -99,9 +99,11 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 							</div>
 
 							<div className="text-lg h-8">
-								<span className="text-gray-600 mr-2">{mainDataDisplay?.localDateText}</span>
-								<br className="hidden sa:block" />
-								<span className="text-gray-400">{mainDataDisplay?.remoteDateText}</span>
+								<p className="text-ellipsis whitespace-pre overflow-hidden w-full max-w-full">
+									<span className="text-gray-600 mr-2">{mainDataDisplay?.localDateText}</span>
+									<br className="hidden sa:block" />
+									<span className="text-gray-400">{mainDataDisplay?.remoteDateText}</span>
+								</p>
 							</div>
 						</div>
 						<div className="main_data_right_info">

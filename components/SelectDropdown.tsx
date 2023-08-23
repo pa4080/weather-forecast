@@ -66,16 +66,17 @@ const SelectDropdown = ({
 	}, [showMenu]);
 
 	useEffect(() => {
-		const handler = (e: MouseEvent) => {
+		// Hide menu when clicked outside
+		const handleClickOutsideMenu = (e: MouseEvent) => {
 			if (searchWrapperRef.current && !searchWrapperRef.current.contains(e.target as Element)) {
 				setShowMenu(false);
 			}
 		};
 
-		window.addEventListener("click", handler);
+		window.addEventListener("click", handleClickOutsideMenu);
 
 		return () => {
-			window.removeEventListener("click", handler);
+			window.removeEventListener("click", handleClickOutsideMenu);
 		};
 	}, []);
 
@@ -97,6 +98,11 @@ const SelectDropdown = ({
 	};
 
 	const getDisplay = () => {
+		if (showMenu && searchInputRef.current && displayText().startsWith(searchValue)) {
+			searchInputRef.current.select();
+			searchInputRef.current.setSelectionRange(0, searchInputRef.current.value.length);
+		}
+
 		if (!selectedValue) {
 			return searchValue ?? "";
 		}
@@ -108,6 +114,18 @@ const SelectDropdown = ({
 		setShouldFocus(true);
 		setSelectedValue(option);
 		onChange(option);
+	};
+
+	const onItemEnterKey = (e: React.KeyboardEvent<HTMLDivElement>, option: OptionType) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+
+			onItemClick(option);
+
+			setTimeout(() => {
+				setShowMenu(false);
+			}, 200);
+		}
 	};
 
 	const isSelected = (option: OptionType) => {
@@ -132,12 +150,48 @@ const SelectDropdown = ({
 			return options ? options : [];
 		}
 
-		return options
+		const outputOptions = options
 			? options?.filter(
 					(option) => option.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
 			  )
 			: [];
+
+		return outputOptions;
 	};
+
+	useEffect(() => {
+		// Handle Enter key press within the search input field
+		const inputField = searchInputRef.current;
+
+		if (!inputField) {
+			return;
+		}
+
+		const handlePressEnter = (event: KeyboardEvent) => {
+			const searchOptions = options
+				? options?.filter(
+						(option) => option.name.toLowerCase().indexOf(inputField.value.toLowerCase()) >= 0
+				  )
+				: [];
+
+			if (searchOptions.length === 1 && event.key === "Enter") {
+				event.preventDefault();
+
+				setShouldFocus(true);
+				setSelectedValue(searchOptions[0]);
+				onChange(searchOptions[0]);
+				setTimeout(() => {
+					setShowMenu(false);
+				}, 200);
+			}
+		};
+
+		inputField.addEventListener("keypress", handlePressEnter);
+
+		return () => {
+			inputField.removeEventListener("keypress", handlePressEnter);
+		};
+	}, [onChange, options]);
 
 	return (
 		<button
@@ -146,6 +200,7 @@ const SelectDropdown = ({
 			className={"select_focus_wrapper"}
 			data-focus={shouldFocus}
 			role="dialog"
+			tabIndex={-1}
 		>
 			{options && options.length > 0 ? (
 				<div className={"relative"}>
@@ -156,6 +211,7 @@ const SelectDropdown = ({
 							`${showMenu ? "bg-gray-100" : "bg-gray-100/90"}`,
 							className
 						)}
+						tabIndex={-1}
 						onClick={handleToggleMenu}
 					>
 						{inputDisabled && <div className={"select_search_input"}>{getDisplay()}</div>}
@@ -168,6 +224,7 @@ const SelectDropdown = ({
 								zIndex: inputDisabled ? -1 : 1,
 								opacity: inputDisabled ? 0 : 1,
 							}}
+							tabIndex={inputDisabled ? -1 : 0}
 							value={getDisplay()}
 							onChange={onSearch}
 							onClick={handleInputClick}
@@ -182,12 +239,19 @@ const SelectDropdown = ({
 					</div>
 
 					{showMenu && (
-						<div className="select_search_dropdown" data-state={showMenu ? "open" : "closed"}>
+						<div
+							className="select_search_dropdown"
+							data-state={showMenu ? "open" : "closed"}
+							tabIndex={-1}
+						>
+							<div className="text-2xl text-gray-400 absolute right-5 top-[0.7rem]">⇆</div>
 							{getOptions().map((option: OptionType) => (
 								<div
 									key={option.id}
 									className={`${"select_search_dropdown_item"} ${isSelected(option) && "bg-ring"}`}
+									tabIndex={0}
 									onClick={() => onItemClick(option)}
+									onKeyDown={(e) => onItemEnterKey(e, option)}
 								>
 									<span>{option?.emoji ?? ""}</span>{" "}
 									<span className="text-left">{option.name}</span>

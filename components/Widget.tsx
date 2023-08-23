@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { cn } from "@/lib/cn-utils";
 import { useAppContext } from "@/contexts/AppContext";
@@ -20,8 +20,8 @@ const Widget: React.FC<Props> = ({ className }) => {
 	useEffect(() => {
 		if (mainDataDisplay) {
 			// const color = getComputedStyle(document.documentElement).getPropertyValue("--ring");
-			document.documentElement.style.setProperty("--ring", `${mainDataDisplay?.tempColor}dd`);
-			document.documentElement.style.setProperty("--accent", `${mainDataDisplay?.tempColor}aa`);
+			document.documentElement.style.setProperty("--ring", `${mainDataDisplay?.tempColor}bb`);
+			document.documentElement.style.setProperty("--accent", `${mainDataDisplay?.tempColor}99`);
 		}
 	}, [mainDataDisplay]);
 

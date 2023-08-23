@@ -9,10 +9,10 @@ interface Props {
 	height?: number;
 }
 
-const Logo: React.FC<Props> = ({ className, wetherColor, width = "90vw", height = "90vw" }) => {
+const Logo: React.FC<Props> = ({ className, wetherColor, width = 720, height = 720 }) => {
 	return (
 		<svg
-			className={cn("overflow-hidden max-h-full opacity-30", className)}
+			className={cn("overflow-hidden w-[90vw] h-[90vw] max-h-full opacity-30", className)}
 			height={height}
 			viewBox="38 24 600 660"
 			width={width}

@@ -4,7 +4,7 @@ import { UnitsOptions, WeatherUnits } from "@/types/weather";
 
 import messages from "@/messages/en.json";
 
-import SelectDropdown from "./SelectDropdown";
+import SelectDropdown from "../SelectDropdown";
 
 interface Props {
 	defaultUnits?: WeatherUnits;

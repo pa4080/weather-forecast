@@ -86,6 +86,14 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	outline-color: theme("colors.ring");
 }
 
+/* Text selection */
+
+::selection,
+::selection {
+	background: var(--accent) !important;
+	color: var(--accent-foreground);
+}
+
 /* Scroll bars */
 * {
 	-webkit-font-smoothing: antialiased;
@@ -98,6 +106,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 *::-webkit-scrollbar {
 	width: calc(var(--scrollbar-width) / 1.1);
+	height: calc(var(--scrollbar-width) / 1.1);
 	background-color: transparent;
 }
 
