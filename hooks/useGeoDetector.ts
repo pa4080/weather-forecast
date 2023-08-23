@@ -79,6 +79,20 @@ export function useGeoDetector() {
 		}
 	};
 
+	const getPermission = async () => {
+		try {
+			if (navigator.geolocation) {
+				const permissions = await navigator.permissions.query({ name: "geolocation" });
+
+				setPermissions(permissions);
+			} else {
+				getPositionByIp();
+			}
+		} catch (err) {
+			console.warn(err);
+		}
+	};
+
 	useEffect(() => {
 		if (geoPos) {
 			const { latitude, longitude } = geoPos.coords;
@@ -102,20 +116,6 @@ export function useGeoDetector() {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [permissions]);
-
-	const getPermission = async () => {
-		try {
-			if (navigator.geolocation) {
-				const permissions = await navigator.permissions.query({ name: "geolocation" });
-
-				setPermissions(permissions);
-			} else {
-				getPositionByIp();
-			}
-		} catch (err) {
-			console.warn(err);
-		}
-	};
 
 	useEffect(() => {
 		if (navigator.geolocation) {

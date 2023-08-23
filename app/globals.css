@@ -169,7 +169,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	md:shadow-xl md:drop-shadow-xl 	
 	md:rounded-lg 
 	w-full md:max-w-3xl min-w-[380px]
-	h-[100vh] md:h-auto 
+	h-screen md:h-auto 
 	md:min-h-[468px]
 	bg-[#f8fafc];
 

@@ -27,7 +27,7 @@ const Widget: React.FC<Props> = ({ className }) => {
 
 	return (
 		<>
-			<Logo className="hidden md:flex absolute" wetherColor={mainDataDisplay?.tempColor} />
+			<Logo wetherColor={mainDataDisplay?.tempColor} />
 			<div className="widget_overlay" />
 			<div
 				className="widget_overlay_mask"
