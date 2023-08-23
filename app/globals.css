@@ -279,5 +279,5 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 .day_data {
-	@apply flex flex-col items-center justify-center gap-1 cursor-pointer p-2 rounded-md h-28 active:ring-2 active:ring-ring active:ring-offset-0 ring-offset-transparent transition-colors duration-300;
+	@apply flex flex-col items-center justify-center gap-1 cursor-pointer p-2 rounded-md h-28 active:ring-2 active:ring-ring active:ring-offset-0 ring-offset-transparent;
 }
