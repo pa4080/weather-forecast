@@ -197,7 +197,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 .select_search_dropdown_item {
-	@apply hover:bg-accent text-accent-foreground px-2 py-1 my-1 rounded-sm flex items-start justify-start gap-2 transition-colors hover:duration-100 duration-200;
+	@apply hover:bg-accent text-accent-foreground px-2 py-1 my-1 rounded-sm flex items-start justify-start gap-2 transition-colors hover:duration-100 duration-200 cursor-pointer;
 }
 
 /* Display Main Data */
