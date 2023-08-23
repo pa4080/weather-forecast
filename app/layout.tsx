@@ -1,4 +1,5 @@
 import React from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 import { Manrope as DefaultFont } from "next/font/google";
 
@@ -38,6 +39,7 @@ const RootLayout: React.FC<Props> = ({ children }) => {
 		<html lang="en">
 			<body className={font.className}>
 				<AppContextProvider>{children}</AppContextProvider>
+				<Analytics />
 			</body>
 		</html>
 	);
