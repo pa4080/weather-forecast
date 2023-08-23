@@ -41,6 +41,7 @@ const SelectDropdown = ({
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const searchWrapperRef = useRef<HTMLInputElement>(null);
 	const focusWrapperRef = useRef<HTMLButtonElement>(null);
+	const listRef = useRef<HTMLDivElement>(null);
 
 	const displayText = (name?: string) =>
 		`${showFlag && selectedValue?.emoji ? selectedValue.emoji + " " : ""}${
@@ -116,7 +117,8 @@ const SelectDropdown = ({
 		onChange(option);
 	};
 
-	const onItemEnterKey = (e: React.KeyboardEvent<HTMLDivElement>, option: OptionType) => {
+	const onItemPressKeys = (e: React.KeyboardEvent<HTMLDivElement>, option: OptionType) => {
+		// Handle Enter key press within the dropdown menu list
 		if (e.key === "Enter") {
 			e.preventDefault();
 
@@ -125,6 +127,23 @@ const SelectDropdown = ({
 			setTimeout(() => {
 				setShowMenu(false);
 			}, 200);
+		}
+
+		// Handle ArrowDown and ArrowUp key press, https://stackoverflow.com/a/48848078/6543935
+		if (listRef.current && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+			e.preventDefault();
+			const currentNode = e.target as HTMLDivElement;
+			const allElements = listRef.current.querySelectorAll("div");
+			const currentIndex = Array.from(allElements).findIndex((el) => currentNode.isEqualNode(el));
+			let targetIndex = 0;
+
+			if (e.key === "ArrowDown") {
+				targetIndex = (currentIndex + 1) % allElements.length;
+			} else if (e.key === "ArrowUp") {
+				targetIndex = (currentIndex - 1 + allElements.length) % allElements.length;
+			}
+
+			allElements[targetIndex].focus();
 		}
 	};
 
@@ -240,6 +259,7 @@ const SelectDropdown = ({
 
 					{showMenu && (
 						<div
+							ref={listRef}
 							className="select_search_dropdown"
 							data-state={showMenu ? "open" : "closed"}
 							tabIndex={-1}
@@ -251,7 +271,7 @@ const SelectDropdown = ({
 									className={`${"select_search_dropdown_item"} ${isSelected(option) && "bg-ring"}`}
 									tabIndex={0}
 									onClick={() => onItemClick(option)}
-									onKeyDown={(e) => onItemEnterKey(e, option)}
+									onKeyDown={(e) => onItemPressKeys(e, option)}
 								>
 									<span>{option?.emoji ?? ""}</span>{" "}
 									<span className="text-left">{option.name}</span>
