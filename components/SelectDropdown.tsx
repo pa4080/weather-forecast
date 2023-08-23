@@ -40,7 +40,7 @@ const SelectDropdown = ({
 
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const searchWrapperRef = useRef<HTMLInputElement>(null);
-	const focusWrapperRef = useRef<HTMLButtonElement>(null);
+	const focusWrapperRef = useRef<HTMLDivElement>(null);
 	const listRef = useRef<HTMLDivElement>(null);
 
 	const displayText = (name?: string) =>
@@ -156,6 +156,8 @@ const SelectDropdown = ({
 	};
 
 	const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault();
+
 		setSearchValue(e.target.value);
 		setSelectedValue(undefined);
 
@@ -187,6 +189,8 @@ const SelectDropdown = ({
 		}
 
 		const handlePressEnter = (event: KeyboardEvent) => {
+			event.stopPropagation();
+
 			const searchOptions = options
 				? options?.filter(
 						(option) => option.name.toLowerCase().indexOf(inputField.value.toLowerCase()) >= 0
@@ -194,8 +198,6 @@ const SelectDropdown = ({
 				: [];
 
 			if (searchOptions.length === 1 && event.key === "Enter") {
-				event.preventDefault();
-
 				setShouldFocus(true);
 				setSelectedValue(searchOptions[0]);
 				onChange(searchOptions[0]);
@@ -213,7 +215,7 @@ const SelectDropdown = ({
 	}, [onChange, options]);
 
 	return (
-		<button
+		<div
 			ref={focusWrapperRef}
 			aria-label={messages.Select.buttonAreaLabel}
 			className={"select_focus_wrapper"}
@@ -295,7 +297,7 @@ const SelectDropdown = ({
 					</div>
 				</Skeleton>
 			)}
-		</button>
+		</div>
 	);
 };
 
