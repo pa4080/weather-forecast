@@ -22,7 +22,10 @@ export function useWeather() {
 			(async () => {
 				try {
 					const response = await fetch(
-						getWeatherUrl(weatherCoord.lat, weatherCoord.lon, weatherCoord.units)
+						getWeatherUrl(weatherCoord.lat, weatherCoord.lon, weatherCoord.units),
+						{
+							cache: "no-store",
+						}
 					);
 
 					if (!response.ok) {
