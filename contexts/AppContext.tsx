@@ -142,57 +142,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 			console.log(weatherData);
 
 			setMainData(weatherData.current, weatherData.daily[0], weatherData);
-			/*
-			const date = new Date(weatherData?.current.dt * 1000);
-			const dateOffset = new Date((weatherData?.current.dt + weatherData?.timezone_offset) * 1000);
-			const remoteDate = new Date(
-				dateOffset.getUTCFullYear(),
-				dateOffset.getUTCMonth(),
-				dateOffset.getUTCDate(),
-				dateOffset.getUTCHours(),
-				dateOffset.getUTCMinutes(),
-				dateOffset.getUTCSeconds()
-			);
-
-			setMainDataDisplay({
-				cityName: String(cityName),
-				countryName: String(countryName),
-				countryCode: String(countryCode),
-				weatherId: weatherData?.current.weather[0].id,
-				tempColor: tempColor(weatherData?.current.temp, units),
-				units: units,
-				displayUnits: messages.WeatherUnits[units],
-				tempCurrent: roundTo(weatherData?.current.temp, 0),
-				tempFeelsLike: roundTo(weatherData?.current.feels_like, 0),
-				tempDayMin: roundTo(weatherData?.daily[0].temp.min, 0),
-				tempDayMax: roundTo(weatherData?.daily[0].temp.max, 0),
-				date: weatherData?.current.dt,
-				localDateText: date.toLocaleDateString("en-US", {
-					weekday: "short",
-					month: "short",
-					day: "2-digit",
-					hour: "2-digit",
-					minute: "2-digit",
-					hourCycle: "h24",
-				}),
-				remoteDateText: remoteDate.toLocaleDateString("en-US", {
-					weekday: "short",
-					month: "short",
-					day: "2-digit",
-					hour: "2-digit",
-					minute: "2-digit",
-					hourCycle: "h24",
-				}),
-				partOfTheDay: weatherData?.current.dt > weatherData?.current.sunset ? "night" : "day",
-				humidity: weatherData?.current.humidity,
-				pressure: weatherData?.current.pressure,
-				windSpeed: weatherData?.current.wind_speed,
-				windDirection: weatherData?.current.wind_deg,
-				moonPhase: weatherData?.daily[0].moon_phase,
-				precipitation: weatherData?.daily[0].pop,
-				cloudiness: weatherData?.current.clouds,
-			});
-			*/
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [weatherData]); /* units - cause new rendering before the new data is fetched */
