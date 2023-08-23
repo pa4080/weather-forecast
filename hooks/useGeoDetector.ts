@@ -26,8 +26,9 @@ const errorsCb: ErrorsCallback = (err) => {
 };
 
 export function useGeoDetector() {
-	const [geoPos, setGeoPos] = useState<GeolocationPosition | null>(null);
-	const [userData, setUserData] = useState<UserGeoData | null>(null);
+	const [permissions, setPermissions] = useState<PermissionStatus>();
+	const [geoPos, setGeoPos] = useState<GeolocationPosition>();
+	const [userData, setUserData] = useState<UserGeoData>();
 
 	const getPositionByIp = async () => {
 		try {
@@ -87,19 +88,38 @@ export function useGeoDetector() {
 	}, [geoPos]);
 
 	useEffect(() => {
-		if (navigator.geolocation) {
-			navigator.permissions.query({ name: "geolocation" }).then(function (result) {
-				if (result.state === "granted" || result.state === "prompt") {
-					getPosition();
-				} else {
-					// if (result.state === "denied")
-					getPositionByIp();
-				}
+		if (permissions) {
+			if (permissions.state === "granted" || permissions.state === "prompt") {
+				getPosition();
+			} else {
+				// if (permissions.state === "denied")
+				getPositionByIp();
+			}
 
-				// result.onchange = function () { /* do something */ };
-			});
-		} else {
-			getPositionByIp();
+			permissions.onchange = function () {
+				getPermission();
+			};
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [permissions]);
+
+	const getPermission = async () => {
+		try {
+			if (navigator.geolocation) {
+				const permissions = await navigator.permissions.query({ name: "geolocation" });
+
+				setPermissions(permissions);
+			} else {
+				getPositionByIp();
+			}
+		} catch (err) {
+			console.warn(err);
+		}
+	};
+
+	useEffect(() => {
+		if (navigator.geolocation) {
+			getPermission();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
