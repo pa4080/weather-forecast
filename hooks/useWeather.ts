@@ -4,7 +4,7 @@
  * @see https://ipapi.co
  */
 
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import { OpenWeatherData, WeatherInputData, WeatherUnits } from "@/types/weather";
 
@@ -13,12 +13,14 @@ import { Route } from "@/routes";
 const getWeatherUrl = (lat: number, lon: number, units: WeatherUnits) =>
 	`${Route.api.getWeather}/${lat}/${lon}/${units}`;
 
-export function useWeather() {
+export function useWeather(setIsLoading?: Dispatch<SetStateAction<boolean>>) {
 	const [weatherCoord, setWeatherCoord] = useState<WeatherInputData>();
 	const [weatherData, setWeatherData] = useState<OpenWeatherData>();
 
 	useEffect(() => {
 		if (weatherCoord) {
+			setIsLoading && setIsLoading(true);
+
 			(async () => {
 				try {
 					const response = await fetch(
@@ -37,9 +39,12 @@ export function useWeather() {
 					setWeatherData(weatherData);
 				} catch (err) {
 					console.warn(err);
+				} finally {
+					setIsLoading && setIsLoading(false);
 				}
 			})();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [weatherCoord]);
 
 	return { weatherData, setWeatherCoord };
