@@ -42,6 +42,7 @@ export interface WeatherData_MainDisplay {
 	tempDayMin: number;
 	tempDayMax: number;
 	date: number;
+	dayOfTheMonth: number;
 	localDateText: string;
 	remoteDateText: string;
 	partOfTheDay: string;

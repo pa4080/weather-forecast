@@ -105,6 +105,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 			tempDayMin: roundTo(weatherDataDaily.temp.min, 0),
 			tempDayMax: roundTo(weatherDataDaily.temp.max, 0),
 			date: weatherDataCurrent.dt,
+			dayOfTheMonth: date.getDate(),
 			localDateText: date.toLocaleDateString("en-US", {
 				weekday: "short",
 				month: "short",
@@ -139,7 +140,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 	useEffect(() => {
 		if (weatherData) {
 			// eslint-disable-next-line no-console
-			console.log(weatherData);
+			// console.log(weatherData);
 
 			setMainData(weatherData.current, weatherData.daily[0], weatherData);
 		}

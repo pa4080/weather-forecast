@@ -88,10 +88,9 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 /* Text selection */
 
-::selection,
 ::selection {
-	background: var(--accent) !important;
-	color: var(--accent-foreground);
+	background: var(--ring);
+	color: #fff;
 }
 
 /* Scroll bars */
@@ -238,11 +237,11 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	@apply flex flex-row w-full xs:w-auto sa:w-full gap-1 items-start justify-between;
 }
 
-.reset_button {
+.reload_button {
 	@apply w-14 cursor-pointer flex items-end xs:items-start sa:items-end justify-start h-full text-5xl xs:text-4xl sa:text-5xl -translate-x-1 xs:translate-x-2 sa:-translate-x-1 translate-y-0 xs:translate-y-2 sa:translate-y-1 text-gray-300;
 }
 
-.reset_button_feedback {
+.reload_button_feedback {
 	@apply flex items-center justify-center w-12 h-12 active:ring-2 active:ring-ring active:ring-offset-0 rounded-md ring-offset-transparent;
 }
 
@@ -280,5 +279,5 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 .day_data {
-	@apply flex flex-col items-center justify-center gap-1 cursor-pointer  p-2 rounded-md h-28;
+	@apply flex flex-col items-center justify-center gap-1 cursor-pointer p-2 rounded-md h-28 active:ring-2 active:ring-ring active:ring-offset-0 ring-offset-transparent transition-colors duration-300;
 }

@@ -219,6 +219,7 @@ const SelectDropdown = ({
 							ref={searchInputRef}
 							className={"select_search_input"}
 							disabled={inputDisabled}
+							name={placeHolder}
 							placeholder={placeHolder}
 							style={{
 								zIndex: inputDisabled ? -1 : 1,
@@ -265,6 +266,7 @@ const SelectDropdown = ({
 					<input
 						className={"select_search_input text-gray-300"}
 						disabled={true}
+						name={placeHolder}
 						placeholder={placeHolder}
 						value={placeHolder}
 					/>

@@ -6,6 +6,8 @@ import { cn } from "@/lib/cn-utils";
 import { moonIcon } from "@/lib/moonIcon";
 import { GeoCoordinates } from "@/types/geo";
 
+import { roundTo } from "@/lib/round";
+
 import { Skeleton } from "./ui/skeleton";
 
 interface Props {
@@ -54,10 +56,10 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 							</div>
 							<div className="main_data_left_info_wrapper">
 								<div
-									className="reset_button"
+									className="reload_button"
 									onClick={() => setGeoCoord({ ...(geoCoord as GeoCoordinates) })}
 								>
-									<div className="reset_button_feedback">
+									<div className="reload_button_feedback">
 										<i className="wi wi-refresh " />
 									</div>
 								</div>
@@ -66,23 +68,25 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 									<div className="main_data_left_info_row">
 										<span className="text-gray-500">{messages.Data.feelsLike.toLowerCase()}</span>
 										<span className="text-lg text-gray-600 font-semibold">
-											{mainDataDisplay?.tempFeelsLike + mainDataDisplay?.displayUnits.deg}
+											{roundTo(mainDataDisplay?.tempFeelsLike, 0) +
+												mainDataDisplay?.displayUnits.deg}
 										</span>
 									</div>
 									<div className="main_data_left_info_row">
 										<span className="text-gray-500">{messages.Data.tempMax.toLowerCase()}</span>
 										<span className="text-lg text-gray-600 font-semibold mr-[0.125rem]">
-											{mainDataDisplay?.tempDayMax + mainDataDisplay?.displayUnits.deg}
+											{roundTo(mainDataDisplay?.tempDayMax, 0) + mainDataDisplay?.displayUnits.deg}
 										</span>
 										<span className="text-gray-500">{messages.Data.tempMin.toLowerCase()}</span>
 										<span className="text-lg text-gray-600 font-semibold">
-											{mainDataDisplay?.tempDayMin + mainDataDisplay?.displayUnits.deg}
+											{roundTo(mainDataDisplay?.tempDayMin, 0) + mainDataDisplay?.displayUnits.deg}
 										</span>
 									</div>
 									<div className="main_data_left_info_row">
 										<span className="text-gray-500">{messages.Data.cloudiness.toLowerCase()}</span>
 										<span className="text-lg text-gray-600 font-semibold">
-											{mainDataDisplay?.cloudiness + mainDataDisplay?.displayUnits.cloudiness}
+											{roundTo(mainDataDisplay?.cloudiness, 0) +
+												mainDataDisplay?.displayUnits.cloudiness}
 										</span>
 									</div>
 								</div>
@@ -115,7 +119,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 									{messages.Data.humidity.toLowerCase()}
 								</span>
 								<span className="text-gray-800 font-semibold ml-1">
-									{mainDataDisplay?.humidity}
+									{roundTo(mainDataDisplay?.humidity, 0)}
 								</span>
 								<span className="text-gray-600 ml-1">{mainDataDisplay?.displayUnits.humidity}</span>
 							</div>
@@ -128,7 +132,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 									{messages.Data.precipitation.toLowerCase()}
 								</span>
 								<span className="text-gray-800 font-semibold ml-1">
-									{Number(mainDataDisplay?.precipitation || 0) * 100}
+									{roundTo(Number(mainDataDisplay?.precipitation || 0) * 100, 0)}
 								</span>
 								<span className="text-gray-600 ml-1">{mainDataDisplay?.displayUnits.humidity}</span>
 							</div>
@@ -140,7 +144,9 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 								<span className="text-gray-500 w-24 pb-1">
 									{messages.Data.pressure.toLowerCase()}
 								</span>
-								<span className="text-gray-800 font-semibold ">{mainDataDisplay?.pressure}</span>
+								<span className="text-gray-800 font-semibold ">
+									{roundTo(mainDataDisplay?.pressure, 0)}
+								</span>
 								<span className="text-gray-600 ml-1">{mainDataDisplay?.displayUnits.pressure}</span>
 							</div>
 							<div className="main_data_right_info_row">
@@ -151,7 +157,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 								</span>
 								<span className="text-gray-500 w-24 pb-1">{messages.Data.wind.toLowerCase()}</span>
 								<span className="text-gray-800 font-semibold ml-1">
-									{mainDataDisplay?.windSpeed}
+									{roundTo(mainDataDisplay?.windSpeed, 2)}
 								</span>
 								<span className="text-gray-600 ml-1">
 									{mainDataDisplay?.displayUnits.windSpeed}
@@ -165,7 +171,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 									{messages.Data.moonPhase.toLowerCase()}
 								</span>
 								<span className="text-gray-800 font-semibold">
-									{Number(mainDataDisplay?.moonPhase || 0) * 100}
+									{roundTo(Number(mainDataDisplay?.moonPhase || 0) * 100, 0)}
 								</span>
 								<span className="text-gray-600 ml-1">
 									{mainDataDisplay?.displayUnits.moonPhase}

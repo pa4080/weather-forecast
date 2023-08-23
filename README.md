@@ -79,7 +79,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - [Weather Icons by Erik Flowers](https://erikflowers.github.io/weather-icons/)
 - [Weather Icons by Erik Flowers GitHub](https://github.com/erikflowers/weather-icons)
 - [Weather Icons by Erik Flowers API integration > Open Weather Map](https://erikflowers.github.io/weather-icons/api-list.html)
-- [ ] **Create the UI [8h]**
+- [x] **Create the UI [12h]**
 
 ## Credits
 
