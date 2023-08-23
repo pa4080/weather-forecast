@@ -7,6 +7,8 @@ import { tempColor } from "@/lib/tempColor";
 
 import { OpenWeatherData } from "@/types/weather";
 
+import { getDates } from "@/lib/getDates";
+
 import { Skeleton } from "./ui/skeleton";
 
 interface Props {
@@ -21,8 +23,17 @@ const DisplayDays: React.FC<Props> = ({ className }) => {
 			return;
 		}
 
-		const actualCurrentDayDate = new Date(weatherData.current.dt * 1000).getDate();
-		const newCurrentDayDate = new Date(day.dt * 1000).getDate();
+		// const actualCurrentDayDate = new Date(weatherData.current.dt * 1000).getDate();
+		const { remoteDate: actCurDate } = getDates(
+			weatherData.current.dt,
+			weatherData?.timezone_offset
+		);
+		const actualCurrentDayDate = actCurDate.getDate();
+
+		// const newCurrentDayDate = new Date(day.dt * 1000).getDate();
+		const { remoteDate: newCurDate } = getDates(day.dt, weatherData?.timezone_offset);
+		const newCurrentDayDate = newCurDate.getDate();
+
 		const isCurrent = actualCurrentDayDate === newCurrentDayDate;
 
 		if (isCurrent) {

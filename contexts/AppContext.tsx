@@ -16,6 +16,7 @@ import { GeoCoordinates } from "@/types/geo";
 import { useWeather } from "@/hooks/useWeather";
 import { tempColor } from "@/lib/tempColor";
 import { roundTo } from "@/lib/round";
+import { getDates } from "@/lib/getDates";
 
 interface AppContextProps {
 	countryCode: string | undefined;
@@ -83,16 +84,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 		weatherDataDaily: OpenWeatherData["daily"][number],
 		weatherData: OpenWeatherData
 	) => {
-		const date = new Date(weatherDataCurrent.dt * 1000);
-		const dateOffset = new Date((weatherDataCurrent.dt + weatherData?.timezone_offset) * 1000);
-		const remoteDate = new Date(
-			dateOffset.getUTCFullYear(),
-			dateOffset.getUTCMonth(),
-			dateOffset.getUTCDate(),
-			dateOffset.getUTCHours(),
-			dateOffset.getUTCMinutes(),
-			dateOffset.getUTCSeconds()
-		);
+		const { date, remoteDate } = getDates(weatherDataCurrent.dt, weatherData?.timezone_offset);
 
 		setMainDataToDisplay({
 			cityName: String(cityName),
@@ -107,7 +99,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 			tempDayMin: roundTo(weatherDataDaily.temp.min, 0),
 			tempDayMax: roundTo(weatherDataDaily.temp.max, 0),
 			date: weatherDataCurrent.dt,
-			dayOfTheMonth: date.getDate(),
+			dayOfTheMonth: remoteDate.getDate(),
 			localDateText: date.toLocaleDateString("en-US", {
 				weekday: "short",
 				month: "short",
