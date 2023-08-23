@@ -199,7 +199,6 @@ const SelectDropdown = ({
 			aria-label={messages.Select.buttonAreaLabel}
 			className={"select_focus_wrapper"}
 			data-focus={shouldFocus}
-			role="dialog"
 			tabIndex={-1}
 		>
 			{options && options.length > 0 ? (

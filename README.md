@@ -4,7 +4,9 @@
 
 **The purpose of the project is to satisfy an exam task for a job interview: [assignment](.assignment/task-assignment.md). For more information about the project see the [Workflow](#workflow) section.**
 
-[![image](.assignment/pagespeed-insights.png)](https://weather-forecast.metalevel.tech/)
+[![image](.assignment/screenshot-brave-au.png)](https://weather-forecast.metalevel.tech/)
+
+[![image](.assignment/screenshot-brave-lighthouse.png)](https://weather-forecast.metalevel.tech/)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -79,7 +81,17 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - [Weather Icons by Erik Flowers](https://erikflowers.github.io/weather-icons/)
 - [Weather Icons by Erik Flowers GitHub](https://github.com/erikflowers/weather-icons)
 - [Weather Icons by Erik Flowers API integration > Open Weather Map](https://erikflowers.github.io/weather-icons/api-list.html)
-- [x] **Create the UI [12h]**
+- [x] **Finish and create the UI [12h]**
+- Display the days forecast feed.
+- Assign the main display data by choosing a day from the forecast days feed.
+- Improve the overall design conception.
+- Create responsive logo.
+- Apply responsive styles.
+- [x] **Test and presentation [2h]**
+- Perform productivity tests with Lighthouse and other tools.
+- Tweak the cache policy.
+- Tweak the metadata and manifest.json.
+- Write down the workflow notes and create screenshots.
 
 ## Credits
 
