@@ -1,15 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 
-import { City, CountryStateCityFull } from "@/types/geo";
+import { City } from "@/types/geo";
 import { Route } from "@/routes";
 import messages from "@/messages/en.json";
 
-import SelectDropdown from "./SelectDropdown";
+import SelectDropdown from "@/components/SelectDropdown";
 
-type GetCities = (
-	type?: "country_id_state_structured" | "country_code_state_structured",
-	value?: string | number
-) => Promise<CountryStateCityFull>;
+type GetCities = (type?: string, value?: string | number) => Promise<City | City[] | []>;
 
 const getCities: GetCities = async (type, value) => {
 	return await fetch(`${Route.api.cities}${type && value ? `/${type}/${value}` : ""}`).then((res) =>
@@ -21,7 +18,7 @@ interface Props {
 	defaultCityName?: string;
 	defaultCountryCode?: string;
 	defaultCountryId?: number;
-	// defaultCountryCapital?: string;
+	defaultCountryCapital?: string;
 	className?: string;
 	onChange?: (entry: City) => void;
 	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
@@ -32,26 +29,26 @@ const SelectCity: React.FC<Props> = ({
 	defaultCityName,
 	defaultCountryCode,
 	defaultCountryId,
-	// defaultCountryCapital,
+	defaultCountryCapital,
 	className,
 	onChange,
 	onTextChange,
 	placeHolder = messages.Select.city,
 }) => {
-	const [country, setFullCountryData] = useState<CountryStateCityFull>();
+	const [cities, setCities] = useState<City[]>([]);
 	const [defaultOption, setDefaultOption] = useState<City>();
 
 	useEffect(() => {
 		// We doesn't support other types of city list choices yet
 		if (defaultCountryId) {
 			if (1 <= defaultCountryId && defaultCountryId <= 250) {
-				getCities("country_id_state_structured", defaultCountryId).then((data) => {
-					setFullCountryData(data as CountryStateCityFull);
+				getCities("id_flat", defaultCountryId).then((data) => {
+					setCities(data as City[]);
 				});
 			}
 		} else if (defaultCountryCode) {
-			getCities("country_code_state_structured", defaultCountryCode).then((data) => {
-				setFullCountryData(data as CountryStateCityFull);
+			getCities("code_flat", defaultCountryCode).then((data) => {
+				setCities(data as City[]);
 			});
 		}
 	}, [defaultCountryCode, defaultCountryId]);
@@ -59,16 +56,15 @@ const SelectCity: React.FC<Props> = ({
 	useEffect(() => {
 		if (defaultCityName) {
 			const city =
-				country?.states
-					.flatMap((state) => state.cities)
-					.find((city) => city.name === defaultCityName || city.name === country.capital) ??
-				country?.states[0].cities[0];
+				cities.find(
+					(city) => city.name === defaultCityName || city.name === defaultCountryCapital
+				) ?? cities[0];
 
 			if (city) {
 				setDefaultOption(city);
 			}
 		}
-	}, [country, defaultCityName]);
+	}, [cities, defaultCityName, defaultCountryCapital]);
 
 	useEffect(() => {
 		if (typeof onChange === "function" && defaultOption) {
@@ -81,7 +77,7 @@ const SelectCity: React.FC<Props> = ({
 		<SelectDropdown
 			className={className}
 			defaultOption={defaultOption}
-			options={country?.states ?? []}
+			options={cities}
 			placeHolder={placeHolder}
 			showFlag={false}
 			onChange={(value) => {

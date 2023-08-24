@@ -51,7 +51,6 @@ const Select: React.FC<Props> = ({ className }) => {
 			<SelectCity
 				className="w-full"
 				defaultCityName={cityName ?? country?.capital}
-				defaultCountryCapital={country?.capital}
 				defaultCountryId={country?.id}
 				onChange={setCity}
 			/>

@@ -159,6 +159,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 									.cities.sort((a, b) => a.name.localeCompare(b.name)),
 							};
 						})
+						.filter(({ cities }) => cities.length > 0)
 						.sort((a, b) => a.name.localeCompare(b.name));
 
 					const countryData = await (

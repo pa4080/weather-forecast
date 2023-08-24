@@ -4,13 +4,13 @@ import { ChevronDown } from "lucide-react";
 
 import messages from "@/messages/en.json";
 import { UnitsOptions } from "@/types/weather";
-import { City, Country, State } from "@/types/geo";
+import { City, Country, State, StateFull } from "@/types/geo";
 import { cn } from "@/lib/cn-utils";
 import { Skeleton } from "@/components/ui/skeleton";
 
-type OptionType = Country | State | City | UnitsOptions[number];
+type OptionType = Country | State | City | UnitsOptions[number] | StateFull;
 
-interface ComponentProps {
+interface Props {
 	className?: string;
 	placeHolder?: string;
 	options: OptionType[] | false;
@@ -22,7 +22,7 @@ interface ComponentProps {
 	inputDisabled?: boolean;
 }
 
-const SelectDropdown = ({
+const SelectDropdown: React.FC<Props> = ({
 	className,
 	placeHolder,
 	options,
@@ -31,7 +31,7 @@ const SelectDropdown = ({
 	defaultOption,
 	showFlag = true,
 	inputDisabled = false,
-}: ComponentProps) => {
+}) => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [shouldFocus, setShouldFocus] = useState(false);
 
@@ -171,13 +171,41 @@ const SelectDropdown = ({
 			return options ? options : [];
 		}
 
-		const outputOptions = options
+		if ((options as OptionType[])[0].hasOwnProperty("cities")) {
+			const states = options as StateFull[];
+
+			const returnOptions = states
+				? states
+						?.map((state) => {
+							const cities = state.cities.filter(
+								(city) => city.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
+							);
+
+							if (cities.length > 0) {
+								return {
+									...state,
+									cities,
+								};
+							} else {
+								return {
+									...state,
+									cities: [],
+								};
+							}
+						})
+						.filter((state) => state.cities.length > 0)
+				: [];
+
+			return returnOptions;
+		}
+
+		const returnOptions = options
 			? options?.filter(
 					(option) => option.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
 			  )
 			: [];
 
-		return outputOptions;
+		return returnOptions;
 	};
 
 	useEffect(() => {
@@ -252,7 +280,9 @@ const SelectDropdown = ({
 						/>
 
 						<div
-							className={"data-[state=open]:rotate-90 transition-transform duration-200"}
+							className={
+								"data-[state=open]:rotate-90 transition-transform duration-200 cursor-pointer"
+							}
 							data-state={showMenu ? "open" : "closed"}
 						>
 							<ChevronDown />
@@ -267,18 +297,54 @@ const SelectDropdown = ({
 							tabIndex={-1}
 						>
 							<div className="text-2xl text-gray-400 absolute right-5 top-[0.7rem]">⇆</div>
-							{getOptions().map((option: OptionType) => (
-								<div
-									key={option.id}
-									className={`${"select_search_dropdown_item"} ${isSelected(option) && "bg-ring"}`}
-									tabIndex={0}
-									onClick={() => onItemClick(option)}
-									onKeyDown={(e) => onItemPressKeys(e, option)}
-								>
-									<span>{option?.emoji ?? ""}</span>{" "}
-									<span className="text-left">{option.name}</span>
-								</div>
-							))}
+							{getOptions().map((option: OptionType) => {
+								if (option.hasOwnProperty("cities")) {
+									const state = option as StateFull;
+
+									return (
+										<div key={state.id}>
+											<div className="text-gray-500 cursor-default px-1 py-1 my-1 contrast-150 saturate-200 font-semibold">
+												{state.name}
+											</div>
+
+											{state.cities.map((city: City) => {
+												// eslint-disable-next-line no-console
+												// console.log(++counter);
+
+												return (
+													<div
+														key={city.id}
+														className={`${"select_search_dropdown_item"} ${
+															isSelected(city) && "bg-ring"
+														}`}
+														tabIndex={0}
+														onClick={() => onItemClick(city)}
+														onKeyDown={(e) => onItemPressKeys(e, city)}
+													>
+														<span>{city?.emoji ?? ""}</span>{" "}
+														<span className="text-left">{city.name}</span>
+													</div>
+												);
+											})}
+										</div>
+									);
+								} else {
+									return (
+										<div
+											key={option.id}
+											className={`${"select_search_dropdown_item"} ${
+												isSelected(option) && "bg-ring"
+											}`}
+											tabIndex={0}
+											onClick={() => onItemClick(option)}
+											onKeyDown={(e) => onItemPressKeys(e, option)}
+										>
+											<span>{option?.emoji ?? ""}</span>{" "}
+											<span className="text-left">{option.name}</span>
+										</div>
+									);
+								}
+							})}
 						</div>
 					)}
 				</div>

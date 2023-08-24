@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import { City, Country } from "@/types/geo";
-
 import { cn } from "@/lib/cn-utils";
-
 import { useAppContext } from "@/contexts/AppContext";
+import SelectCountry from "@/components/SelectCountry";
 
-import SelectCountry from "../SelectCountry";
-import SelectCity from "../SelectCity";
+import SelectCity from "./SelectCity_FlatList";
 import SelectUnits from "./SelectUnits";
 
 interface Props {
