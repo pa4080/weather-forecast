@@ -4,73 +4,78 @@ import { ChevronDown } from "lucide-react";
 
 import messages from "@/messages/en.json";
 import { UnitsOptions } from "@/types/weather";
-import { City, Country, State } from "@/types/geo";
+import { City, Country, State, StateFull } from "@/types/geo";
 import { cn } from "@/lib/cn-utils";
 import { Skeleton } from "@/components/ui/skeleton";
 
-type OptionType = Country | State | City | UnitsOptions[number];
+import SelectDropdownListGenerator from "./SelectDwListGen";
 
-interface ComponentProps {
+export type ItemType = Country | State | City | UnitsOptions[number] | StateFull;
+
+interface Props {
 	className?: string;
 	placeHolder?: string;
-	options: OptionType[] | false;
-	defaultOption?: OptionType;
+	items: ItemType[];
+	defaultItem?: ItemType;
 	inputClassName?: string;
-	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
-	onChange: (entry: OptionType) => void;
-	showFlag?: boolean;
+	onTextChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+	onChange: (item: ItemType) => void;
+	showEmoji?: boolean;
 	inputDisabled?: boolean;
+	timeoutMs?: number;
 }
 
-const SelectDropdown = ({
+const SelectDropdown: React.FC<Props> = ({
 	className,
 	placeHolder,
-	options,
+	items,
 	onChange,
 	onTextChange,
-	defaultOption,
-	showFlag = true,
+	defaultItem,
+	showEmoji = true,
 	inputDisabled = false,
-}: ComponentProps) => {
-	const [showMenu, setShowMenu] = useState(false);
+	timeoutMs = 0,
+}) => {
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [shouldFocus, setShouldFocus] = useState(false);
 
-	const [selectedValue, setSelectedValue] = useState<OptionType>();
+	const [selectedItem, setSelectedItem] = useState<ItemType>();
 	const [searchValue, setSearchValue] = useState("");
+	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
+	const [searchResults, setSearchResults] = useState<ItemType[]>();
 
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const searchWrapperRef = useRef<HTMLInputElement>(null);
 	const focusWrapperRef = useRef<HTMLDivElement>(null);
-	const listRef = useRef<HTMLDivElement>(null);
 
 	const displayText = (name?: string) =>
-		`${showFlag && selectedValue?.emoji ? selectedValue.emoji + " " : ""}${
-			name ?? selectedValue?.name
+		`${showEmoji && selectedItem?.emoji ? selectedItem.emoji + " " : ""}${
+			name ?? selectedItem?.name
 		}`;
 
 	useEffect(() => {
-		if (defaultOption) {
-			setSelectedValue(defaultOption);
+		if (defaultItem) {
+			setSelectedItem(defaultItem);
 		}
-	}, [defaultOption]);
+	}, [defaultItem]);
 
 	useEffect(() => {
-		if (showMenu && searchInputRef.current) {
+		if (isMenuOpen && searchInputRef.current) {
 			searchInputRef.current.focus();
 		}
 
-		if (!showMenu && focusWrapperRef.current) {
+		if (!isMenuOpen && focusWrapperRef.current) {
 			focusWrapperRef.current.focus();
 		}
 
 		setSearchValue("");
-	}, [showMenu]);
+	}, [isMenuOpen]);
 
 	useEffect(() => {
 		// Hide menu when clicked outside
 		const handleClickOutsideMenu = (e: MouseEvent) => {
 			if (searchWrapperRef.current && !searchWrapperRef.current.contains(e.target as Element)) {
-				setShowMenu(false);
+				setIsMenuOpen(false);
 			}
 		};
 
@@ -82,102 +87,78 @@ const SelectDropdown = ({
 	}, []);
 
 	const handleInputClick = (
-		e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>
+		e: React.MouseEvent<HTMLDivElement, MouseEvent> | ChangeEvent<HTMLInputElement>
 	) => {
 		e.stopPropagation();
 
-		const event = (e as React.ChangeEvent<HTMLInputElement>).target;
+		const event = (e as ChangeEvent<HTMLInputElement>).target;
 
 		event.select();
 		event.setSelectionRange(0, event.value.length);
 
-		setShowMenu(true);
+		setIsMenuOpen(true);
 	};
 
 	const handleToggleMenu = () => {
-		setShowMenu((prev) => !prev);
+		setIsMenuOpen((prev) => !prev);
 	};
 
 	const getDisplay = () => {
-		if (showMenu && searchInputRef.current && displayText().startsWith(searchValue)) {
+		if (
+			isMenuOpen &&
+			searchInputRef.current &&
+			displayText().startsWith(searchValue) &&
+			searchValue.length > 2 // note the flags starts with \u...
+		) {
 			searchInputRef.current.select();
 			searchInputRef.current.setSelectionRange(0, searchInputRef.current.value.length);
 		}
 
-		if (!selectedValue) {
+		if (!selectedItem) {
 			return searchValue ?? "";
 		}
 
 		return displayText();
 	};
 
-	const onItemClick = (option: OptionType) => {
+	const onItemClick = (option: ItemType) => {
 		setShouldFocus(true);
-		setSelectedValue(option);
+		setSelectedItem(option);
 		onChange(option);
 	};
 
-	const onItemPressKeys = (e: React.KeyboardEvent<HTMLDivElement>, option: OptionType) => {
-		// Handle Enter key press within the dropdown menu list
-		if (e.key === "Enter") {
-			e.preventDefault();
-
-			onItemClick(option);
-
-			setTimeout(() => {
-				setShowMenu(false);
-			}, 200);
-		}
-
-		// Handle ArrowDown and ArrowUp key press, https://stackoverflow.com/a/48848078/6543935
-		if (listRef.current && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
-			e.preventDefault();
-			const currentNode = e.target as HTMLDivElement;
-			const allElements = listRef.current.querySelectorAll("div");
-			const currentIndex = Array.from(allElements).findIndex((el) => currentNode.isEqualNode(el));
-			let targetIndex = 0;
-
-			if (e.key === "ArrowDown") {
-				targetIndex = (currentIndex + 1) % allElements.length;
-			} else if (e.key === "ArrowUp") {
-				targetIndex = (currentIndex - 1 + allElements.length) % allElements.length;
-			}
-
-			allElements[targetIndex].focus();
-		}
-	};
-
-	const isSelected = (option: OptionType) => {
-		if (!selectedValue) {
-			return false;
-		}
-
-		return selectedValue.id === option.id;
-	};
-
-	const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 
 		setSearchValue(e.target.value);
-		setSelectedValue(undefined);
+		setSelectedItem(undefined);
 
 		if (onTextChange) {
 			onTextChange(e);
 		}
 	};
 
-	const getOptions = () => {
+	const filterItems = () => {
 		if (!searchValue) {
-			return options ? options : [];
+			return items;
 		}
 
-		const outputOptions = options
-			? options?.filter(
-					(option) => option.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
-			  )
-			: [];
+		if (items[0].hasOwnProperty("cities")) {
+			return (items as StateFull[])
+				.map((state) => ({
+					id: state.id,
+					name: state.name,
+					state_code: state.state_code,
+					cities: state.cities.filter(
+						(city) => city.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
+					),
+				}))
+				.filter((state) => !!state.cities.length);
+		}
 
-		return outputOptions;
+		return items.filter(
+			(option) => option.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
+		);
 	};
 
 	useEffect(() => {
@@ -191,18 +172,18 @@ const SelectDropdown = ({
 		const handlePressEnter = (event: KeyboardEvent) => {
 			event.stopPropagation();
 
-			const searchOptions = options
-				? options?.filter(
+			const searchOptions = items
+				? items?.filter(
 						(option) => option.name.toLowerCase().indexOf(inputField.value.toLowerCase()) >= 0
 				  )
 				: [];
 
 			if (searchOptions.length === 1 && event.key === "Enter") {
 				setShouldFocus(true);
-				setSelectedValue(searchOptions[0]);
+				setSelectedItem(searchOptions[0]);
 				onChange(searchOptions[0]);
 				setTimeout(() => {
-					setShowMenu(false);
+					setIsMenuOpen(false);
 				}, 200);
 			}
 		};
@@ -212,7 +193,19 @@ const SelectDropdown = ({
 		return () => {
 			inputField.removeEventListener("keypress", handlePressEnter);
 		};
-	}, [onChange, options]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [items]);
+
+	useEffect(() => {
+		clearTimeout(searchTimeout);
+
+		setSearchTimeout(
+			setTimeout(() => {
+				setSearchResults(filterItems());
+			}, timeoutMs)
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchValue]);
 
 	return (
 		<div
@@ -222,13 +215,13 @@ const SelectDropdown = ({
 			data-focus={shouldFocus}
 			tabIndex={-1}
 		>
-			{options && options.length > 0 ? (
+			{items && items.length > 0 ? (
 				<div className={"relative"}>
 					<div
 						ref={searchWrapperRef}
 						className={cn(
 							"select_search_main w-[240px] h-[50px]  ",
-							`${showMenu ? "bg-gray-100" : "bg-gray-100/90"}`,
+							`${isMenuOpen ? "bg-gray-100" : "bg-gray-100/90"}`,
 							className
 						)}
 						tabIndex={-1}
@@ -247,39 +240,29 @@ const SelectDropdown = ({
 							}}
 							tabIndex={inputDisabled ? -1 : 0}
 							value={getDisplay()}
-							onChange={onSearch}
+							onChange={handleSearchChange}
 							onClick={handleInputClick}
 						/>
 
 						<div
-							className={"data-[state=open]:rotate-90 transition-transform duration-200"}
-							data-state={showMenu ? "open" : "closed"}
+							className={
+								"data-[state=open]:rotate-90 transition-transform duration-200 cursor-pointer"
+							}
+							data-state={isMenuOpen ? "open" : "closed"}
 						>
 							<ChevronDown />
 						</div>
 					</div>
 
-					{showMenu && (
-						<div
-							ref={listRef}
-							className="select_search_dropdown"
-							data-state={showMenu ? "open" : "closed"}
-							tabIndex={-1}
-						>
-							<div className="text-2xl text-gray-400 absolute right-5 top-[0.7rem]">⇆</div>
-							{getOptions().map((option: OptionType) => (
-								<div
-									key={option.id}
-									className={`${"select_search_dropdown_item"} ${isSelected(option) && "bg-ring"}`}
-									tabIndex={0}
-									onClick={() => onItemClick(option)}
-									onKeyDown={(e) => onItemPressKeys(e, option)}
-								>
-									<span>{option?.emoji ?? ""}</span>{" "}
-									<span className="text-left">{option.name}</span>
-								</div>
-							))}
-						</div>
+					{isMenuOpen && (
+						<SelectDropdownListGenerator
+							isMenuOpen={isMenuOpen}
+							items={searchValue && searchResults ? searchResults : items}
+							selectedItem={selectedItem}
+							setIsMenuOpen={setIsMenuOpen}
+							showEmoji={showEmoji}
+							onItemClick={onItemClick}
+						/>
 					)}
 				</div>
 			) : (

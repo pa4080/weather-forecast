@@ -35,7 +35,7 @@ const SelectCountry: React.FC<Props> = ({
 	placeHolder = messages.Select.country,
 	showFlag,
 }) => {
-	const [countries, setCountries] = useState<Country[]>([]);
+	const [countries, setCountries] = useState<Country[]>();
 	const [defaultOption, setDefaultOption] = useState<Country>();
 
 	useEffect(() => {
@@ -70,14 +70,12 @@ const SelectCountry: React.FC<Props> = ({
 	return (
 		<SelectDropdown
 			className={className}
-			defaultOption={defaultOption}
-			options={countries}
+			defaultItem={defaultOption}
+			items={countries ?? []}
 			placeHolder={placeHolder}
-			showFlag={showFlag}
+			showEmoji={showFlag}
 			onChange={(value) => {
-				if (onChange) {
-					onChange(value as Country);
-				}
+				onChange && onChange(value as Country);
 			}}
 			onTextChange={onTextChange}
 		/>

@@ -42,12 +42,10 @@ const SelectUnits: React.FC<Props> = ({
 		<SelectDropdown
 			inputDisabled
 			className={className}
-			defaultOption={unitsOptions.find(
-				(option: UnitsOptions[number]) => option.id === defaultUnits
-			)}
-			options={shouldDisplay && unitsOptions}
+			defaultItem={unitsOptions.find((option: UnitsOptions[number]) => option.id === defaultUnits)}
+			items={shouldDisplay ? unitsOptions : []}
 			placeHolder={placeHolder}
-			showFlag={false}
+			showEmoji={false}
 			onChange={(option) => {
 				if (onChange) {
 					onChange(option?.id as UnitsOptions[number]["id"]);

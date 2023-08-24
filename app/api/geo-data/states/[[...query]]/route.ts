@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import data from "@/public/data/states.minified.json";
 import { Country, CountryState, State } from "@/types/geo";
-import { GET as getCountries } from "@/app/api/countries/[[...query]]/route";
+import { GET as getCountries } from "@/app/api/geo-data/countries/[[...query]]/route";
 
 const usageMessage = "Use: /, /[countryId], /[countryId]/[stateId]";
 
@@ -39,13 +39,13 @@ export async function GET(request: NextRequest, { params }: Context) {
 					// Catch the cases when there is no data for a the country.
 					// We assume there are countries with a single city or state.
 					// So we will get the country data from the countries API.
-					// *** Currently this logic is implemented only here! ***
 
-					const data = await getCountries({} as NextRequest, {
-						params: { query: ["id", String(countryId)] },
-					});
+					const country: Country = await (
+						await getCountries({} as NextRequest, {
+							params: { query: ["id", String(countryId)] },
+						})
+					).json();
 
-					const country: Country = await data.json();
 					const states: State[] = [
 						{
 							id: country.id,

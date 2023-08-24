@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 // this data is not full ahd is quiet wrong for some contry codes
 import data from "@/public/data/languages.minified.json";
 import { Country, Language } from "@/types/geo";
-import { GET as getCountries } from "@/app/api/countries/[[...query]]/route";
+import { GET as getCountries } from "@/app/api/geo-data/countries/[[...query]]/route";
 
 const usageMessage = "Use: /, /id/[countryId], /code/[countryIso2], /name/[countryName]";
 
