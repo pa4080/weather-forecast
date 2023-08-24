@@ -1,10 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 
 import { City, CountryStateCityFull } from "@/types/geo";
+import { calcTimeoutMs } from "@/lib/calcTimeoutMs";
 import { Route } from "@/routes";
 import messages from "@/messages/en.json";
-
-import { calcTimeoutMs } from "@/lib/calcTimeoutMs";
 
 import SelectDropdown from "./SelectDropdown";
 

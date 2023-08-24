@@ -108,7 +108,7 @@ const SelectDropdown: React.FC<Props> = ({
 			isMenuOpen &&
 			searchInputRef.current &&
 			displayText().startsWith(searchValue) &&
-			searchValue.length > 2 // note the flags starts with \u...
+			!(searchValue.startsWith("u") && searchValue.length <= 2) // note the flags starts with \u...
 		) {
 			searchInputRef.current.select();
 			searchInputRef.current.setSelectionRange(0, searchInputRef.current.value.length);
