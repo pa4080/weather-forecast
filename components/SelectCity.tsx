@@ -21,7 +21,6 @@ interface Props {
 	defaultCityName?: string;
 	defaultCountryCode?: string;
 	defaultCountryId?: number;
-	// defaultCountryCapital?: string;
 	className?: string;
 	onChange?: (entry: City) => void;
 	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
@@ -32,7 +31,6 @@ const SelectCity: React.FC<Props> = ({
 	defaultCityName,
 	defaultCountryCode,
 	defaultCountryId,
-	// defaultCountryCapital,
 	className,
 	onChange,
 	onTextChange,
@@ -91,11 +89,9 @@ const SelectCity: React.FC<Props> = ({
 			defaultItem={defaultOption}
 			items={country?.states ?? []}
 			placeHolder={placeHolder}
-			showFlag={false}
+			showEmoji={false}
 			onChange={(value) => {
-				if (onChange) {
-					onChange(value as City);
-				}
+				onChange && onChange(value as City);
 			}}
 			onTextChange={onTextChange}
 		/>

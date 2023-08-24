@@ -79,7 +79,7 @@ const SelectCity: React.FC<Props> = ({
 			defaultItem={defaultOption}
 			items={cities}
 			placeHolder={placeHolder}
-			showFlag={false}
+			showEmoji={false}
 			onChange={(value) => {
 				if (onChange) {
 					onChange(value as City);

@@ -73,11 +73,9 @@ const SelectCountry: React.FC<Props> = ({
 			defaultItem={defaultOption}
 			items={countries}
 			placeHolder={placeHolder}
-			showFlag={showFlag}
+			showEmoji={showFlag}
 			onChange={(value) => {
-				if (onChange) {
-					onChange(value as Country);
-				}
+				onChange && onChange(value as Country);
 			}}
 			onTextChange={onTextChange}
 		/>

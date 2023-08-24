@@ -20,7 +20,7 @@ interface Props {
 	inputClassName?: string;
 	onTextChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 	onChange: (item: ItemType) => void;
-	showFlag?: boolean;
+	showEmoji?: boolean;
 	inputDisabled?: boolean;
 }
 
@@ -31,7 +31,7 @@ const SelectDropdown: React.FC<Props> = ({
 	onChange,
 	onTextChange,
 	defaultItem,
-	showFlag = true,
+	showEmoji = true,
 	inputDisabled = false,
 }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,7 +45,7 @@ const SelectDropdown: React.FC<Props> = ({
 	const focusWrapperRef = useRef<HTMLDivElement>(null);
 
 	const displayText = (name?: string) =>
-		`${showFlag && selectedItem?.emoji ? selectedItem.emoji + " " : ""}${
+		`${showEmoji && selectedItem?.emoji ? selectedItem.emoji + " " : ""}${
 			name ?? selectedItem?.name
 		}`;
 
@@ -129,7 +129,7 @@ const SelectDropdown: React.FC<Props> = ({
 		}
 	};
 
-	const getOptions = () => {
+	const filterItems = () => {
 		if (!searchValue) {
 			return items ? items : [];
 		}
@@ -250,15 +250,26 @@ const SelectDropdown: React.FC<Props> = ({
 						</div>
 					</div>
 
-					{isMenuOpen && (
-						<SelectDropdownListGenerator
-							isMenuOpen={isMenuOpen}
-							items={getOptions()}
-							selectedItem={selectedItem}
-							setIsMenuOpen={setIsMenuOpen}
-							onItemClick={onItemClick}
-						/>
-					)}
+					{isMenuOpen &&
+						(searchValue ? (
+							<SelectDropdownListGenerator
+								isMenuOpen={isMenuOpen}
+								items={filterItems()}
+								selectedItem={selectedItem}
+								setIsMenuOpen={setIsMenuOpen}
+								showEmoji={showEmoji}
+								onItemClick={onItemClick}
+							/>
+						) : (
+							<SelectDropdownListGenerator
+								isMenuOpen={isMenuOpen}
+								items={items}
+								selectedItem={selectedItem}
+								setIsMenuOpen={setIsMenuOpen}
+								showEmoji={showEmoji}
+								onItemClick={onItemClick}
+							/>
+						))}
 				</div>
 			) : (
 				<Skeleton className={cn("select_search_main bg-gray-100/70 w-[240px] h-[50px]", className)}>
