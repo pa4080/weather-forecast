@@ -27,7 +27,7 @@
 		"components": "home",
 		"components/ui": "core",
 		"components/fragments": "core",
-		"api/languages": "",
+		"geo-data/languages": "",
 		"[[...query]]": "api"
 	},
 	// https://youtu.be/3_-Je5XpbqY?t=688, https://stackoverflow.com/a/76125894/6543935; https://github.com/microsoft/vscode/issues/170589

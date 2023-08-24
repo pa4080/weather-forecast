@@ -56,6 +56,14 @@ export interface CountryStateCity {
 	}[];
 }
 
+export interface StateFull extends State {
+	name: string;
+	cities: City[];
+}
+export interface CountryStateCityFull extends Country {
+	states: StateFull[];
+}
+
 export interface GeoCoordinates {
 	lat: number;
 	lon: number;

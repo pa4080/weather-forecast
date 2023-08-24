@@ -61,7 +61,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - etc.
 - [x] **Deal wit the City/Country selection - create own API [10h]**
 - Test few NPM packages that provides such lists and functionality.
-- Try to use [nicholidev/country-cities](https://github.com/nicholidev/country-cities) and [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city) packages.
+- Try to use [nicholidev/country-cities](https://github.com/nicholidev/country-cities) and [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city) packages. I even fount the project [mledoze/countries](https://github.com/mledoze/countries/tree/master/data).
 - Unfortunately both doesn't fit well to the project requirements. At least the data files are hosted outside the project...
 - Also the Chadcn-ui/Radix Select component doesn't behave as it is expected with city lists longer than 1000 items.
 - Create own Next.js API endpoint to provide the data, thus some of the heavy tasks will be processed (and cached) on the server side. For example the City's data file is about 24 MB.
@@ -95,7 +95,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Credits
 
-The Country/State/City data is taken from [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city). Later I fount that probably the origin of this data is [mledoze/countries](https://github.com/mledoze/countries/tree/master/data).
+The Country/State/City data is taken from [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city).
 
 Also the code of the [`<SelectDropdown />`](components/SelectDropdown.tsx) component and of the [`geo-type.ts`](types/geo-types.ts) file is particularly based on the code of the analogus component in [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city). Here is an improved and TailwindCSS adapted version of the mentioned code.
 
