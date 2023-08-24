@@ -80,8 +80,8 @@ const SelectCity: React.FC<Props> = ({
 	return (
 		<SelectDropdown
 			className={className}
-			defaultOption={defaultOption}
-			options={country?.states ?? []}
+			defaultItem={defaultOption}
+			items={country?.states ?? []}
 			placeHolder={placeHolder}
 			showFlag={false}
 			onChange={(value) => {

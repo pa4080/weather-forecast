@@ -8,18 +8,16 @@ import { City, Country, State, StateFull } from "@/types/geo";
 import { cn } from "@/lib/cn-utils";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import SelectDropdownListGenerator from "./SelectDwListGen";
-
-export type ItemType = Country | State | City | UnitsOptions[number] | StateFull;
+type OptionType = Country | State | City | UnitsOptions[number] | StateFull;
 
 interface Props {
 	className?: string;
 	placeHolder?: string;
-	items: ItemType[] | false;
-	defaultItem?: ItemType;
+	options: OptionType[] | false;
+	defaultOption?: OptionType;
 	inputClassName?: string;
-	onTextChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-	onChange: (item: ItemType) => void;
+	onTextChange?: (entry: ChangeEvent<HTMLInputElement>) => void;
+	onChange: (entry: OptionType) => void;
 	showFlag?: boolean;
 	inputDisabled?: boolean;
 }
@@ -27,51 +25,52 @@ interface Props {
 const SelectDropdown: React.FC<Props> = ({
 	className,
 	placeHolder,
-	items,
+	options,
 	onChange,
 	onTextChange,
-	defaultItem,
+	defaultOption,
 	showFlag = true,
 	inputDisabled = false,
 }) => {
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [showMenu, setShowMenu] = useState(false);
 	const [shouldFocus, setShouldFocus] = useState(false);
 
-	const [selectedItem, setSelectedItem] = useState<ItemType>();
+	const [selectedValue, setSelectedValue] = useState<OptionType>();
 	const [searchValue, setSearchValue] = useState("");
 
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const searchWrapperRef = useRef<HTMLInputElement>(null);
 	const focusWrapperRef = useRef<HTMLDivElement>(null);
+	const listRef = useRef<HTMLDivElement>(null);
 
 	const displayText = (name?: string) =>
-		`${showFlag && selectedItem?.emoji ? selectedItem.emoji + " " : ""}${
-			name ?? selectedItem?.name
+		`${showFlag && selectedValue?.emoji ? selectedValue.emoji + " " : ""}${
+			name ?? selectedValue?.name
 		}`;
 
 	useEffect(() => {
-		if (defaultItem) {
-			setSelectedItem(defaultItem);
+		if (defaultOption) {
+			setSelectedValue(defaultOption);
 		}
-	}, [defaultItem]);
+	}, [defaultOption]);
 
 	useEffect(() => {
-		if (isMenuOpen && searchInputRef.current) {
+		if (showMenu && searchInputRef.current) {
 			searchInputRef.current.focus();
 		}
 
-		if (!isMenuOpen && focusWrapperRef.current) {
+		if (!showMenu && focusWrapperRef.current) {
 			focusWrapperRef.current.focus();
 		}
 
 		setSearchValue("");
-	}, [isMenuOpen]);
+	}, [showMenu]);
 
 	useEffect(() => {
 		// Hide menu when clicked outside
 		const handleClickOutsideMenu = (e: MouseEvent) => {
 			if (searchWrapperRef.current && !searchWrapperRef.current.contains(e.target as Element)) {
-				setIsMenuOpen(false);
+				setShowMenu(false);
 			}
 		};
 
@@ -83,46 +82,84 @@ const SelectDropdown: React.FC<Props> = ({
 	}, []);
 
 	const handleInputClick = (
-		e: React.MouseEvent<HTMLDivElement, MouseEvent> | ChangeEvent<HTMLInputElement>
+		e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>
 	) => {
 		e.stopPropagation();
 
-		const event = (e as ChangeEvent<HTMLInputElement>).target;
+		const event = (e as React.ChangeEvent<HTMLInputElement>).target;
 
 		event.select();
 		event.setSelectionRange(0, event.value.length);
 
-		setIsMenuOpen(true);
+		setShowMenu(true);
 	};
 
 	const handleToggleMenu = () => {
-		setIsMenuOpen((prev) => !prev);
+		setShowMenu((prev) => !prev);
 	};
 
 	const getDisplay = () => {
-		if (isMenuOpen && searchInputRef.current && displayText().startsWith(searchValue)) {
+		if (showMenu && searchInputRef.current && displayText().startsWith(searchValue)) {
 			searchInputRef.current.select();
 			searchInputRef.current.setSelectionRange(0, searchInputRef.current.value.length);
 		}
 
-		if (!selectedItem) {
+		if (!selectedValue) {
 			return searchValue ?? "";
 		}
 
 		return displayText();
 	};
 
-	const onItemClick = (option: ItemType) => {
+	const onItemClick = (option: OptionType) => {
 		setShouldFocus(true);
-		setSelectedItem(option);
+		setSelectedValue(option);
 		onChange(option);
+	};
+
+	const onItemPressKeys = (e: React.KeyboardEvent<HTMLDivElement>, option: OptionType) => {
+		// Handle Enter key press within the dropdown menu list
+		if (e.key === "Enter") {
+			e.preventDefault();
+
+			onItemClick(option);
+
+			setTimeout(() => {
+				setShowMenu(false);
+			}, 200);
+		}
+
+		// Handle ArrowDown and ArrowUp key press, https://stackoverflow.com/a/48848078/6543935
+		if (listRef.current && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+			e.preventDefault();
+			const currentNode = e.target as HTMLDivElement;
+			const allElements = listRef.current.querySelectorAll("div");
+			const currentIndex = Array.from(allElements).findIndex((el) => currentNode.isEqualNode(el));
+			let targetIndex = 0;
+
+			if (e.key === "ArrowDown") {
+				targetIndex = (currentIndex + 1) % allElements.length;
+			} else if (e.key === "ArrowUp") {
+				targetIndex = (currentIndex - 1 + allElements.length) % allElements.length;
+			}
+
+			allElements[targetIndex].focus();
+		}
+	};
+
+	const isSelected = (option: OptionType) => {
+		if (!selectedValue) {
+			return false;
+		}
+
+		return selectedValue.id === option.id;
 	};
 
 	const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 
 		setSearchValue(e.target.value);
-		setSelectedItem(undefined);
+		setSelectedValue(undefined);
 
 		if (onTextChange) {
 			onTextChange(e);
@@ -131,11 +168,11 @@ const SelectDropdown: React.FC<Props> = ({
 
 	const getOptions = () => {
 		if (!searchValue) {
-			return items ? items : [];
+			return options ? options : [];
 		}
 
-		if ((items as ItemType[])[0].hasOwnProperty("cities")) {
-			const states = items as StateFull[];
+		if ((options as OptionType[])[0].hasOwnProperty("cities")) {
+			const states = options as StateFull[];
 
 			const returnOptions = states
 				? states
@@ -162,8 +199,10 @@ const SelectDropdown: React.FC<Props> = ({
 			return returnOptions;
 		}
 
-		const returnOptions = items
-			? items?.filter((option) => option.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+		const returnOptions = options
+			? options?.filter(
+					(option) => option.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
+			  )
 			: [];
 
 		return returnOptions;
@@ -180,18 +219,18 @@ const SelectDropdown: React.FC<Props> = ({
 		const handlePressEnter = (event: KeyboardEvent) => {
 			event.stopPropagation();
 
-			const searchOptions = items
-				? items?.filter(
+			const searchOptions = options
+				? options?.filter(
 						(option) => option.name.toLowerCase().indexOf(inputField.value.toLowerCase()) >= 0
 				  )
 				: [];
 
 			if (searchOptions.length === 1 && event.key === "Enter") {
 				setShouldFocus(true);
-				setSelectedItem(searchOptions[0]);
+				setSelectedValue(searchOptions[0]);
 				onChange(searchOptions[0]);
 				setTimeout(() => {
-					setIsMenuOpen(false);
+					setShowMenu(false);
 				}, 200);
 			}
 		};
@@ -201,7 +240,7 @@ const SelectDropdown: React.FC<Props> = ({
 		return () => {
 			inputField.removeEventListener("keypress", handlePressEnter);
 		};
-	}, [onChange, items]);
+	}, [onChange, options]);
 
 	return (
 		<div
@@ -211,13 +250,13 @@ const SelectDropdown: React.FC<Props> = ({
 			data-focus={shouldFocus}
 			tabIndex={-1}
 		>
-			{items && items.length > 0 ? (
+			{options && options.length > 0 ? (
 				<div className={"relative"}>
 					<div
 						ref={searchWrapperRef}
 						className={cn(
 							"select_search_main w-[240px] h-[50px]  ",
-							`${isMenuOpen ? "bg-gray-100" : "bg-gray-100/90"}`,
+							`${showMenu ? "bg-gray-100" : "bg-gray-100/90"}`,
 							className
 						)}
 						tabIndex={-1}
@@ -244,20 +283,69 @@ const SelectDropdown: React.FC<Props> = ({
 							className={
 								"data-[state=open]:rotate-90 transition-transform duration-200 cursor-pointer"
 							}
-							data-state={isMenuOpen ? "open" : "closed"}
+							data-state={showMenu ? "open" : "closed"}
 						>
 							<ChevronDown />
 						</div>
 					</div>
 
-					{isMenuOpen && (
-						<SelectDropdownListGenerator
-							isMenuOpen={isMenuOpen}
-							items={getOptions()}
-							selectedItem={selectedItem}
-							setIsMenuOpen={setIsMenuOpen}
-							onItemClick={onItemClick}
-						/>
+					{showMenu && (
+						<div
+							ref={listRef}
+							className="select_search_dropdown"
+							data-state={showMenu ? "open" : "closed"}
+							tabIndex={-1}
+						>
+							<div className="text-2xl text-gray-400 absolute right-5 top-[0.7rem]">⇆</div>
+							{getOptions().map((option: OptionType) => {
+								if (option.hasOwnProperty("cities")) {
+									const state = option as StateFull;
+
+									return (
+										<div key={state.id}>
+											<div className="text-gray-500 cursor-default px-1 py-1 my-1 contrast-150 saturate-200 font-semibold">
+												{state.name}
+											</div>
+
+											{state.cities.map((city: City) => {
+												// eslint-disable-next-line no-console
+												// console.log(++counter);
+
+												return (
+													<div
+														key={city.id}
+														className={`${"select_search_dropdown_item"} ${
+															isSelected(city) && "bg-ring"
+														}`}
+														tabIndex={0}
+														onClick={() => onItemClick(city)}
+														onKeyDown={(e) => onItemPressKeys(e, city)}
+													>
+														<span>{city?.emoji ?? ""}</span>{" "}
+														<span className="text-left">{city.name}</span>
+													</div>
+												);
+											})}
+										</div>
+									);
+								} else {
+									return (
+										<div
+											key={option.id}
+											className={`${"select_search_dropdown_item"} ${
+												isSelected(option) && "bg-ring"
+											}`}
+											tabIndex={0}
+											onClick={() => onItemClick(option)}
+											onKeyDown={(e) => onItemPressKeys(e, option)}
+										>
+											<span>{option?.emoji ?? ""}</span>{" "}
+											<span className="text-left">{option.name}</span>
+										</div>
+									);
+								}
+							})}
+						</div>
 					)}
 				</div>
 			) : (

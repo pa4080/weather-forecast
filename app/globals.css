@@ -193,11 +193,11 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 .select_search_dropdown {
-	@apply absolute mt-3 w-full max-h-56 overflow-auto bg-gray-100 py-3 pl-2 pr-1 z-50 min-w-[8rem] rounded-md border border-transparent shadow-lg drop-shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95;
+	@apply absolute mt-3 w-full max-h-56 overflow-auto bg-gray-100 py-2 pl-2 pr-1 z-50 min-w-[8rem] rounded-md border border-transparent shadow-lg drop-shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95;
 }
 
 .select_search_dropdown_item {
-	@apply hover:bg-accent text-accent-foreground px-2 py-1 my-1 rounded-sm flex items-start justify-start gap-2 transition-colors hover:duration-100 duration-200 cursor-pointer;
+	@apply hover:bg-accent text-accent-foreground py-1 my-1 rounded-sm flex items-start justify-start gap-2 transition-colors hover:duration-100 duration-200 cursor-pointer;
 }
 
 /* Display Main Data */
