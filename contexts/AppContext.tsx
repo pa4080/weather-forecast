@@ -19,12 +19,12 @@ import { roundTo } from "@/lib/round";
 import { getDates } from "@/lib/getDates";
 
 interface AppContextProps {
-	countryCode: string | undefined;
-	setCountryCode: Dispatch<SetStateAction<string | undefined>>;
-	countryName: string | undefined;
-	setCountryName: Dispatch<SetStateAction<string | undefined>>;
-	cityName: string | undefined;
-	setCityName: Dispatch<SetStateAction<string | undefined>>;
+	countryCode: string;
+	setCountryCode: Dispatch<SetStateAction<string>>;
+	countryName: string;
+	setCountryName: Dispatch<SetStateAction<string>>;
+	cityName: string;
+	setCityName: Dispatch<SetStateAction<string>>;
 	geoCoord: GeoCoordinates | undefined;
 	setGeoCoord: Dispatch<SetStateAction<GeoCoordinates | undefined>>;
 	weatherData: OpenWeatherData | undefined;
@@ -47,9 +47,9 @@ interface AppContextProviderProps {
 }
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
-	const [countryCode, setCountryCode] = useState<string | undefined>();
-	const [countryName, setCountryName] = useState<string | undefined>();
-	const [cityName, setCityName] = useState<string | undefined>();
+	const [countryCode, setCountryCode] = useState<string>("");
+	const [countryName, setCountryName] = useState<string>("");
+	const [cityName, setCityName] = useState<string>("");
 	const [geoCoord, setGeoCoord] = useState<GeoCoordinates | undefined>();
 	const [units, setUnits] = useState<WeatherUnits>("metric");
 	const [isLoading, setIsLoading] = useState(false);
@@ -59,8 +59,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 	const { weatherData, setWeatherCoord } = useWeather(setIsLoading);
 
 	useEffect(() => {
-		setCountryCode(userData?.countryCode);
-		setCityName(userData?.cityName);
+		setCountryCode(userData?.countryCode || "");
+		setCityName(userData?.cityName || "");
 	}, [userData]);
 
 	useEffect(() => {
