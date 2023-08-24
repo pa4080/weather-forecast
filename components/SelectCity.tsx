@@ -57,12 +57,20 @@ const SelectCity: React.FC<Props> = ({
 	}, [defaultCountryCode, defaultCountryId]);
 
 	useEffect(() => {
-		if (defaultCityName) {
-			const city =
-				country?.states
-					.flatMap((state) => state.cities)
-					.find((city) => city.name === defaultCityName || city.name === country.capital) ??
-				country?.states[0].cities[0];
+		if (defaultCityName && country) {
+			let city: City | undefined;
+
+			if (country.states[0].hasOwnProperty("cities")) {
+				city =
+					country.states
+						.flatMap((state) => state.cities)
+						.find((city) => city.name === defaultCityName || city.name === country.capital) ??
+					country.states[0].cities[0];
+			} else {
+				city = country.states[0] as City;
+				// According to the casting "as City" - read the API code at the place where:
+				// "We assume there are countries with a single city without states"
+			}
 
 			if (city) {
 				setDefaultOption(city);

@@ -109,7 +109,10 @@ export async function GET(request: NextRequest, { params }: Context) {
 					}
 
 					return NextResponse.json(cities, { status: 200 });
-				} else if (type === "country_id_state_structured") {
+				} else if (
+					type === "country_id_state_structured" ||
+					type === "country_code_state_structured"
+				) {
 					const countryCitiesData = countries.find(({ id }) => id === countryId);
 
 					if (!countryCitiesData) {
@@ -119,29 +122,34 @@ export async function GET(request: NextRequest, { params }: Context) {
 						);
 					}
 
+					const countryData = await (
+						await getCountries({} as NextRequest, {
+							params: { query: ["id", String(countryId)] },
+						})
+					).json();
+
 					const citiesFlat: City[] = countryCitiesData?.states
 						.flatMap(({ cities }) => cities && cities)
 						.sort((a, b) => a.name.localeCompare(b.name));
 
 					if (citiesFlat.length === 0) {
-						// See the comment in the (id|code)_flat section above.
-
-						const country: Country = await (
-							await getCountries({} as NextRequest, {
-								params: { query: ["id", String(countryId)] },
-							})
-						).json();
+						// We assume there are countries with a single city without states.
 
 						const cities: City[] = [
 							{
-								id: country.id,
-								name: country.capital ?? country.name,
-								latitude: country.latitude,
-								longitude: country.longitude,
+								id: countryData.id,
+								name: countryData.capital ?? countryData.name,
+								latitude: countryData.latitude,
+								longitude: countryData.longitude,
 							},
 						];
 
-						return NextResponse.json(cities, { status: 200 });
+						const countryStateCityFull: CountryStateCityFull = {
+							...countryData,
+							states: cities,
+						};
+
+						return NextResponse.json(countryStateCityFull, { status: 200 });
 					}
 
 					const countryStatesData: State[] = await (
@@ -161,12 +169,6 @@ export async function GET(request: NextRequest, { params }: Context) {
 						})
 						.filter(({ cities }) => cities.length > 0)
 						.sort((a, b) => a.name.localeCompare(b.name));
-
-					const countryData = await (
-						await getCountries({} as NextRequest, {
-							params: { query: ["id", String(countryId)] },
-						})
-					).json();
 
 					const countryStateCityFull: CountryStateCityFull = {
 						...countryData,
