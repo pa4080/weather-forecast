@@ -4,6 +4,8 @@ import { City, CountryStateCityFull } from "@/types/geo";
 import { Route } from "@/routes";
 import messages from "@/messages/en.json";
 
+import { calcTimeoutMs } from "@/lib/calcTimeoutMs";
+
 import SelectDropdown from "./SelectDropdown";
 
 type GetCities = (
@@ -90,6 +92,7 @@ const SelectCity: React.FC<Props> = ({
 			items={country?.states ?? []}
 			placeHolder={placeHolder}
 			showEmoji={false}
+			timeoutMs={country ? calcTimeoutMs(country.citiesLength) : 0}
 			onChange={(value) => {
 				onChange && onChange(value as City);
 			}}

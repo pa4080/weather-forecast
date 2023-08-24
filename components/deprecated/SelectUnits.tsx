@@ -43,7 +43,7 @@ const SelectUnits: React.FC<Props> = ({
 			inputDisabled
 			className={className}
 			defaultItem={unitsOptions.find((option: UnitsOptions[number]) => option.id === defaultUnits)}
-			items={shouldDisplay && unitsOptions}
+			items={shouldDisplay ? unitsOptions : []}
 			placeHolder={placeHolder}
 			showEmoji={false}
 			onChange={(option) => {

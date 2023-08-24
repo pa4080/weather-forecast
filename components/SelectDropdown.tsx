@@ -22,6 +22,7 @@ interface Props {
 	onChange: (item: ItemType) => void;
 	showEmoji?: boolean;
 	inputDisabled?: boolean;
+	timeoutMs?: number;
 }
 
 const SelectDropdown: React.FC<Props> = ({
@@ -33,12 +34,15 @@ const SelectDropdown: React.FC<Props> = ({
 	defaultItem,
 	showEmoji = true,
 	inputDisabled = false,
+	timeoutMs = 0,
 }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [shouldFocus, setShouldFocus] = useState(false);
 
 	const [selectedItem, setSelectedItem] = useState<ItemType>();
 	const [searchValue, setSearchValue] = useState("");
+	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
+	const [searchResults, setSearchResults] = useState<ItemType[]>();
 
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const searchWrapperRef = useRef<HTMLInputElement>(null);
@@ -100,7 +104,12 @@ const SelectDropdown: React.FC<Props> = ({
 	};
 
 	const getDisplay = () => {
-		if (isMenuOpen && searchInputRef.current && displayText().startsWith(searchValue)) {
+		if (
+			isMenuOpen &&
+			searchInputRef.current &&
+			displayText().startsWith(searchValue) &&
+			searchValue.length > 2 // note the flags starts with \u...
+		) {
 			searchInputRef.current.select();
 			searchInputRef.current.setSelectionRange(0, searchInputRef.current.value.length);
 		}
@@ -118,7 +127,7 @@ const SelectDropdown: React.FC<Props> = ({
 		onChange(option);
 	};
 
-	const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 
 		setSearchValue(e.target.value);
@@ -187,6 +196,17 @@ const SelectDropdown: React.FC<Props> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [items]);
 
+	useEffect(() => {
+		clearTimeout(searchTimeout);
+
+		setSearchTimeout(
+			setTimeout(() => {
+				setSearchResults(filterItems());
+			}, timeoutMs)
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchValue]);
+
 	return (
 		<div
 			ref={focusWrapperRef}
@@ -220,7 +240,7 @@ const SelectDropdown: React.FC<Props> = ({
 							}}
 							tabIndex={inputDisabled ? -1 : 0}
 							value={getDisplay()}
-							onChange={onSearch}
+							onChange={handleSearchChange}
 							onClick={handleInputClick}
 						/>
 
@@ -234,26 +254,16 @@ const SelectDropdown: React.FC<Props> = ({
 						</div>
 					</div>
 
-					{isMenuOpen &&
-						(searchValue ? (
-							<SelectDropdownListGenerator
-								isMenuOpen={isMenuOpen}
-								items={filterItems()}
-								selectedItem={selectedItem}
-								setIsMenuOpen={setIsMenuOpen}
-								showEmoji={showEmoji}
-								onItemClick={onItemClick}
-							/>
-						) : (
-							<SelectDropdownListGenerator
-								isMenuOpen={isMenuOpen}
-								items={items}
-								selectedItem={selectedItem}
-								setIsMenuOpen={setIsMenuOpen}
-								showEmoji={showEmoji}
-								onItemClick={onItemClick}
-							/>
-						))}
+					{isMenuOpen && (
+						<SelectDropdownListGenerator
+							isMenuOpen={isMenuOpen}
+							items={searchValue && searchResults ? searchResults : items}
+							selectedItem={selectedItem}
+							setIsMenuOpen={setIsMenuOpen}
+							showEmoji={showEmoji}
+							onItemClick={onItemClick}
+						/>
+					)}
 				</div>
 			) : (
 				<Skeleton className={cn("select_search_main bg-gray-100/70 w-[240px] h-[50px]", className)}>

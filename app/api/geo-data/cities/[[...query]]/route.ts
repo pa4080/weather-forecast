@@ -146,6 +146,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 
 						const countryStateCityFull: CountryStateCityFull = {
 							...countryData,
+							citiesLength: citiesFlat.length,
 							states: cities,
 						};
 
@@ -172,6 +173,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 
 					const countryStateCityFull: CountryStateCityFull = {
 						...countryData,
+						citiesLength: citiesFlat.length,
 						states: countryStatesDataWithCities,
 					};
 

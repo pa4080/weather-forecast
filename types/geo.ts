@@ -60,6 +60,7 @@ export interface StateFull extends State {
 	cities: City[];
 }
 export interface CountryStateCityFull extends Country {
+	citiesLength: number;
 	states: StateFull[];
 }
 
