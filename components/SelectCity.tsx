@@ -88,7 +88,7 @@ const SelectCity: React.FC<Props> = ({
 		<SelectDropdown
 			className={className}
 			defaultItem={defaultOption}
-			items={country?.states ?? []}
+			items={country?.states || []}
 			placeHolder={placeHolder}
 			showEmoji={false}
 			timeoutMs={country ? calcTimeoutMs(country.citiesLength) : 0}
