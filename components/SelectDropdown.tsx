@@ -15,7 +15,7 @@ export type ItemType = Country | State | City | UnitsOptions[number] | StateFull
 interface Props {
 	className?: string;
 	placeHolder?: string;
-	items: ItemType[] | false;
+	items: ItemType[];
 	defaultItem?: ItemType;
 	inputClassName?: string;
 	onTextChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -131,42 +131,25 @@ const SelectDropdown: React.FC<Props> = ({
 
 	const filterItems = () => {
 		if (!searchValue) {
-			return items ? items : [];
+			return items;
 		}
 
-		if ((items as ItemType[])[0].hasOwnProperty("cities")) {
-			const states = items as StateFull[];
-
-			const returnOptions = states
-				? states
-						?.map((state) => {
-							const cities = state.cities.filter(
-								(city) => city.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
-							);
-
-							if (cities.length > 0) {
-								return {
-									...state,
-									cities,
-								};
-							} else {
-								return {
-									...state,
-									cities: [],
-								};
-							}
-						})
-						.filter((state) => state.cities.length > 0)
-				: [];
-
-			return returnOptions;
+		if (items[0].hasOwnProperty("cities")) {
+			return (items as StateFull[])
+				.map((state) => ({
+					id: state.id,
+					name: state.name,
+					state_code: state.state_code,
+					cities: state.cities.filter(
+						(city) => city.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
+					),
+				}))
+				.filter((state) => !!state.cities.length);
 		}
 
-		const returnOptions = items
-			? items?.filter((option) => option.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
-			: [];
-
-		return returnOptions;
+		return items.filter(
+			(option) => option.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
+		);
 	};
 
 	useEffect(() => {
@@ -201,7 +184,8 @@ const SelectDropdown: React.FC<Props> = ({
 		return () => {
 			inputField.removeEventListener("keypress", handlePressEnter);
 		};
-	}, [onChange, items]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [items]);
 
 	return (
 		<div

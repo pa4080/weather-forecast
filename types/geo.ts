@@ -57,7 +57,6 @@ export interface CountryStateCity {
 }
 
 export interface StateFull extends State {
-	name: string;
 	cities: City[];
 }
 export interface CountryStateCityFull extends Country {
