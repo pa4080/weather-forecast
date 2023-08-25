@@ -19,7 +19,6 @@
 		"vietnamese",
 		"weathericons"
 	],
-	"editor.guides.bracketPairs": true,
 	"material-icon-theme.folders.associations": {
 		// https://github.com/PKief/vscode-material-icon-theme
 		"files": "upload",
@@ -30,7 +29,15 @@
 		"geo-data/languages": "",
 		"[[...query]]": "api"
 	},
-	// https://youtu.be/3_-Je5XpbqY?t=688, https://stackoverflow.com/a/76125894/6543935; https://github.com/microsoft/vscode/issues/170589
+	// https://youtu.be/3_-Je5XpbqY?t=688
+	// https://stackoverflow.com/a/76125894/6543935
+	// https://github.com/microsoft/vscode/issues/170589
 	"css.customData": [".vscode/css-linting-vscode-workarounds.json"],
-	"compile-hero.disable-compile-files-on-did-save-code": true
+	"compile-hero.disable-compile-files-on-did-save-code": true,
+	"editor.guides.bracketPairs": true,
+	"editor.guides.highlightActiveBracketPair": true,
+	"editor.guides.highlightActiveIndentation": true,
+	"editor.guides.bracketPairsHorizontal": "active",
+	"editor.bracketPairColorization.enabled": true,
+	"highlight-matching-tag.highlightSelfClosing": true
 }

@@ -29,6 +29,7 @@ const Widget: React.FC<Props> = ({ className }) => {
 		<>
 			<Logo wetherColor={mainData?.tempColor} />
 			<div className="widget_overlay" />
+
 			<div
 				className="widget_overlay_mask"
 				style={{
@@ -36,8 +37,9 @@ const Widget: React.FC<Props> = ({ className }) => {
 					opacity: "3%",
 				}}
 			/>
+
 			<div className={cn("widget_body", className)}>
-				<Select className="h-max" />
+				<Select />
 				<DisplayMainData />
 				<DisplayDays />
 			</div>
