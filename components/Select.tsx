@@ -43,7 +43,7 @@ const Select: React.FC<Props> = ({ className }) => {
 	return (
 		<div
 			className={cn(
-				"grid grid-rows-2 xs:grid-rows-1 grid-cols-1 xs:grid-cols-2 gap-2 xs:gap-4",
+				"grid grid-rows-2 xs:grid-rows-1 grid-cols-1 xs:grid-cols-2 gap-2 xs:gap-4 h-max",
 				className
 			)}
 		>
