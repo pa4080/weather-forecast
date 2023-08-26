@@ -134,13 +134,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 	useEffect(() => {
 		if (weatherData) {
 			// eslint-disable-next-line no-console
-			console.log(weatherData);
-			// weatherData.hourly.forEach((hourlyData) => {
-			// 	const { date, remoteDate } = getDates(hourlyData.dt, weatherData?.timezone_offset);
-
-			// 	// eslint-disable-next-line no-console
-			// 	console.log(date, remoteDate);
-			// });
+			// console.log(weatherData);
 
 			setMainData(weatherData.current, weatherData.daily[0], weatherData);
 		}
