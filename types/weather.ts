@@ -1,5 +1,5 @@
 import messages from "@/messages/en.json";
-import openWeatherExampleData from "@/public/data/open-weather.example-data.json";
+import openWeatherExampleData from "@/public/data/openWeatherMapOrg.OneCallApi3.EexampleData.json";
 import { GeoCoordinates } from "@/types/geo";
 
 export type OpenWeatherData = typeof openWeatherExampleData;

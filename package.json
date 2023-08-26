@@ -1,6 +1,6 @@
 {
 	"name": "weather-forecast.metalevel.tech",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"check-branch-name": "chmod 755 githooks/check_branch_name.sh && bash githooks/check_branch_name.sh",
@@ -31,12 +31,13 @@
 		"postcss": "8.4.28",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
+		"react-responsive": "^9.0.2",
+		"recharts": "^2.8.0",
 		"sass": "^1.66.0",
 		"tailwind-merge": "^1.14.0",
 		"tailwindcss": "3.3.3",
 		"tailwindcss-animate": "^1.0.6",
-		"typescript": "5.1.6",
-		"victory": "^36.6.11"
+		"typescript": "5.1.6"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.7.1",

@@ -62,9 +62,9 @@ const DisplayDays: React.FC<Props> = ({ className }) => {
 
 	return (
 		<div className={cn("days_data_container", className)}>
-			{mainData ? (
+			{mainData && weatherData && weatherData?.daily?.length > 0 ? (
 				<>
-					{weatherData?.daily.map((day) => (
+					{weatherData?.daily?.map((day) => (
 						<div
 							key={day.dt}
 							className={`day_data ${

@@ -163,14 +163,14 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 .widget_body {
-	@apply animate-in fade-in-0 zoom-in-95 p-6 duration-200 
+	@apply animate-in fade-in-0 zoom-in-95 p-6 duration-200
 	flex flex-col gap-5 flex-grow
 	absolute top-0 left-0 md:relative
-	md:shadow-xl md:drop-shadow-xl 	
-	md:rounded-lg 
+	md:shadow-xl md:drop-shadow-xl
+	md:rounded-lg
 	w-full md:max-w-3xl min-w-[380px]
-	h-screen md:h-auto 
-	md:min-h-[468px]
+	h-fit min-h-screen
+	md:h-auto md:min-h-[668px]
 	bg-[#f8fafc];
 
 	/* slide-in-from-left-1/2 slide-in-from-top-[48%] left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%]; */
@@ -258,7 +258,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 .main_data_right_heading {
-	@apply flex justify-between items-start flex-col sa:flex-row gap-1;
+	@apply flex justify-between items-start flex-col sa:flex-row;
 }
 
 .main_data_right_info {
@@ -275,7 +275,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 /* Display Days */
 .days_data_container {
-	@apply grid grid-cols-4 xa:grid-cols-8 gap-3 xa:gap-2 sm:gap-3;
+	@apply grid grid-cols-4 sm:grid-cols-8 gap-3;
 }
 
 .day_data {

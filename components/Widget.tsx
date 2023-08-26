@@ -9,6 +9,7 @@ import Select from "./Select";
 import DisplayMainData from "./DisplayMainData";
 import Logo from "./Logo";
 import DisplayDays from "./DisplayDays";
+import DrawGraphicLoader from "./DrawGraphicLoader";
 
 interface Props {
 	className?: string;
@@ -29,7 +30,6 @@ const Widget: React.FC<Props> = ({ className }) => {
 		<>
 			<Logo wetherColor={mainData?.tempColor} />
 			<div className="widget_overlay" />
-
 			<div
 				className="widget_overlay_mask"
 				style={{
@@ -41,6 +41,7 @@ const Widget: React.FC<Props> = ({ className }) => {
 			<div className={cn("widget_body", className)}>
 				<Select />
 				<DisplayMainData />
+				<DrawGraphicLoader />
 				<DisplayDays />
 			</div>
 		</>
