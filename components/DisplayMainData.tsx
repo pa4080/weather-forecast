@@ -103,7 +103,7 @@ const DisplayMainData: React.FC<Props> = ({ className }) => {
 							</p>
 						</div>
 
-						<div className="text-lg h-8">
+						<div className=" h-8">
 							<p className="text-ellipsis whitespace-pre overflow-hidden w-full max-w-full">
 								<span className="text-gray-600 mr-2">{mainData.localDateText}</span>
 								<br className="hidden sa:block" />

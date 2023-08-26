@@ -38,6 +38,5 @@
 	"editor.guides.highlightActiveBracketPair": true,
 	"editor.guides.highlightActiveIndentation": true,
 	"editor.guides.bracketPairsHorizontal": "active",
-	"editor.bracketPairColorization.enabled": true,
-	"highlight-matching-tag.highlightSelfClosing": true
+	"editor.bracketPairColorization.enabled": true
 }
