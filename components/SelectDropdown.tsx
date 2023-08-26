@@ -162,6 +162,37 @@ const SelectDropdown: React.FC<Props> = ({
 	};
 
 	useEffect(() => {
+		// Open menu on input focus (when Tab is used)
+		const inputField = searchInputRef.current;
+		const focusWrapper = focusWrapperRef.current;
+
+		if (!inputField || !focusWrapper) {
+			return;
+		}
+
+		const toggleMenuOnInputFocus = (event: FocusEvent) => {
+			event.stopPropagation();
+			setIsMenuOpen(true);
+			inputField.tabIndex = -1;
+		};
+
+		const getTabIndexBack = () => {
+			setTimeout(() => {
+				inputField.tabIndex = 0;
+			}, 100);
+		};
+
+		inputField.addEventListener("focus", toggleMenuOnInputFocus);
+		focusWrapper.addEventListener("blur", getTabIndexBack);
+
+		return () => {
+			inputField.removeEventListener("focus", toggleMenuOnInputFocus);
+			focusWrapper.removeEventListener("blur", getTabIndexBack);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchInputRef.current, focusWrapperRef.current]);
+
+	useEffect(() => {
 		// Handle Enter key press within the search input field
 		const inputField = searchInputRef.current;
 
@@ -219,7 +250,7 @@ const SelectDropdown: React.FC<Props> = ({
 			aria-label={messages.Select.buttonAreaLabel}
 			className={"select_focus_wrapper"}
 			data-focus={shouldFocus}
-			tabIndex={-1}
+			tabIndex={0}
 		>
 			{items && items.length > 0 ? (
 				<div className={"relative"}>
