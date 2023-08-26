@@ -103,7 +103,7 @@ const SelectDropdown: React.FC<Props> = ({
 		setIsMenuOpen((prev) => !prev);
 	};
 
-	const getDisplay = () => {
+	const getDisplayText = () => {
 		if (
 			isMenuOpen &&
 			searchInputRef.current &&
@@ -138,7 +138,7 @@ const SelectDropdown: React.FC<Props> = ({
 		}
 	};
 
-	const filterItems = () => {
+	const filterItems = (items: ItemType[], searchValue: string) => {
 		if (!searchValue) {
 			return items;
 		}
@@ -162,6 +162,37 @@ const SelectDropdown: React.FC<Props> = ({
 	};
 
 	useEffect(() => {
+		// Open menu on input focus (when Tab is used)
+		const inputField = searchInputRef.current;
+		const focusWrapper = focusWrapperRef.current;
+
+		if (!inputField || !focusWrapper) {
+			return;
+		}
+
+		const toggleMenuOnInputFocus = (event: FocusEvent) => {
+			event.stopPropagation();
+			setIsMenuOpen(true);
+			inputField.tabIndex = -1;
+		};
+
+		const getTabIndexBack = () => {
+			setTimeout(() => {
+				inputField.tabIndex = 0;
+			}, 100);
+		};
+
+		inputField.addEventListener("focus", toggleMenuOnInputFocus);
+		focusWrapper.addEventListener("blur", getTabIndexBack);
+
+		return () => {
+			inputField.removeEventListener("focus", toggleMenuOnInputFocus);
+			focusWrapper.removeEventListener("blur", getTabIndexBack);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchInputRef.current, focusWrapperRef.current]);
+
+	useEffect(() => {
 		// Handle Enter key press within the search input field
 		const inputField = searchInputRef.current;
 
@@ -172,19 +203,25 @@ const SelectDropdown: React.FC<Props> = ({
 		const handlePressEnter = (event: KeyboardEvent) => {
 			event.stopPropagation();
 
-			const searchOptions = items
-				? items?.filter(
-						(option) => option.name.toLowerCase().indexOf(inputField.value.toLowerCase()) >= 0
-				  )
-				: [];
+			if (event.key === "Enter") {
+				let searchOptions: ItemType[];
 
-			if (searchOptions.length === 1 && event.key === "Enter") {
-				setShouldFocus(true);
-				setSelectedItem(searchOptions[0]);
-				onChange(searchOptions[0]);
-				setTimeout(() => {
-					setIsMenuOpen(false);
-				}, 200);
+				if (items[0].hasOwnProperty("cities")) {
+					searchOptions = filterItems(items, inputField.value).flatMap(
+						(item) => (item as StateFull).cities
+					);
+				} else {
+					searchOptions = filterItems(items, inputField.value);
+				}
+
+				if (searchOptions.length === 1) {
+					setShouldFocus(true);
+					setSelectedItem(searchOptions[0]);
+					onChange(searchOptions[0]);
+					setTimeout(() => {
+						setIsMenuOpen(false);
+					}, 200);
+				}
 			}
 		};
 
@@ -201,7 +238,7 @@ const SelectDropdown: React.FC<Props> = ({
 
 		setSearchTimeout(
 			setTimeout(() => {
-				setSearchResults(filterItems());
+				setSearchResults(filterItems(items, searchValue));
 			}, timeoutMs)
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -213,7 +250,7 @@ const SelectDropdown: React.FC<Props> = ({
 			aria-label={messages.Select.buttonAreaLabel}
 			className={"select_focus_wrapper"}
 			data-focus={shouldFocus}
-			tabIndex={-1}
+			tabIndex={0}
 		>
 			{items && items.length > 0 ? (
 				<div className={"relative"}>
@@ -227,7 +264,7 @@ const SelectDropdown: React.FC<Props> = ({
 						tabIndex={-1}
 						onClick={handleToggleMenu}
 					>
-						{inputDisabled && <div className={"select_search_input"}>{getDisplay()}</div>}
+						{inputDisabled && <div className={"select_search_input"}>{getDisplayText()}</div>}
 						<input
 							ref={searchInputRef}
 							className={"select_search_input"}
@@ -239,7 +276,7 @@ const SelectDropdown: React.FC<Props> = ({
 								opacity: inputDisabled ? 0 : 1,
 							}}
 							tabIndex={inputDisabled ? -1 : 0}
-							value={getDisplay()}
+							value={getDisplayText()}
 							onChange={handleSearchChange}
 							onClick={handleInputClick}
 						/>

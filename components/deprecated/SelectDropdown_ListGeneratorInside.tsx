@@ -308,9 +308,6 @@ const SelectDropdown: React.FC<Props> = ({
 											</div>
 
 											{state.cities.map((city: City) => {
-												// eslint-disable-next-line no-console
-												// console.log(++counter);
-
 												return (
 													<div
 														key={city.id}
