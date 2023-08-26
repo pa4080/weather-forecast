@@ -2,8 +2,6 @@
 
 import React, { useEffect } from "react";
 
-import dynamic from "next/dynamic"; // disable SSR
-
 import { cn } from "@/lib/cn-utils";
 import { useAppContext } from "@/contexts/AppContext";
 
@@ -11,16 +9,14 @@ import Select from "./Select";
 import DisplayMainData from "./DisplayMainData";
 import Logo from "./Logo";
 import DisplayDays from "./DisplayDays";
-import { Skeleton } from "./ui/skeleton";
-// import DrawGraphics from "./DrawGraphics";
-const DrawGraphics = dynamic(() => import("@/components/DrawGraphic"), { ssr: false });
+import DrawGraphicLoader from "./DrawGraphicLoader";
 
 interface Props {
 	className?: string;
 }
 
 const Widget: React.FC<Props> = ({ className }) => {
-	const { mainData, weatherData } = useAppContext();
+	const { mainData } = useAppContext();
 
 	useEffect(() => {
 		if (mainData) {
@@ -45,14 +41,7 @@ const Widget: React.FC<Props> = ({ className }) => {
 			<div className={cn("widget_body", className)}>
 				<Select />
 				<DisplayMainData />
-
-				{weatherData && mainData?.tempColor ? (
-					<div className="w-full h-fit py-4 min-h-[180px] xs:min-h-[240px] sm:min-h-[212px] flex justify-center items-center">
-						<DrawGraphics />
-					</div>
-				) : (
-					<Skeleton className="w-full h-[270px] sm:h-[212px] max-h-screen rounded-md bg-gray-200/50" />
-				)}
+				<DrawGraphicLoader />
 				<DisplayDays />
 			</div>
 		</>
