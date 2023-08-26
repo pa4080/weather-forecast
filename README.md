@@ -4,9 +4,9 @@
 
 **The purpose of the project is to satisfy an exam task for a job interview: [assignment](.assignment/task-assignment.md). For more information about the project see the [Workflow](#workflow) section.**
 
-[![image](.assignment/screenshot-brave-au.png)](https://weather-forecast.metalevel.tech/)
+[![image](.assignment/screenshot-brave-v.1.png)](https://weather-forecast.metalevel.tech/)
 
-[![image](.assignment/screenshot-brave-lighthouse.png)](https://weather-forecast.metalevel.tech/)
+[![image](.assignment/screenshot-brave-v.1-lighthouse.png)](https://weather-forecast.metalevel.tech/)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -92,6 +92,16 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - Tweak the cache policy.
 - Tweak the metadata and manifest.json.
 - Write down the workflow notes and create screenshots.
+- [x] **Draw weather chart [6h]**
+- Test various charting libraries.
+- Finally choose [Recharts](https://recharts.org/en-US).
+- Create the necessary components.
+- Apply responsive styles.
+- [x] **Improve the select component [6h]**
+- Display rhe states within the city select dropdown.
+- Implement new API functionality.
+- Modify the necessary react components.
+- Catch and handle errors.
 
 ## Credits
 
