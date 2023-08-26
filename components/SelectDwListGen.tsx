@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useRef } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
 import { City, StateFull } from "@/types/geo";
 import { cn } from "@/lib/cn-utils";
@@ -26,6 +26,19 @@ const SelectDropdownListGenerator: React.FC<Props> = ({
 	showEmoji,
 }) => {
 	const listRef = useRef<HTMLDivElement>(null);
+	const [menuItemsNodeList, setMenuItemsNodeList] = useState<HTMLDivElement[]>();
+
+	useEffect(() => {
+		if (listRef.current) {
+			const allNodes: NodeListOf<HTMLDivElement> = listRef.current.querySelectorAll(
+				"div.select_search_dropdown_item"
+			);
+			const allNodesArray = Array.from(allNodes);
+
+			setMenuItemsNodeList(allNodesArray);
+		}
+	}, [listRef, items]);
+
 	const onItemPressKeys = (e: React.KeyboardEvent<HTMLDivElement>, item: ItemType) => {
 		// Handle Enter key press within the dropdown menu list
 		if (e.key === "Enter") {
@@ -38,30 +51,29 @@ const SelectDropdownListGenerator: React.FC<Props> = ({
 			}, 200);
 		}
 
-		// Handle ArrowDown and ArrowUp key press, https://stackoverflow.com/a/48848078/6543935
+		// Handle ArrowDown and ArrowUp key press,
+		// https://stackoverflow.com/a/48848078/6543935
 		if (
 			listRef.current &&
+			menuItemsNodeList &&
 			(e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "PageUp" || e.key === "PageDown")
 		) {
 			e.preventDefault();
 			const currentNode = e.target as HTMLDivElement;
-			const allElements: NodeListOf<HTMLDivElement> = listRef.current.querySelectorAll(
-				"div.select_search_dropdown_item"
-			);
-			const currentIndex = Array.from(allElements).findIndex((el) => currentNode.isEqualNode(el));
+			const currentIndex = menuItemsNodeList.findIndex((el) => currentNode.isEqualNode(el));
 			let targetIndex = 0;
 
 			if (e.key === "ArrowDown") {
-				targetIndex = (currentIndex + 1) % allElements.length;
+				targetIndex = (currentIndex + 1) % menuItemsNodeList.length;
 			} else if (e.key === "ArrowUp") {
-				targetIndex = (currentIndex - 1 + allElements.length) % allElements.length;
+				targetIndex = (currentIndex - 1 + menuItemsNodeList.length) % menuItemsNodeList.length;
 			} else if (e.key === "PageDown") {
-				targetIndex = (currentIndex + 4) % allElements.length;
+				targetIndex = (currentIndex + 4) % menuItemsNodeList.length;
 			} else if (e.key === "PageUp") {
-				targetIndex = (currentIndex - 4 + allElements.length) % allElements.length;
+				targetIndex = (currentIndex - 4 + menuItemsNodeList.length) % menuItemsNodeList.length;
 			}
 
-			allElements[targetIndex].focus();
+			menuItemsNodeList[targetIndex].focus();
 		}
 	};
 
