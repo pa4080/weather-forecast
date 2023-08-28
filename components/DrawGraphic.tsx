@@ -139,7 +139,7 @@ const DrawGraphic: React.FC<Props> = ({ className }) => {
 								? [0, "auto"]
 								: [
 										isAboveSm ? 0 : (dataMin: number) => 0 - Math.abs(dataMin) - 5,
-										(dataMax: number) => 0 - Math.abs(dataMax) + 5,
+										(dataMax: number) => 0 - Math.abs(dataMax) + 10,
 								  ]
 						}
 						hide={true}
