@@ -1,6 +1,6 @@
 {
 	"name": "weather-forecast.metalevel.tech",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"private": true,
 	"scripts": {
 		"check-branch-name": "chmod 755 githooks/check_branch_name.sh && bash githooks/check_branch_name.sh",

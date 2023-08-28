@@ -1,0 +1,71 @@
+# Notes
+
+## To do
+
+- [ ] Hourly forecast for the next 48 hours as graphic [4h].
+- The data is available, just must be displayed.
+- Add switch to the upper right corner of the existing chart.
+- Switch: 7 days / 48 hours
+- When choose 48 hours, the chart will be displayed as split as charts for 7 hours each. Including the current hour: 7x7 - 1(the current hour) = 48 hours.
+- [ ] Set `isLoading` when fetch also the own API data [1h].
+- Currently `isLoading` is set to `true` only when fetch the weather data from the OpenWeatherMap API.
+
+## Workflow
+
+- [x] **Do initial research about the project [3h]**
+- APIs. Apparently the best public weather API is [OpenWeatherMap One Call API 3.0](https://openweathermap.org/api/one-call-3), but before conclude that I've tested few others. They also provides [an icon pack](https://openweathermap.org/weather-conditions#How-to-get-icon-URL).
+- Basic design, and icon pack research:
+  - [Weather Icons by Erik Flowers](https://erikflowers.github.io/weather-icons/)
+  - [Weather Icons React @npm](https://www.npmjs.com/package/weather-icons-react) | [Weather Icons React @home](https://najens.github.io/weather-icons-react/) | [react-weather-illustrations @npm](https://www.npmjs.com/package/react-weather-illustrations) < [@bybas/weather-icons @npm](https://www.npmjs.com/package/@bybas/weather-icons)
+- Node.js packages
+- [x] **Setup the project [3h]**
+- Create by `npx create-next-app --typescript`.
+- Add `chadcn-ui` and setup TailwindCSS.
+- Create GitHub repository and link the project.
+- Create Vercel project and link to the repository.
+- Redirect the domain to Vercel via Cloudflare admin panel.
+- Create SVG logo and favicon.
+- etc.
+- [x] **Deal wit the City/Country selection - create own API [10h]**
+- Test few NPM packages that provides such lists and functionality.
+- Try to use [nicholidev/country-cities](https://github.com/nicholidev/country-cities) and [venkatmcajj/react-country-state-city](https://github.com/venkatmcajj/react-country-state-city) packages. I even fount the project [mledoze/countries](https://github.com/mledoze/countries/tree/master/data).
+- Unfortunately both doesn't fit well to the project requirements. At least the data files are hosted outside the project...
+- Also the Chadcn-ui/Radix Select component doesn't behave as it is expected with city lists longer than 1000 items.
+- Create own Next.js API endpoint to provide the data, thus some of the heavy tasks will be processed (and cached) on the server side. For example the City's data file is about 24 MB.
+- Create a dropdown select and accompanying components and logic that fits to the project requirements.
+- [x] **Fetch and display the weather data [8h]**
+- Setup the metadata and manifest.json.
+- Create the [`useGeoDetector()`](hooks/useGeoDetector.ts) hook to detect the user's location.
+- The hook uses the [browser's Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API).
+- Also as fallback it uses the [ipapi.co](https://ipapi.co/) API, to detect the geolocation by IP address.
+- In addition create the necessary Next.js API endpoint to provide the data, which must be fetched with private API key.
+- Pass the data ot the [`<Select />`] and vice versa.
+- Create the [`useWeatherData()`](hooks/useWeatherData.ts) hook to fetch the weather data.
+- In addition create the necessary Next.js API endpoint... with private API key.
+- Fetch da data and display it on the page, do tests with different locations by using the Tor network.
+- Extend the functionality of the previously created [`<SelectDropdown />`](components/SelectDropdown.tsx) component to be used to switch also the display units.
+- [x] **Setup and test the icon pack [2h]**
+- [Weather Icons by Erik Flowers](https://erikflowers.github.io/weather-icons/)
+- [Weather Icons by Erik Flowers GitHub](https://github.com/erikflowers/weather-icons)
+- [Weather Icons by Erik Flowers API integration > Open Weather Map](https://erikflowers.github.io/weather-icons/api-list.html)
+- [x] **Finish and create the UI [12h]**
+- Display the days forecast feed.
+- Assign the main display data by choosing a day from the forecast days feed.
+- Improve the overall design conception.
+- Create responsive logo.
+- Apply responsive styles.
+- [x] **Test and presentation [2h]**
+- Perform productivity tests with Lighthouse and other tools.
+- Tweak the cache policy.
+- Tweak the metadata and manifest.json.
+- Write down the workflow notes and create screenshots.
+- [x] **Draw weather chart [6h]**
+- Test various charting libraries.
+- Finally choose [Recharts](https://recharts.org/en-US).
+- Create the necessary components.
+- Apply responsive styles.
+- [x] **Improve the select component [6h]**
+- Display rhe states within the city select dropdown.
+- Implement new API functionality.
+- Modify the necessary react components.
+- Catch and handle errors.
