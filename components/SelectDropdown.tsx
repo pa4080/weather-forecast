@@ -161,6 +161,10 @@ const SelectDropdown: React.FC<Props> = ({
 		);
 	};
 
+	/**
+	 * I suppose this cause a trouble no some mobile phone devices,
+	 * so it is disabled at the moment
+	 *
 	useEffect(() => {
 		// Open menu on input focus (when Tab is used)
 		const inputField = searchInputRef.current;
@@ -191,6 +195,7 @@ const SelectDropdown: React.FC<Props> = ({
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchInputRef.current, focusWrapperRef.current]);
+	*/
 
 	useEffect(() => {
 		// Handle Enter key press within the search input field

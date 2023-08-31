@@ -56,7 +56,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 	const [mainData, setMainDataToDisplay] = useState<WeatherData_MainDisplay | undefined>();
 
 	const { userData, geoPos } = useGeoDetector();
-	const { weatherData, setWeatherCoord } = useWeather(setIsLoading);
+	const [weatherData, setWeatherCoord] = useWeather(setIsLoading);
 
 	useEffect(() => {
 		setCountryCode(userData?.countryCode || "");

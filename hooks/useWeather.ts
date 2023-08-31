@@ -47,5 +47,6 @@ export function useWeather(setIsLoading?: Dispatch<SetStateAction<boolean>>) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [weatherCoord]);
 
-	return { weatherData, setWeatherCoord };
+	// https://www.youtube.com/watch?v=37PafxU_uzQ&t=205s
+	return [weatherData, setWeatherCoord] as const;
 }
