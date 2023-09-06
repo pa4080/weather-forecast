@@ -4,8 +4,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { Manrope as DefaultFont } from "next/font/google";
 
 import "./globals.css";
-import "@/public/css/weather-icons/weather-icons.min.css";
-import "@/public/css/weather-icons/weather-icons-wind.min.css";
+import "@/public/assets/css/weather-icons/weather-icons.min.css";
+import "@/public/assets/css/weather-icons/weather-icons-wind.min.css";
 
 import manifest from "@/public/manifest.json";
 

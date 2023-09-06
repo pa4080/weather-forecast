@@ -1,7 +1,7 @@
 {
 	"extends": ["stylelint-config-standard"],
 	"plugins": ["stylelint-order"],
-	"ignoreFiles": ["public/css/**/*"],
+	"ignoreFiles": ["public/css/**/*", "public/assets/css/**/*"],
 	"rules": {
 		"selector-class-pattern": "^[a-z][a-zA-Z0-9]+$",
 		"comment-empty-line-before": [
