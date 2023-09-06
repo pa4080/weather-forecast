@@ -1,14 +1,12 @@
 @font-face {
 	font-family: "weathericons";
-	src: url("/assets/fonts/weather-icons/weather-icons-regular-webfont.eot");
+	src: url("/fonts/weather-icons/weather-icons-regular-webfont.eot");
 	src:
-		url("/assets/fonts/weather-icons/weather-icons-regular-webfont.eot?#iefix")
-			format("embedded-opentype"),
-		url("/assets/fonts/weather-icons/weather-icons-regular-webfont.woff2") format("woff2"),
-		url("/assets/fonts/weather-icons/weather-icons-regular-webfont.woff") format("woff"),
-		url("/assets/fonts/weather-icons/weather-icons-regular-webfont.ttf") format("truetype"),
-		url("/assets/fonts/weather-icons/weather-icons-regular-webfont.svg#weather_iconsregular")
-			format("svg");
+		url("/fonts/weather-icons/weather-icons-regular-webfont.eot?#iefix") format("embedded-opentype"),
+		url("/fonts/weather-icons/weather-icons-regular-webfont.woff2") format("woff2"),
+		url("/fonts/weather-icons/weather-icons-regular-webfont.woff") format("woff"),
+		url("/fonts/weather-icons/weather-icons-regular-webfont.ttf") format("truetype"),
+		url("/fonts/weather-icons/weather-icons-regular-webfont.svg#weather_iconsregular") format("svg");
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
