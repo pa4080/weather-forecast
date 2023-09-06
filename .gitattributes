@@ -1,2 +1,4 @@
-public/css/* linguist-vendored
-public/fonts/* linguist-vendored
+public/css/**/* linguist-vendored
+public/css/weather-icons/* linguist-vendored
+public/fonts/**/* linguist-vendored
+public/fonts/weather-icons/* linguist-vendored
